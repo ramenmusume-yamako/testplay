@@ -1,0 +1,372 @@
+/* ==========================================================================
+   1. 全体のベース（和紙 background）
+   ========================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f3e9; /* 和紙の色 */
+    color: #2b2b2b;
+    font-family: "Hiragino Mincho ProN", serif;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+#menu-btn-check {
+    display: none;
+}
+
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* メニューボタンは一番手前 */
+    background-color: #2b2b2b; 
+    border: 2px solid #800000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.menu-btn span:before { bottom: 8px; }
+.menu-btn span:after { top: 8px; }
+
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.menu-content {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    background-color: #2b2b2b; 
+    border-left: 3px solid #800000;
+    transform: translateX(100%); 
+    transition: transform 0.4s;
+}
+
+#menu-btn-check:checked ~ .menu-content {
+    transform: translateX(0);
+}
+
+.menu-content ul {
+    padding: 80px 0 0 0;
+    margin: 0;
+    list-style: none;
+}
+
+.menu-content ul li {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 20px;
+    position: relative;
+    font-weight: bold;
+}
+
+.menu-content ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #f1c40f; 
+    border-right: solid 2px #f1c40f;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+.menu-content ul li a:hover {
+    background-color: rgba(128, 0, 0, 0.3); 
+    color: #f1c40f;
+}
+
+/* ==========================================================================
+   2. キャラクターウィンドウ（メインの黒太枠＋赤影カード）
+   ========================================================================== */
+.chara-window {
+    max-width: 550px;
+    margin: 40px auto;
+    background: #ffffff;
+    border: 3px solid #2b2b2b;          /* 太い黒枠 */
+    box-shadow: 16px 16px 0px #800000;  /* ズレた赤い影（レイヤー下） */
+    padding: 30px;
+    position: relative;
+    overflow: hidden;                   /* はみ出たキャラカードを隠す */
+    box-sizing: border-box;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    color: #800000;
+    margin-top: 0;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+/* --- ラジオボタンは非表示 --- */
+input[name="chara-slider"] {
+    display: none;
+}
+
+/* --- スライドのレール --- */
+.chara-rail {
+    display: flex;
+    width: 200%; /* カード2枚分 */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* スッと滑らかに動く */
+}
+
+/* --- キャラクターカード単体（メニュー木札風） --- */
+.chara-card {
+    width: 50%; /* ウィンドウ内にぴったり1枚収まるサイズ */
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: #2b2b2b;
+    background: #fff;
+    border: 2px solid #2b2b2b;
+    box-shadow: 6px 6px 0px #e67e22; /* ラーメンオレンジの影 */
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s;
+    box-sizing: border-box;
+}
+
+.card-link:hover {
+    transform: translateY(-3px);
+}
+
+/* イラストを包む枠 */
+.card-img-wrap {
+    background: #fafafa;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-bottom: 15px;
+    line-height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img-wrap img {
+    max-height: 280px; /* 画面に収まりやすい高さ */
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* アスペクト比を完全に保ったまま綺麗に収める */
+}
+
+/* キャラクター情報テキスト */
+.card-info h2 {
+    font-size: 2rem;
+    margin: 5px 0;
+    color: #800000;
+    font-weight: 900;
+}
+
+.card-sub {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    letter-spacing: 0.05em;
+}
+
+.card-tap-tip {
+    font-size: 0.9rem;
+    color: #e67e22;
+    margin: 10px 0 0 0;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   3. スライダーの切り替えギミック
+   ========================================================================== */
+/* ラジオボタンのチェック状態に応じてレールを横に滑らせる */
+#chara1:checked ~ .chara-rail { transform: translateX(0%); }
+#chara2:checked ~ .chara-rail { transform: translateX(-50%); }
+
+/* --- 矢印ボタンの共通デザイン --- */
+.arrow-btn {
+    position: absolute;
+    top: 40%; /* キャラ画像の中央付近に高さを合わせる */
+    transform: translateY(-50%);
+    background: #2b2b2b;
+    color: #fff;
+    width: 45px;
+    height: 45px;
+    line-height: 41px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: 2px solid #800000;
+    cursor: pointer;
+    z-index: 10;
+    user-select: none;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+}
+
+.arrow-btn:hover {
+    background: #800000;
+    border-color: #f1c40f;
+}
+
+.arrow-left { left: 15px; }
+.arrow-right { right: 15px; }
+
+/* --- どのキャラが表示されているかで矢印の表示/非表示を切り替える --- */
+.chara-arrows label { display: none; }
+
+/* 1枚目（メーナ）のとき：for-c1の矢印だけを表示 */
+#chara1:checked ~ .chara-arrows .for-c1 { display: block; }
+
+/* 2枚目（たつ子）のとき：for-c2の矢印だけを表示 */
+#chara2:checked ~ .chara-arrows .for-c2 { display: block; }
+
+/* ==========================================================================
+   4. スマホ・タブレット用の自動スライダー調整（レスポンシブ）
+   ========================================================================== */
+@media (max-width: 600px) {
+    
+    /* 💡【追記】スマホのときはいつでもハンバーガーメニューをスマートに縮小 */
+    .menu-btn {
+        top: 15px;      /* ボタンの位置を少し上に上げて文字との被りを解消 */
+        right: 15px;    /* ボタンの位置を少し右に寄せる */
+        height: 44px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
+        width: 44px;
+    }
+
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        height: 2px;    /* 線の太さを 3px → 2px に */
+        width: 18px;    /* 線の長さを 25px → 18px に */
+        border-radius: 2px;
+    }
+
+    .menu-btn span:before { bottom: 6px; } /* 三本線の上下のすき間を狭く */
+    .menu-btn span:after { top: 6px; }
+
+    /* --- メインウィンドウ（全体の黒枠）の調整 --- */
+    .chara-window {
+        width: 92%;
+        /* 💡上側の余白（margin-top）を 20px から 60px に増やして、全体を下に下げました！ */
+        margin: 100px auto 10px auto; 
+        padding: 20px 10px; /* 左右の余白を少しだけ狭めてスマホの画面幅を最大活用 */
+        box-shadow: 10px 10px 0px #800000; /* 影の飛び出し量を少しコンパクトに */
+    }
+
+    .page-title {
+        font-size: 1.25rem;
+        margin-bottom: 15px;
+    }
+
+    /* --- キャラクターカード内の調整 --- */
+    .chara-card {
+        padding: 0 5px; /* カード外側の余白を削減 */
+    }
+
+    .card-link {
+        padding: 15px 10px; /* 木札カードの内側をすっきりさせて中身のスペースを広く */
+        box-shadow: 5px 5px 0px #e67e22;
+    }
+
+    /* イラストを包む枠の調整 */
+    .card-img-wrap {
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+
+    .card-img-wrap img {
+        max-height: 220px; /* スマホ画面で上下が窮屈にならないように限界高さをジャストに調整 */
+    }
+
+    .card-info h2 {
+        font-size: 1.6rem; /* スマホ用に名前の大きさを最適化 */
+        margin: 4px 0;
+    }
+
+    .card-sub {
+        font-size: 0.75rem; /* 長いテキストでも改行されにくく調整 */
+    }
+
+    .card-tap-tip {
+        font-size: 0.85rem;
+        margin-top: 8px;
+    }
+
+    /* --- 矢印ボタンのスマホ最適化 --- */
+    .arrow-btn {
+        width: 40px;      /* ボタンを一回り小さくしてキャラの邪魔をしないように */
+        height: 40px;
+        line-height: 36px;
+        font-size: 1rem;
+        z-index: 20;       /* 確実に最前面に出す */
+        top: 35%;          /* ちょうど画像枠の真横あたりに配置し、下の文字エリアと被らせない */
+    }
+
+    /* スマホの時は、矢印の位置をカードの外側ギリギリに寄せる */
+    .arrow-left { 
+        left: 3px; 
+    }
+    .arrow-right { 
+        right: 3px; 
+    }
+}
+
+/* 画面の高さが極端に低いスマホ用の調整（横画面対応など） */
+@media (max-height: 650px) and (max-width: 600px) {
+    .card-img-wrap img {
+        max-height: 150px; 
+    }
+    /* 💡重複していたメニュー縮小コードは上に統合したため、ここからは綺麗に削除しました */
+}
+
+/* デバッグメニューリンクの装飾 */
+.menu-content ul li a.debug-link {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+.menu-content ul li a.debug-link::before {
+    border-top: solid 2px #ff4757;
+    border-right: solid 2px #ff4757;
+}

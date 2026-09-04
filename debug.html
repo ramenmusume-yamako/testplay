@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デバッグ管理画面 - ラーメン娘</title>
+    <link rel="stylesheet" href="hp.css">
+    <link rel="stylesheet" href="debug.css">
+</head>
+<body>
+
+    <main class="debug-container">
+        <h1 class="debug-title">🔧 デバッグ管理パネル</h1>
+
+        <!-- 1. 閲覧数表示エリア -->
+        <section class="debug-card">
+            <h2>📊 日別閲覧数（全デバイス集計 PV）</h2>
+            <ul id="pv-list" class="pv-list">
+                <li class="pv-empty">読み込み中...</li>
+            </ul>
+        </section>
+
+        <!-- 2. ゲームスコア表示エリア -->
+        <section class="debug-card">
+            <h2>🎮 ゲームプレイログ（難易度別）</h2>
+            
+            <div class="debug-date-picker">
+                <label for="score-date">日付を選択：</label>
+                <input type="date" id="score-date">
+            </div>
+
+            <div class="debug-score-section">
+                <h3>EASY モード (easy.html)</h3>
+                <ul id="easy-score-list" class="pv-list">
+                    <li class="pv-empty">日付を選択してください。</li>
+                </ul>
+
+                <h3>NORMAL モード (normal.html)</h3>
+                <ul id="normal-score-list" class="pv-list">
+                    <li class="pv-empty">日付を選択してください。</li>
+                </ul>
+
+                <h3>HARD モード (hard.html)</h3>
+                <ul id="hard-score-list" class="pv-list">
+                    <li class="pv-empty">日付を選択してください。</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. 設定・操作エリア -->
+        <section class="debug-card">
+            <h2>⚙️ 操作</h2>
+            <button id="exit-debug-btn" class="debug-btn-danger">デバッグモードを終了する</button>
+        </section>
+
+        <div class="debug-back-link">
+            <a href="index.html">← ホームへ戻る</a>
+        </div>
+    </main>
+
+    <!-- Firebase SDK & デバッグスクリプト -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+            authDomain: "ramengirls-bd769.firebaseapp.com",
+            projectId: "ramengirls-bd769",
+            storageBucket: "ramengirls-bd769.firebasestorage.app",
+            messagingSenderId: "211447953783",
+            appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // 1. デバッグモードの判定（無効ならTOPへリダイレクト）
+        if (localStorage.getItem('debug_mode') !== 'true') {
+            alert('アクセス権限がありません。');
+            window.location.href = 'index.html';
+        }
+
+        // リアルタイムリスナー解除用の保持配列
+        let scoreUnsubscribes = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 2. Firebaseからリアルタイムで全デバイスのPVデータを読み込み＆表示
+            const pvList = document.getElementById('pv-list');
+            const pvQuery = query(collection(db, "pv"));
+
+            onSnapshot(pvQuery, (snapshot) => {
+                if (snapshot.empty) {
+                    pvList.innerHTML = '<li class="pv-empty">データがまだありません。</li>';
+                    return;
+                }
+
+                const pvEntries = [];
+                snapshot.forEach(docSnap => {
+                    pvEntries.push({ date: docSnap.id, count: docSnap.data().count || 0 });
+                });
+
+                // 日付順（新しい順）にソート
+                pvEntries.sort((a, b) => b.date.localeCompare(a.date));
+
+                pvList.innerHTML = pvEntries.map(item => `
+                    <li class="pv-item">
+                        <span class="pv-date">${item.date}</span>
+                        <span class="pv-count">${item.count} PV</span>
+                    </li>
+                `).join('');
+            }, (error) => {
+                console.error("PV読み込みエラー:", error);
+                pvList.innerHTML = '<li class="pv-empty">PVデータの取得に失敗しました。</li>';
+            });
+
+            // 3. ゲームスコアの初期表示処理
+            const scoreDateInput = document.getElementById('score-date');
+            const today = new Date().toISOString().split('T')[0];
+            scoreDateInput.value = today;
+            loadScoresForDate(today); // 今日の日付（scoreday）を初期セット
+
+            scoreDateInput.addEventListener('change', (e) => {
+                loadScoresForDate(e.target.value); // 日付選択変更時
+            });
+
+            // 4. デバッグモード解除ボタン
+            document.getElementById('exit-debug-btn').addEventListener('click', () => {
+                localStorage.removeItem('debug_mode');
+                alert('デバッグモードを解除しました。');
+                window.location.href = 'index.html';
+            });
+        });
+
+        // Firebaseから選択された日付 (scoreday) のゲームスコアを難易度別コレクション(easy, normal, hard)から取得
+        function loadScoresForDate(scoreday) {
+            // 前回のリスナーが存在すれば全て解除
+            scoreUnsubscribes.forEach(unsub => unsub());
+            scoreUnsubscribes = [];
+
+            // 各難易度コレクションと描画先要素IDのマッピング
+            const diffs = [
+                { name: 'easy', elementId: 'easy-score-list' },
+                { name: 'normal', elementId: 'normal-score-list' },
+                { name: 'hard', elementId: 'hard-score-list' }
+            ];
+
+            diffs.forEach(diff => {
+                // それぞれのコレクション(easy, normal, hard)に対して date == scoreday 条件でクエリ発行
+                const q = query(
+                    collection(db, diff.name),
+                    where("date", "==", scoreday)
+                );
+
+                const unsubscribe = onSnapshot(q, (snapshot) => {
+                    const scoreList = [];
+
+                    snapshot.forEach(docSnap => {
+                        const data = docSnap.data();
+
+                        let timeStr = '';
+                        if (data.createdAt) {
+                            timeStr = data.createdAt.toDate().toLocaleTimeString('ja-JP');
+                        } else if (data.time) {
+                            timeStr = data.time;
+                        }
+
+                        scoreList.push({
+                            score: data.score,
+                            device: data.device || 'SP',
+                            time: timeStr,
+                            timestamp: data.createdAt ? data.createdAt.toMillis() : 0
+                        });
+                    });
+
+                    // 新しい時刻順にソート
+                    scoreList.sort((a, b) => b.timestamp - a.timestamp);
+
+                    // リスト描画（デザインスタイルそのまま）
+                    renderDifficultyList(diff.elementId, scoreList);
+                }, (error) => {
+                    console.error(`${diff.name} スコア読み込みエラー:`, error);
+                });
+
+                scoreUnsubscribes.push(unsubscribe);
+            });
+        }
+
+        // 難易度ごとのリスト描画関数
+        function renderDifficultyList(elementId, scores) {
+            const listElem = document.getElementById(elementId);
+
+            if (!scores || scores.length === 0) {
+                listElem.innerHTML = '<li class="pv-empty">この日のプレイ記録はありません。</li>';
+                return;
+            }
+
+            listElem.innerHTML = scores.map(item => `
+                <li class="pv-item">
+                    <span class="pv-date">${item.time} ${item.device ? `[${item.device}]` : ''}</span>
+                    <span class="pv-count">${item.score} 秒</span>
+                </li>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

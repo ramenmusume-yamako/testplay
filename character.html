@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラクター紹介 | ラーメン娘</title>
+    <link rel="stylesheet" href="character.css">
+</head>
+<header>
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <div class="menu-content">
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="character.html">キャラ紹介</a></li>
+                <li><a href="game.html">ミニゲーム</a></li>
+                <li><a href="news.html">お知らせ</a></li>
+                <li id="debug-menu-item" style="display: none;">
+    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
+</li>
+            </ul>
+        </div>
+    </div>
+</header>
+<body class="chara-page-theme">
+
+    <div class="chara-window">
+        <h1 class="page-title">本日のおすすめ（娘選択）</h1>
+
+        <input type="radio" name="chara-slider" id="chara1" checked>
+        <input type="radio" name="chara-slider" id="chara2">
+
+        <div class="chara-rail">
+            
+            <div class="chara-card">
+                <a href="meana.html" class="card-link">
+                    <div class="card-img-wrap">
+                        <img src="right.png" alt="メーナ">
+                    </div>
+                    <div class="card-info">
+                        <span class="card-sub">NO.1 ／ 醤油 極太ちぢれ麺</span>
+                        <h2>メーナ</h2>
+                        <p class="card-tap-tip">クリックでお品書きを見る ➔</p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="chara-card">
+                <a href="tatsuko.html" class="card-link">
+                    <div class="card-img-wrap">
+                        <img src="left.png" alt="たつ子">
+                    </div>
+                    <div class="card-info">
+                        <span class="card-sub">NO.2 ／ 鳥中華 多加水中太ちぢれ麺</span>
+                        <h2>たつ子</h2>
+                        <p class="card-tap-tip">クリックでお品書きを見る ➔</p>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+
+        <div class="chara-arrows">
+            <label for="chara2" class="arrow-btn arrow-left for-c1">＜</label>
+            <label for="chara2" class="arrow-btn arrow-right for-c1">＞</label>
+
+            <label for="chara1" class="arrow-btn arrow-left for-c2">＜</label>
+            <label for="chara1" class="arrow-right for-c2">＞</label>
+        </div>
+    </div>
+
+    <!-- PVカウント用スクリプト (Firebase連動) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+    authDomain: "ramengirls-bd769.firebaseapp.com",
+    projectId: "ramengirls-bd769",
+    storageBucket: "ramengirls-bd769.firebasestorage.app",
+    messagingSenderId: "211447953783",
+    appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  (async function trackPV() {
+    // セッション（タブを開いてから閉じるまで）で1回だけカウント
+    if (!sessionStorage.getItem('visited_session')) {
+      const today = new Date().toISOString().split('T')[0];
+      const pvRef = doc(db, "pv", today);
+
+      try {
+        // 今日のドキュメントの count を +1（無ければ自動作成）
+        await setDoc(pvRef, { count: increment(1) }, { merge: true });
+        sessionStorage.setItem('visited_session', 'true');
+      } catch (e) {
+        console.error("PVカウントエラー:", e);
+      }
+    }
+  })();
+</script>
+<script>
+  // ページ読み込み時にデバッグモードならメニューを表示する
+  document.addEventListener('DOMContentLoaded', () => {
+    const debugMenuItem = document.getElementById('debug-menu-item');
+    if (debugMenuItem && localStorage.getItem('debug_mode') === 'true') {
+      debugMenuItem.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+/* ==========================================================================
+   1. 全体の配置（スクロールできるようにロックを解除！）
+   ========================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f3e9; /* 和紙っぽい色 */
+    font-family: "Hiragino Mincho ProN", serif;
+    min-height: 100vh;
+}
+
+/* のれん風ボタン */
+.home-btn {
+    position: fixed;
+    top: 0; 
+    left: 40px;
+    background: #800000;
+    color: white !important;
+    text-decoration: none;
+    padding: 20px 10px;
+    writing-mode: vertical-rl; /* 縦書き */
+    border-radius: 0 0 5px 5px;
+    font-weight: bold;
+    border: 2px solid #2b2b2b;
+    border-top: none;
+    box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+    z-index: 100;
+    transition: all 0.2s;
+}
+
+.home-btn:hover {
+    background: #2b2b2b;
+}
+
+/* 背景文字（うっすら） */
+.deco-text {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30vw;
+    font-weight: 900;
+    color: rgba(180, 0, 0, 0.03);
+    z-index: -1;
+    pointer-events: none; /* マウス操作を邪魔しない設定 */
+}
+
+/* ==========================================================================
+   2. メインのコンテナ（PCでは横並び、スマホでは縦並び）
+   ========================================================================== */
+.menu-container {
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    margin: 80px auto 40px auto; /* 画面中央に配置し、下に余白を作る */
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap; /* 💡画面が狭くなったら自動で折り返す魔法の命令 */
+}
+
+/* キャラの画像：画面からはみ出さないように設定！ */
+.menu-visual {
+    flex: 1;
+    min-width: 300px; /* これ以上縮むとスマホで潰れるのでサイズを固定 */
+    text-align: center;
+}
+
+.chara-img {
+    max-width: 100%;
+    max-height: 70vh; /* スクロール前提なので高さを少しだけ調整 */
+    object-fit: contain;
+    filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.15));
+}
+
+/* お品書きのカード部分 */
+.menu-card {
+    flex: 1;
+    min-width: 300px; /* スマホでカードが細長く潰れるのを防ぐ */
+    background: #fff;
+    padding: 40px;
+    border: 3px solid #2b2b2b; /* 太い黒枠 */
+    box-shadow: 15px 15px 0px #574141; /* 赤いカゲ */
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 文字のデザイン */
+.sub-title {
+    font-size: 0.9rem;
+    color: #666;
+    letter-spacing: 0.1em;
+}
+
+.chara-name {
+    font-size: 3rem;
+    margin: 5px 0 20px 0;
+    color: #800000;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 5px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed #ccc;
+    font-size: 1.1rem;
+}
+
+.detail-item label {
+    font-weight: bold;
+    color: #e67e22; /* ラーメンオレンジ */
+}
+
+.menu-description {
+    margin-top: 25px;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* 朱印・はんこ */
+.hanko {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    border: 3px double #d32f2f;
+    color: #d32f2f;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    transform: rotate(-10deg);
+    border-radius: 4px;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   3. 聖地巡礼 Googleマップエリア（絶対にプロフィールの真下に配置！）
+   ========================================================================== */
+.google-map-chara-zone {
+    clear: both !important;       /* 上のあらゆる横並び設定を完全に断ち切る */
+    display: block !important;    /* 独立したブロックとして下に落とす */
+    width: 90% !important;
+    max-width: 1000px !important; /* 上のプロフィールエリアと最大幅を揃える */
+    margin: 60px auto 80px auto !important; /* 上下にしっかり余白をあけて独立させる */
+    box-sizing: border-box;
+}
+
+/* マップを包む白いお品書き風カード */
+.map-card-box {
+    background: #ffffff !important;
+    border: 3px solid #2b2b2b !important; /* お揃いの黒太枠 */
+    box-shadow: 15px 15px 0px #574141 !important; /* お揃いの立体的な赤カゲ */
+    padding: 40px !important;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* タイトル文字 */
+.map-card-title {
+    font-size: 1.6rem !important;
+    color: #800000 !important;
+    margin-top: 0 !important;
+    margin-bottom: 15px !important;
+    border-bottom: 2px solid #2b2b2b !important;
+    padding-bottom: 8px !important;
+    display: inline-block !important;
+}
+
+.map-card-text {
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
+    color: #2b2b2b !important;
+    margin-top: 0 !important;
+    margin-bottom: 25px !important;
+}
+
+/* 地図の枠を16:9に保ちつつ、スマホの横幅にも自動で縮むようにする */
+.map-iframe-wrapper {
+    position: relative !important;
+    width: 100% !important;
+    padding-top: 50% !important; /* PC・スマホ両方で見やすい比率に微調整 */
+    border: 2px solid #2b2b2b !important;
+    overflow: hidden !important;
+}
+
+/* 中のGoogleマップ本体を枠に引き伸ばす */
+.map-iframe-wrapper iframe {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+}
+
+/* ==========================================================================
+   4. スマホ・タブレット用の微調整（レスポンシブ）
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* のれん風ボタンが左に寄りすぎて窮屈になるのを防ぐ */
+    .home-btn {
+        left: 20px;
+        padding: 15px 8px;
+        font-size: 0.9rem;
+    }
+
+    /* 全体の横幅の決定。カゲ（8px）が右側にはみ出す余裕を考慮した計算 */
+    .menu-container {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 16px 0 8px;
+        margin-top: 110px; /* のれんボタンと被らないように調整 */
+        gap: 20px;
+    }
+
+    /* キャラクター画像の最小幅ロックを解除し、スマホ幅に適合させる */
+    .menu-visual {
+        min-width: 100%;
+    }
+    .chara-img {
+        max-height: 50vh;
+    }
+
+    /* お品書きカード：カゲを少しスマートにしてはみ出しを防ぐ */
+    .menu-card {
+        min-width: 100%;
+        padding: 30px 20px; /* スマホではカードの内側の余白を少し狭く */
+        box-shadow: 8px 8px 0px #574141;
+    }
+
+    /* 店舗情報エリア：カゲを8pxに調整して画面内に収める */
+    .google-map-chara-zone {
+        width: 100% !important;
+        padding: 0 16px 0 8px !important;
+        margin: 40px auto 60px auto !important;
+    }
+    .map-card-box {
+        padding: 30px 20px !important;
+        box-shadow: 8px 8px 0px #574141 !important;
+    }
+    
+    .chara-name {
+        font-size: 2.2rem;
+    }
+}

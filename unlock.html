@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>キャラクター解放！</title>
+    <style>
+        body {
+            margin: 0; background: #2c3e50; color: white;
+            font-family: sans-serif; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; min-height: 100dvh;
+            text-align: center; padding: 20px;
+        }
+        .card {
+            background: #34495e; padding: 40px; border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); max-width: 400px;
+        }
+        h2 { color: #f1c40f; margin-top: 0; }
+        p { font-size: 16px; line-height: 1.6; }
+        .btn {
+            display: inline-block; background: #e67e22; color: white;
+            padding: 12px 30px; border-radius: 25px; text-decoration: none;
+            font-weight: bold; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2 id="statusTitle">確認中...</h2>
+        <p id="statusMsg">キャラクターデータを読み込んでいます。</p>
+        <a href="game.html" class="btn">ホームに戻って遊ぶ</a>
+    </div>
+
+    <script>
+        // ★select.htmlやgame.htmlのデータとIDを一致させて登録します
+        const CHAR_NAMES = {
+            meana:    "メーナ",
+            aniki:  "チャーシュー兄貴",
+            naruto: "ナルトちゃん"
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const charId = urlParams.get('character');
+
+        const titleEl = document.getElementById("statusTitle");
+        const msgEl = document.getElementById("statusMsg");
+
+        if (charId && CHAR_NAMES[charId]) {
+            let unlocked = JSON.parse(localStorage.getItem("unlockedChars")) || ["hajime"];
+
+            if (!unlocked.includes(charId)) {
+                unlocked.push(charId);
+                localStorage.setItem("unlockedChars", JSON.stringify(unlocked));
+                localStorage.setItem("selectedChar", charId); // その場で自動セット
+
+                titleEl.textContent = "解放成功！ 🎉";
+                msgEl.innerHTML = `新しいキャラクター<br><strong>「${CHAR_NAMES[charId]}」</strong><br>をゲットしました！<br>さっそく使ってみよう！`;
+            } else {
+                titleEl.textContent = "獲得済み";
+                msgEl.innerHTML = `<strong>「${CHAR_NAMES[charId]}」</strong>はすでに仲間になっています！`;
+            }
+        } else {
+            titleEl.textContent = "エラー";
+            msgEl.textContent = "無効なQRコード、または存在しないキャラクターデータです。";
+        }
+    </script>
+</body>
+</html>

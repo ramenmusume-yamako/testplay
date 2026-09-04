@@ -1,0 +1,138 @@
+/* ==========================================================================
+   デバッグページ専用スタイル
+   ========================================================================== */
+
+.debug-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.debug-title {
+    font-size: 1.8rem;
+    color: #800000;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #2b2b2b;
+    padding-bottom: 10px;
+}
+
+.debug-card {
+    background: #ffffff;
+    border: 2px solid #2b2b2b;
+    box-shadow: 6px 6px 0px #800000;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.debug-card h2 {
+    font-size: 1.2rem;
+    color: #2b2b2b;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 8px;
+}
+
+/* ゲームスコア用サブヘッダー */
+.debug-score-section h3 {
+    font-size: 1rem;
+    color: #800000;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+    border-left: 4px solid #800000;
+}
+
+/* 日付選択エリア */
+.debug-date-picker {
+    margin-bottom: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #2b2b2b;
+}
+
+.debug-date-picker input[type="date"] {
+    padding: 6px 10px;
+    font-size: 1rem;
+    border: 2px solid #2b2b2b;
+    background-color: #f7f3e9;
+    color: #2b2b2b;
+    border-radius: 4px;
+    outline: none;
+}
+
+/* PVリスト / スコアリスト共通 */
+.pv-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.pv-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #ddd;
+    font-size: 1rem;
+}
+
+.pv-item:last-child {
+    border-bottom: none;
+}
+
+.pv-date {
+    font-weight: bold;
+    color: #555;
+}
+
+.pv-count {
+    font-weight: bold;
+    color: #800000;
+    background: #f7f3e9;
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid #2b2b2b;
+}
+
+.pv-empty {
+    color: #888;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* 解除ボタン */
+.debug-btn-danger {
+    width: 100%;
+    background-color: #ff4757;
+    color: #ffffff;
+    border: 2px solid #2b2b2b;
+    box-shadow: 3px 3px 0px #2b2b2b;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.debug-btn-danger:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #2b2b2b;
+}
+
+.debug-back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.debug-back-link a {
+    color: #2b2b2b;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.debug-back-link a:hover {
+    text-decoration: underline;
+}

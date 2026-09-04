@@ -1,0 +1,103 @@
+body { 
+    margin: 0; padding: 0; overflow: hidden; 
+    background: #2c3e50; 
+    display: flex; align-items: center; justify-content: center;
+    width: 100vw; 
+    height: 100dvh; 
+    touch-action: none;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    position: relative;
+}
+canvas { 
+    background: #ecf0f1; 
+    display: block;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    max-width: 100%; 
+    max-height: 100%;
+    width: auto; 
+    height: auto;
+    object-fit: contain;
+}
+#ui { 
+    position: absolute; 
+    z-index: 100;
+    pointer-events: none; 
+    color: #2c3e50; 
+    font-weight: bold;
+    background: rgba(255,255,255,0.6); 
+    padding: 5px 10px; 
+    font-size: 18px; 
+    border-radius: 5px;
+    display: none;
+}
+
+#game-menu-overlay {
+    display: none; 
+    position: absolute;
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: rgba(0, 0, 0, 0.9); 
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 3px solid #e67e22;
+    box-shadow: 0 0 35px rgba(0,0,0,0.8);
+    max-width: 90%;
+    box-sizing: border-box;
+}
+.menu-title {
+    color: #f1c40f;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    letter-spacing: 0.1em;
+}
+.menu-btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    min-width: 240px;
+}
+.custom-menu-btn {
+    background: #2c3e50;
+    color: white;
+    border: 2px solid #ffffff;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+    outline: none;
+}
+
+.custom-menu-btn:hover, .custom-menu-btn.keyboard-focus {
+    background: #e67e22;
+    border-color: #f1c40f;
+    transform: scale(1.03);
+}
+
+.custom-menu-btn.primary-btn {
+    background: #800000;
+    border-color: #f1c40f;
+}
+.custom-menu-btn.primary-btn:hover, .custom-menu-btn.primary-btn.keyboard-focus {
+    background: #b30000;
+}
+
+@media (max-width: 959px) {
+    #ui { font-size: 12px; padding: 3px 6px; }
+    #game-menu-overlay { padding: 20px; gap: 10px; }
+    .menu-title { font-size: 18px; margin-bottom: 5px; }
+    .menu-btn-group { min-width: 180px; gap: 8px; }
+    .custom-menu-btn { padding: 8px 15px; font-size: 14px; }
+}

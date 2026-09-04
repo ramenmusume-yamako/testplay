@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミニゲーム選択 | ラーメン娘</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<header>
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <div class="menu-content">
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="character.html">キャラ紹介</a></li>
+                <li><a href="game.html">ミニゲーム</a></li>
+                <li><a href="news.html">お知らせ</a></li>
+                <li id="debug-menu-item" style="display: none;">
+    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
+</li>
+            </ul>
+        </div>
+    </div>
+</header>
+<body class="game-page-theme">
+
+    <main class="game-container">
+        
+        <div class="game-top-row">
+            <div class="game-title-kanban">
+                <span class="kanban-sub">ミニゲーム</span>
+                <h1 class="game-main-name">走れ！ラーメン娘！！</h1>
+                <p class="game-desc">障害物を避けてなるべく長く走り続けよう！</p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; width: 100%; max-width: 900px; margin: 0 auto; box-sizing: border-box; padding: 0 20px;">
+            
+            <a href="select.html" class="char-select-btn" style="flex-shrink: 0;">
+                <div class="btn-char-container">
+                    <img id="btnCharImg" src="" alt="走るキャラ">
+                </div>
+                <div class="btn-text-wrapper">
+                    <span class="btn-main-text">キャラ選択</span>
+                </div>
+            </a>
+
+            <div class="char-info-blank-box" style="flex-direction: column; align-items: flex-start; justify-content: center; padding: 25px;">
+                <h3 style="margin: 0 0 10px 0; font-size: 1.2rem; color: #800000; border-bottom: 2px solid #2b2b2b; padding-bottom: 3px; font-weight: 900; font-family: 'Hiragino Mincho ProN', serif;">
+                    
+                    走れ！ラーメン娘！！
+                </h3>
+                <p style="margin: 0; font-size: 1.0rem; line-height: 1.6; color: #2b2b2b; font-weight: bold; font-family: 'Hiragino Mincho ProN', serif;">
+                    ・ジャンプして、流れてくる障害物を避けよう！<br>
+                    ・ラーメン店に行ってQRコードを読み取るとキャラクターゲット！<br>
+                    ・キャラ選択ボタンからキャラを変えることができるよ♪<br>
+                    ・色んなキャラ達と一緒に、なるべく長い時間障害物を避けよう！！
+                </p>
+            </div>
+
+        </div>
+
+        <div class="difficulty-section">
+            <h2 class="section-title">難易度を選択してゲームスタート！</h2>
+            
+            <div class="difficulty-grid">
+                
+                <a href="easy.html" class="diff-card card-easy">
+                    <div class="card-inner">
+                        <span class="diff-eng">easy</span>
+                        <h3 class="diff-jp">初見</h3>
+                        <p class="diff-note">初めての方向け</p>
+                    </div>
+                </a>
+
+                <a href="nomal.html" class="diff-card card-normal">
+                    <div class="card-inner">
+                        <span class="diff-eng">normal</span>
+                        <h3 class="diff-jp">一般客</h3>
+                        <p class="diff-note">標準的難易度</p>
+                    </div>
+                </a>
+
+                <a href="hard.html" class="diff-card card-hard">
+                    <div class="card-inner">
+                        <span class="diff-eng">hard</span>
+                        <h3 class="diff-jp">常連</h3>
+                        <p class="diff-note">ここまできたらプロ！？</p>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="game-chara-section">
+            <h2 class="section-title">障害具材</h2>
+            
+            <div class="game-chara-grid">
+                
+                <div class="game-chara-card">
+                    <div class="mini-img-wrap">
+                        <img src="naruto.png" alt="ナルットゥ">
+                    </div>
+                    <h3 class="mini-name">ナルットゥ</h3>
+                    <p class="mini-word">邪悪なナルト</p>
+                </div>
+
+                <div class="game-chara-card">
+                    <div class="mini-img-wrap">
+                        <img src="nori.png" alt="ノリノリノリ夫">
+                    </div>
+                    <h3 class="mini-name">ノリノリノリ夫</h3>
+                    <p class="mini-word">いつも踊っている<br>ペラペラな海苔</p>
+                </div>
+
+                <div class="game-chara-card">
+                    <div class="mini-img-wrap">
+                        <img src="menma2.png" alt="イカレ目ンマ">
+                    </div>
+                    <h3 class="mini-name">イカレ目ンマ</h3>
+                    <p class="mini-word">ｱﾀﾏｶﾞｲｶﾚﾁｬｯﾀﾖ☆</p>
+                </div>
+
+                <div class="game-chara-card">
+                    <div class="mini-img-wrap">
+                        <img src="tya-syu-.png" alt="チューシュー">
+                    </div>
+                    <h3 class="mini-name">チューシュー</h3>
+                    <p class="mini-word">キュルキュルお目目で<br>あなたにキスを迫る</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="shop-footer">
+        <p>&copy; 2026 ramengirls</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const RUN_ANIMATIONS = {
+                hajime: { img1: "hajimel.png", img2: "hajimer.png" },
+                meana:  { img1: "meanal.png",  img2: "meanar.png" },
+                boy:    { img1: "boy_l.png",   img2: "boy_r.png" },
+                aniki:  { img1: "aniki_l.png",  img2: "aniki_r.png" },
+                naruto: { img1: "naruto_l.png", img2: "naruto_r.png" }
+            };
+
+            const currentSelected = localStorage.getItem("selectedChar") || "hajime";
+            const btnCharImg = document.getElementById("btnCharImg");
+
+            if (btnCharImg && RUN_ANIMATIONS[currentSelected]) {
+                const charPics = RUN_ANIMATIONS[currentSelected];
+                let isFirstImage = true;
+
+                setInterval(() => {
+                    if (isFirstImage) {
+                        btnCharImg.src = charPics.img1;
+                    } else {
+                        btnCharImg.src = charPics.img2;
+                    }
+                    isFirstImage = !isFirstImage;
+                }, 1000);
+            }
+        });
+    </script>
+
+    <!-- PVカウント用スクリプト (Firebase連動) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+    authDomain: "ramengirls-bd769.firebaseapp.com",
+    projectId: "ramengirls-bd769",
+    storageBucket: "ramengirls-bd769.firebasestorage.app",
+    messagingSenderId: "211447953783",
+    appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  (async function trackPV() {
+    // セッション（タブを開いてから閉じるまで）で1回だけカウント
+    if (!sessionStorage.getItem('visited_session')) {
+      const today = new Date().toISOString().split('T')[0];
+      const pvRef = doc(db, "pv", today);
+
+      try {
+        // 今日のドキュメントの count を +1（無ければ自動作成）
+        await setDoc(pvRef, { count: increment(1) }, { merge: true });
+        sessionStorage.setItem('visited_session', 'true');
+      } catch (e) {
+        console.error("PVカウントエラー:", e);
+      }
+    }
+  })();
+</script>
+<script>
+  // ページ読み込み時にデバッグモードならメニューを表示する
+  document.addEventListener('DOMContentLoaded', () => {
+    const debugMenuItem = document.getElementById('debug-menu-item');
+    if (debugMenuItem && localStorage.getItem('debug_mode') === 'true') {
+      debugMenuItem.style.display = 'block';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+/* ==========================================================================
+   1. 全体のベース（和紙っぽい背景と文字色）
+   ========================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f3e9; 
+    color: #2b2b2b;
+    font-family: "Hiragino Mincho ProN", serif;
+}
+
+/* ==========================================================================
+   2. ハンバーガーメニューの機能（完全版）
+   ========================================================================== */
+#menu-btn-check {
+    display: none;
+}
+
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* メニューボタンは一番手前 */
+    background-color: #2b2b2b; 
+    border: 2px solid #800000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.menu-btn span:before { bottom: 8px; }
+.menu-btn span:after { top: 8px; }
+
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.menu-content {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    background-color: #2b2b2b; 
+    border-left: 3px solid #800000;
+    transform: translateX(100%); 
+    transition: transform 0.4s;
+}
+
+#menu-btn-check:checked ~ .menu-content {
+    transform: translateX(0);
+}
+
+.menu-content ul {
+    padding: 80px 0 0 0;
+    margin: 0;
+    list-style: none;
+}
+
+.menu-content ul li {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 20px;
+    position: relative;
+    font-weight: bold;
+}
+
+.menu-content ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #f1c40f; 
+    border-right: solid 2px #f1c40f;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+.menu-content ul li a:hover {
+    background-color: rgba(128, 0, 0, 0.3); 
+    color: #f1c40f;
+}
+
+/* ==========================================================================
+   3. メイン看板（ここがレイヤー重ね合わせの魔法です）
+   ========================================================================== */
+.shop-kanban {
+    position: relative;          /* レイヤーの基準点にする */
+    background-color: #800000;   /* ベースの中華赤 */
+    width: 100%;
+    height: 380px;               /* 看板全体の高さを指定 */
+    overflow: hidden;            /* はみ出た画像はカット */
+    border-bottom: 5px solid #2b2b2b;
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;         /* 文字を上下中央に */
+    justify-content: center;     /* 文字を左右中央に */
+}
+
+/* レイヤー下：背景画像の設定 */
+.kanban-bg-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 真ん中に配置 */
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;           /* 縦横比を保って看板全体を覆う */
+    opacity: 0.35;               /* 文字が見やすくなるように画像を少し薄く透過（お好みで調整してね！） */
+    z-index: 1;                  /* レイヤー1番（一番奥） */
+    pointer-events: none;
+}
+
+/* レイヤー上：文字を乗せる透明な箱 */
+.kanban-text-overlay {
+    position: relative;
+    z-index: 2;                  /* レイヤー2番（画像の上に乗る） */
+    text-align: center;
+    padding: 20px;
+}
+
+.shop-title {
+    font-size: 4rem;
+    margin: 0;
+    color: #f1c40f;              /* ラーメンゴールド */
+    /* 文字の輪郭をくっきりさせて画像に負けないようにする */
+    text-shadow: 3px 3px 0px #2b2b2b, -2px -2px 0px #2b2b2b, 2px -2px 0px #2b2b2b, -2px 2px 0px #2b2b2b;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+}
+
+.shop-subtitle {
+    font-size: 1.2rem;
+    color: #f7f3e9;
+    margin: 15px 0 0 0;
+    letter-spacing: 0.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* 黒い影で文字を浮き立たせる */
+}
+
+/* ==========================================================================
+   4. メインコンテンツ・キャラクター一覧
+   ========================================================================== */
+.main-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    box-sizing: border-box; /* はみ出し防止 */
+}
+
+.menu-card-home {
+    background: #fff;
+    border: 3px solid #2b2b2b;
+    box-shadow: 12px 12px 0px #800000;
+    padding: 40px 30px;
+    box-sizing: border-box; /* はみ出し防止 */
+}
+
+.section-title {
+    font-size: 1.6rem;
+    color: #800000;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.character-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.chara-fuda {
+    width: 220px;
+    background: #fff;
+    border: 2px solid #2b2b2b;
+    box-shadow: 6px 6px 0px #e67e22;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+
+.chara-fuda:hover {
+    transform: translateY(-5px);
+}
+
+.fuda-img-wrap {
+    border: 1px solid #ccc;
+    background: #fafafa;
+    padding: 10px;
+    line-height: 0;
+    margin-bottom: 15px;
+}
+
+.fuda-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.fuda-name {
+    font-size: 1.2rem;
+    margin: 5px 0 10px 0;
+    color: #2b2b2b;
+}
+
+.fuda-desc {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+    margin: 0 0 15px 0;
+    flex-grow: 1;
+}
+
+.fuda-btn {
+    display: block;
+    background: #800000;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 8px 0;
+    font-weight: bold;
+    font-size: 0.95rem;
+    border: 1px solid #2b2b2b;
+    box-shadow: 2px 2px 0px #2b2b2b;
+}
+
+.fuda-btn:hover {
+    background: #2b2b2b;
+    box-shadow: none;
+    transform: translate(2px, 2px);
+}
+
+.shop-footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 60px;
+    border-top: 1px double #2b2b2b;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ==========================================================================
+   5. スマホ・タブレット用の自動レイアウト調整（レスポンシブ）
+   ========================================================================== */
+@media (max-width: 768px) {
+    
+    /* --- メイン看板の調整（ここを書き換えます） --- */
+    .shop-kanban {
+        height: auto;               /* ❌高さを固定せず、中身に合わせる */
+        aspect-ratio: 1200 / 380;   /* 💡PC時の看板の比率（横幅:高さ）をスマホでも強制的に維持する */
+        min-height: 160px;          /* 文字が潰れないための最低限の高さ */
+    }
+    
+    .kanban-bg-img {
+        width: 100%;                /* 横幅いっぱいに広げる */
+        height: 100%;               /* 縦幅いっぱいに広げる */
+        object-fit: cover;          /* 比率を保ったまま切り抜く */
+    }
+    
+    .shop-title {
+        font-size: 2.2rem;          /* 画面幅に合わせてさらに少しだけ小さく調整 */
+    }
+    
+    .shop-subtitle {
+        font-size: 0.85rem;         /* 文字がはみ出さないようにスリムに */
+        margin: 8px 0 0 0;
+        white-space: nowrap; 
+    }
+
+    /* --- 以下の .main-container 以降の設定は変更なしでそのまま残してください --- */
+    .main-container {
+        margin: 20px auto;
+        padding: 0 15px; /* スマホ画面の端にぴったり寄りすぎない余白 */
+        gap: 25px; /* カード同士の間隔を少し詰める */
+    }
+
+    .menu-card-home {
+        padding: 25px 20px; /* カードの内側の余白を狭くして、画面を広く使う */
+        box-shadow: 8px 8px 0px #800000; /* 影の太さもスマホに合わせてバランス調整 */
+    }
+
+    .intro-text {
+        font-size: 0.95rem; /* スマホで文字がギチギチにならないよう最適なサイズに */
+        line-height: 1.7;
+    }
+
+    /* --- キャラクター一覧（ここが一番大事！） --- */
+    .character-grid {
+        gap: 15px; /* 木札同士の隙間を微調整 */
+    }
+
+    .chara-fuda {
+        /* 💡画面幅に合わせて、2本の木札が綺麗に「横並び（2列）」で収まるように計算 */
+        width: calc(50% - 8px); 
+        min-width: 140px; /* これ以上縮むと文字が潰れる限界値 */
+        padding: 12px;
+        box-shadow: 4px 4px 0px #e67e22; /* スマホ用に影を少しスマートに */
+        box-sizing: border-box;
+    }
+
+    /* スマホ用に木札の中のサイズ感も調整 */
+    .fuda-img-wrap {
+        margin-bottom: 10px;
+        padding: 5px;
+    }
+
+    .fuda-name {
+        font-size: 1.05rem;
+        margin: 5px 0;
+        font-weight: bold;
+    }
+
+    .fuda-desc {
+        font-size: 0.8rem;
+        margin: 0 0 10px 0;
+    }
+
+    .fuda-btn {
+        font-size: 0.85rem;
+        padding: 6px 0;
+    }
+}
+
+/* 💡超スリムなスマホ（iPhone SEなど）用の最終調整 */
+@media (max-width: 400px) {
+    .character-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .chara-fuda {
+        width: 100%; /* 画面幅が300px台のときは、2列だと見づらいので「縦1列」でどーんと綺麗に見せます */
+        max-width: 260px;
+    }
+   .menu-btn {
+        top: 15px;      /* ボタンの位置を少し上に上げて文字との被りを解消 */
+        right: 15px;    /* ボタンの位置を少し右に寄せる */
+        height: 44px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
+        width: 44px;
+    }
+
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        height: 2px;    /* 線の太さを 3px → 2px に */
+        width: 18px;    /* 線の長さを 25px → 18px に */
+        border-radius: 2px;
+    }
+
+    .menu-btn span:before { bottom: 6px; } /* 三本線の上下のすき間を狭く */
+    .menu-btn span:after { top: 6px; }
+}
+
+/* ==========================================================================
+   6. デバッグモード用スタイル（スマホ誤動作防止バージョン）
+   ========================================================================== */
+.kanban-bg-img,
+#footer-copyright {
+    cursor: default !important;
+    user-select: none;                   /* テキスト選択を無効化 */
+    -webkit-user-select: none;            /* Safari/Chrome用 */
+    -webkit-touch-callout: none;          /* スマホでの長押しメニュー禁止 */
+    touch-action: manipulation !important; /* ダブルタップズームやブラウザ固有動作を無効化 */
+}
+
+.kanban-bg-img {
+    pointer-events: auto !important;
+    -webkit-user-drag: none;
+}
+
+/* デバッグメニューリンクの装飾 */
+.menu-content ul li a.debug-link {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+.menu-content ul li a.debug-link::before {
+    border-top: solid 2px #ff4757;
+    border-right: solid 2px #ff4757;
+}

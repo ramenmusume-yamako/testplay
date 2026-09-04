@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲームテストプレイ用ページ</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #1e1e24;
+            color: #ffffff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        h1 {
+            color: #00ffcc;
+            margin-bottom: 30px;
+        }
+        .menu-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #2a2a35;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px 0;
+            margin: 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+        /* モードごとの色設定 */
+        .easy { background-color: #2ecc71; }
+        .normal { background-color: #3498db; }
+        .hard { background-color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+    <h1>🎮 テストプレイメニュー</h1>
+    
+    <div class="menu-container">
+        <p>プレイする難易度を選択してください</p>
+        
+        <a href="easy.html" class="btn easy">EASY モード</a>
+        <a href="nomal.html" class="btn normal">NORMAL モード</a>
+        <a href="hard.html" class="btn hard">HARD モード</a>
+    </div>
+
+</body>
+</html>

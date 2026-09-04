@@ -1,0 +1,567 @@
+/* ==========================================================================
+   1. 全体のベース（世界観の統一）
+   ========================================================================== */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f3e9; /* お馴染みの和紙の色 */
+    font-family: "Hiragino Mincho ProN", serif;
+    color: #2b2b2b;
+    min-height: 100vh;
+}
+#menu-btn-check {
+    display: none;
+}
+
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* メニューボタンは一番手前 */
+    background-color: #2b2b2b; 
+    border: 2px solid #800000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: #ffffff;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.menu-btn span:before { bottom: 8px; }
+.menu-btn span:after { top: 8px; }
+
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: rgba(255, 255, 255, 0);
+}
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+.menu-content {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 95;
+    background-color: #2b2b2b; 
+    border-left: 3px solid #800000;
+    transform: translateX(100%); 
+    transition: transform 0.4s;
+}
+
+#menu-btn-check:checked ~ .menu-content {
+    transform: translateX(0);
+}
+
+.menu-content ul {
+    padding: 80px 0 0 0;
+    margin: 0;
+    list-style: none;
+}
+
+.menu-content ul li {
+    border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+}
+
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px 20px;
+    position: relative;
+    font-weight: bold;
+}
+
+.menu-content ul li a::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-top: solid 2px #f1c40f; 
+    border-right: solid 2px #f1c40f;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 20px;
+    top: 22px;
+}
+
+.menu-content ul li a:hover {
+    background-color: rgba(128, 0, 0, 0.3); 
+    color: #f1c40f;
+}
+
+
+/* 背景のうっすら文字 */
+.deco-text {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30vw;
+    font-weight: 900;
+    color: rgba(180, 0, 0, 0.025);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   2. メインレイアウト（大きな白いお品書きカード）
+   ========================================================================== */
+.news-container {
+    width: 90%;
+    max-width: 850px;
+    margin: 80px auto 40px auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.news-card-box {
+    background: #ffffff;
+    border: 3px solid #2b2b2b; /* 太い黒枠 */
+    box-shadow: 15px 15px 0px #800000; /* お揃いの立体的な赤カゲ */
+    padding: 50px 40px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* ヘッダー部分 */
+.sub-title {
+    font-size: 0.9rem;
+    color: #666;
+    letter-spacing: 0.1em;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    margin: 5px 0 35px 0;
+    color: #800000;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 10px;
+}
+
+/* ==========================================================================
+   3. お知らせリスト（タイムライン風）
+   ========================================================================== */
+.news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column; /* スマホやタブレットでも崩れないよう基本は縦流れ */
+    gap: 10px;
+    padding: 25px 0;
+    border-bottom: 1px dashed #2b2b2b; /* 和風の点線区切り */
+}
+
+/* 一番最後のお知らせは線を消す */
+.news-item:last-child {
+    border-bottom: none;
+}
+
+/* 日付とラベルのセット */
+.news-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.news-date {
+    font-size: 1.1rem;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: #555;
+}
+
+/* --- 色分けラベル（千社札・千札風デザイン） --- */
+.news-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 3px 8px;
+    border: 1px solid #2b2b2b;
+    border-radius: 3px;
+}
+
+/* 新メニュー用のオレンジ */
+.label-menu {
+    background-color: #fff4eb;
+    color: #e67e22;
+    border-color: #e67e22;
+}
+
+/* お店情報用の紺・青 */
+.label-shop {
+    background-color: #f0f4ff;
+    color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* ラーむす赤 */
+.label-girls {
+    background-color: #fff0f0;
+    color: #c0392b;
+    border-color: #c0392b;
+}
+/*その他*/
+.label-sonota {
+    background-color: #D5EAD8;
+    color: #006036;
+    border-color: #006036;
+}
+/* --- 本文エリア --- */
+.news-content {
+    margin-top: 5px;
+}
+
+.news-item-title {
+    font-size: 1.25rem;
+    margin: 0 0 8px 0;
+    color: #2b2b2b;
+    font-weight: bold;
+}
+
+.news-item-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #555;
+    margin: 0;
+}
+
+/* 朱印・はんこ */
+.hanko {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    border: 2px solid #d32f2f;
+    color: #d32f2f;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 3px;
+    transform: rotate(5deg);
+    opacity: 0.7;
+}
+
+/* フッター */
+.shop-footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 40px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* ==========================================================================
+   4. レスポンシブ対応（画面が広いときはPC向けに綺麗に横並び）
+   ========================================================================== */
+@media (min-width: 600px) {
+    .news-item {
+        flex-direction: row; /* 横並びにする */
+        align-items: flex-start;
+        gap: 30px;
+    }
+    .news-meta {
+        flex-direction: column; /* PCでは日付の下にラベルがくるように縦並び */
+        align-items: flex-start;
+        width: 120px; /* 横幅を固定して綺麗に揃える */
+        gap: 8px;
+    }
+    .news-content {
+        flex: 1; /* 残りの右側の幅をすべて使う */
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 599px) {
+    /* スマホ画面の端にピタッとつきすぎないよう全体幅を調整 */
+    .news-container {
+        width: 100%;
+        padding: 0 16px 0 8px; /* 右側に15pxの赤カゲが飛び出る分のスペースを確保 */
+        margin-top: 90px;
+    }
+    .news-card-box {
+        padding: 35px 20px; /* スマホでは余白をスリムに */
+        box-shadow: 8px 8px 0px #800000; /* カゲの主張は残しつつ、はみ出さないサイズに */
+    }
+    .page-title {
+        font-size: 1.8rem;
+    }
+    .menu-btn {
+        top: 15px;      /* ボタンの位置を少し上に上げて文字との被りを解消 */
+        right: 15px;    /* ボタンの位置を少し右に寄せる */
+        height: 44px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
+        width: 44px;
+    }
+
+    .menu-btn span,
+    .menu-btn span:before,
+    .menu-btn span:after {
+        height: 2px;    /* 線の太さを 3px → 2px に */
+        width: 18px;    /* 線の長さを 25px → 18px に */
+        border-radius: 2px;
+    }
+
+    .menu-btn span:before { bottom: 6px; } /* 三本線の上下のすき間を狭く */
+    .menu-btn span:after { top: 6px; }
+}
+
+/* デバッグメニューリンクの装飾 */
+.menu-content ul li a.debug-link {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+.menu-content ul li a.debug-link::before {
+    border-top: solid 2px #ff4757;
+    border-right: solid 2px #ff4757;
+}
+
+/* ==========================================================================
+   5. デバッグ用＋ボタン・モーダル・詳細表示ポップアップ
+   ========================================================================== */
+
+/* プラス floatingボタン */
+.add-news-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff4757;
+    color: #ffffff;
+    border: 3px solid #2b2b2b;
+    border-radius: 50%;
+    font-size: 2rem;
+    font-weight: bold;
+    box-shadow: 4px 4px 0px #2b2b2b;
+    cursor: pointer;
+    z-index: 90;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.add-news-fab:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #2b2b2b;
+}
+
+/* タイトルエリア */
+.news-title-area {
+    cursor: pointer;
+}
+
+.news-title-img-wrap {
+    margin: 10px 0;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.news-title-img {
+    width: 100%;
+    height: 120px; /* 縦幅を抑えてヘッダー風に */
+    object-fit: cover;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+    display: block;
+}
+
+.toggle-icon {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: #800000;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* ★本文の改行を有効化★ */
+.news-item-text {
+    white-space: pre-wrap; /* Enterキーでの改行をそのまま画面に反映 */
+    word-break: break-all;
+}
+
+/* 詳細モーダル用追加スタイル */
+.detail-modal-content {
+    max-width: 650px !important; /* 大きく表示 */
+}
+
+.detail-meta-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.detail-modal-title {
+    font-size: 1.6rem;
+    color: #800000;
+    margin: 15px 0;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 10px;
+}
+
+.detail-hero-img {
+    width: 100%;
+    height: 160px; /* 詳細側も高さを抑えたバナー風に */
+    object-fit: cover;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.detail-body-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2b2b2b;
+    margin-bottom: 20px;
+}
+
+.news-detail-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.news-detail-img {
+    max-width: 100%;
+    width: 220px;
+    height: auto;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+}
+
+.news-item-text a {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* 削除ボタン */
+.delete-news-btn {
+    align-self: flex-start;
+    background-color: #ff4757;
+    color: #ffffff;
+    border: 1px solid #2b2b2b;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 5px;
+}
+
+/* モーダル共通背景 */
+.news-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border: 3px solid #2b2b2b;
+    box-shadow: 10px 10px 0px #800000;
+    width: 100%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #2b2b2b;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #800000;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #2b2b2b;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid #2b2b2b;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: #800000;
+    color: #ffffff;
+    border: 2px solid #2b2b2b;
+    padding: 12px 0;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 3px 3px 0px #2b2b2b;
+}
+
+.submit-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px #2b2b2b;
+}
