@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>デバッグページ</title>
+<title>デバッグ管理パネル</title>
 <link rel="stylesheet" href="debug.css">
 </head>
 <body>
 <div class="debug-container">
-<h1 class="debug-title">デバッグページ</h1>
+<h1 class="debug-title">🔧 デバッグ管理パネル</h1>
 
 <div class="debug-card">
-<h2>PV確認</h2>
+<h2>📊 日別閲覧数（全デバイス集計 PV）</h2>
 <div class="pv-calendar-area">
 <div class="pv-calendar-main">
 <div class="pv-month-selector">
@@ -20,48 +20,72 @@
 <button id="pv-next-month" type="button">›</button>
 </div>
 <div class="pv-weekdays">
-<div>月</div><div>火</div><div>水</div><div>木</div><div>金</div><div>土</div><div>日</div>
+<div>月</div>
+<div>火</div>
+<div>水</div>
+<div>木</div>
+<div>金</div>
+<div>土</div>
+<div>日</div>
 </div>
 <div id="pv-calendar" class="pv-calendar"></div>
 </div>
+
 <div class="pv-detail">
-<h3>選択した日</h3>
+<h3>選択中の日付</h3>
 <div id="pv-selected-date" class="pv-selected-date">---</div>
-<div id="pv-selected-count" class="pv-selected-count">PV: 0</div>
+<div id="pv-selected-count" class="pv-selected-count">PV数：0</div>
 </div>
 </div>
 </div>
 
 <div class="debug-card">
-<h2>ゲームスコア</h2>
+<h2>🎮 ゲームプレイログ（難易度別）</h2>
+
 <div class="debug-date-picker">
-<label for="score-date">日付：</label>
+<label for="score-date">日付を選択：</label>
 <input type="date" id="score-date">
 </div>
 
-<div class="debug-score-section">
-<h3>EASY</h3>
+<div class="score-columns">
+
+<div class="debug-score-section easy">
+<div class="score-header">🟢 EASY モード</div>
 <div class="score-mode-block">
+<div class="score-list-header">
+<span>時刻</span>
+<span>スコア</span>
+</div>
 <ul id="easy-score-list" class="pv-list"></ul>
 </div>
 </div>
 
-<div class="debug-score-section">
-<h3>NORMAL</h3>
+<div class="debug-score-section normal">
+<div class="score-header">🔵 NORMAL モード</div>
 <div class="score-mode-block">
+<div class="score-list-header">
+<span>時刻</span>
+<span>スコア</span>
+</div>
 <ul id="normal-score-list" class="pv-list"></ul>
 </div>
 </div>
 
-<div class="debug-score-section">
-<h3>HARD</h3>
+<div class="debug-score-section hard">
+<div class="score-header">🟣 HARD モード</div>
 <div class="score-mode-block">
+<div class="score-list-header">
+<span>時刻</span>
+<span>スコア</span>
+</div>
 <ul id="hard-score-list" class="pv-list"></ul>
 </div>
 </div>
+
+</div>
 </div>
 
-<div class="debug-card">
+<div class="debug-card debug-operation">
 <button id="debug-exit" class="debug-btn-danger">デバッグモードを終了</button>
 </div>
 
@@ -72,7 +96,7 @@
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, onSnapshot, query, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot, query, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
@@ -108,7 +132,6 @@ const day = String(today.getDate()).padStart(2, "0");
 return `${year}-${month}-${day}`;
 }
 
-const today = new Date();
 const todayString = getTodayString();
 pvMonthInput.value = todayString.substring(0, 7);
 scoreDateInput.value = todayString;
@@ -159,7 +182,7 @@ cell.addEventListener("click", () => {
 document.querySelectorAll(".pv-day.selected").forEach(el => el.classList.remove("selected"));
 cell.classList.add("selected");
 pvSelectedDate.textContent = dateString;
-pvSelectedCount.textContent = `PV: ${count}`;
+pvSelectedCount.textContent = `PV数：${count}`;
 });
 
 pvCalendar.appendChild(cell);
@@ -196,7 +219,7 @@ renderPVCalendar();
 
 if (pvSelectedDate.textContent !== "---") {
 const count = pvData[pvSelectedDate.textContent] || 0;
-pvSelectedCount.textContent = `PV: ${count}`;
+pvSelectedCount.textContent = `PV数：${count}`;
 }
 }, error => {
 console.error("PV読み込みエラー:", error);
@@ -204,7 +227,6 @@ console.error("PV読み込みエラー:", error);
 
 async function loadScores() {
 const scoreday = scoreDateInput.value;
-
 if (!scoreday) return;
 
 const difficulties = [
@@ -218,7 +240,7 @@ diff.list.innerHTML = "";
 
 try {
 const scoreRef = doc(db, diff.name, scoreday);
-const snapshot = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js").then(module => module.getDoc(scoreRef));
+const snapshot = await getDoc(scoreRef);
 
 if (!snapshot.exists()) {
 const li = document.createElement("li");
@@ -245,17 +267,9 @@ diff.list.appendChild(li);
 continue;
 }
 
-scores.forEach((item, index) => {
+scores.forEach(item => {
 const li = document.createElement("li");
 li.className = "pv-item";
-
-const number = document.createElement("span");
-number.className = "score-rank";
-number.textContent = `${index + 1}.`;
-
-const score = document.createElement("span");
-score.className = "score-value";
-score.textContent = `${item.value ?? 0}`;
 
 const time = document.createElement("span");
 time.className = "score-time";
@@ -271,13 +285,17 @@ second: "2-digit"
 time.textContent = "---";
 }
 
-li.appendChild(number);
-li.appendChild(score);
+const score = document.createElement("span");
+score.className = "score-value";
+score.textContent = `${item.value ?? 0} 秒`;
+
 li.appendChild(time);
+li.appendChild(score);
 diff.list.appendChild(li);
 });
 } catch (error) {
 console.error(`${diff.name} 読み込みエラー:`, error);
+
 const li = document.createElement("li");
 li.className = "pv-empty";
 li.textContent = "読み込みエラー";
@@ -287,6 +305,7 @@ diff.list.appendChild(li);
 }
 
 scoreDateInput.addEventListener("change", loadScores);
+
 loadScores();
 renderPVCalendar();
 

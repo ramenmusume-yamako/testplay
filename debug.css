@@ -40,31 +40,6 @@ border-bottom: 1px solid #ddd;
 padding-bottom: 8px;
 }
 
-.debug-score-section h3 {
-font-size: 1rem;
-color: #800000;
-margin: 15px 0 8px;
-padding-left: 8px;
-border-left: 4px solid #800000;
-}
-
-.debug-date-picker {
-margin-bottom: 10px;
-font-size: 1rem;
-font-weight: bold;
-color: #176b50;
-}
-
-.debug-date-picker input[type="date"] {
-padding: 7px 10px;
-font-size: 1rem;
-border: 2px solid #cfd5df;
-background: #fff;
-color: #17233d;
-border-radius: 6px;
-outline: none;
-}
-
 /* ==========================================================================
    PVカレンダー
    ========================================================================== */
@@ -180,14 +155,6 @@ color: #617493;
 margin-top: 7px;
 }
 
-.pv-day:nth-child(7n) .pv-day-number {
-color: #d32f45;
-}
-
-.pv-day:nth-child(7n-1) .pv-day-number {
-color: #1976d2;
-}
-
 .pv-detail {
 width: 290px;
 border-left: 2px solid #d5d5d5;
@@ -218,90 +185,102 @@ color: #d93668;
    ゲームスコア
    ========================================================================== */
 
+.debug-date-picker {
+margin-bottom: 14px;
+font-size: 1rem;
+font-weight: bold;
+color: #176b50;
+}
+
+.debug-date-picker input[type="date"] {
+padding: 7px 10px;
+font-size: 1rem;
+border: 2px solid #cfd5df;
+background: #fff;
+color: #17233d;
+border-radius: 6px;
+outline: none;
+}
+
+.score-columns {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 16px;
+}
+
 .debug-score-section {
-margin-top: 14px;
+min-width: 0;
 }
 
-.debug-score-section h3 {
-display: none;
+.score-header {
+font-size: 1.05rem;
+font-weight: bold;
+padding: 10px 12px;
+border-radius: 7px 7px 0 0;
 }
-
-.debug-score-section {
-display: inline-block;
-width: calc(33.333% - 12px);
-vertical-align: top;
-margin-right: 12px;
-}
-
-.debug-score-section:last-child {
-margin-right: 0;
-}
-
-.debug-score-section:nth-of-type(2) {
-}
-
-/* スコアカード */
 
 .score-mode-block {
-height: 285px;
-max-height: 285px;
+height: 230px;
+max-height: 230px;
 overflow-y: auto;
-border: 2px solid #ccc;
-border-radius: 7px;
 background: #fff;
+border: 2px solid;
+border-top: none;
+border-radius: 0 0 7px 7px;
 padding: 0 10px;
 box-sizing: border-box;
 }
 
 /* EASY */
 
-.debug-score-section:nth-of-type(1) .score-mode-block {
-border-color: #72c9a5;
+.debug-score-section.easy .score-header {
+background: #e3f5ed;
+color: #167653;
+border: 2px solid #72c9a5;
 }
 
-.debug-score-section:nth-of-type(1) .score-mode-block::before {
-content: "🟢  EASY モード";
-display: block;
-font-size: 1.05rem;
-font-weight: bold;
-color: #187c58;
-background: #e5f6ee;
-margin: 0 -10px;
-padding: 10px;
+.debug-score-section.easy .score-mode-block {
+border-color: #72c9a5;
 }
 
 /* NORMAL */
 
-.debug-score-section:nth-of-type(2) .score-mode-block {
-border-color: #7bb8ed;
+.debug-score-section.normal .score-header {
+background: #e6f2ff;
+color: #18558e;
+border: 2px solid #7bb8ed;
 }
 
-.debug-score-section:nth-of-type(2) .score-mode-block::before {
-content: "🔵  NORMAL モード";
-display: block;
-font-size: 1.05rem;
-font-weight: bold;
-color: #18558e;
-background: #e8f4ff;
-margin: 0 -10px;
-padding: 10px;
+.debug-score-section.normal .score-mode-block {
+border-color: #7bb8ed;
 }
 
 /* HARD */
 
-.debug-score-section:nth-of-type(3) .score-mode-block {
+.debug-score-section.hard .score-header {
+background: #f3e8fc;
+color: #7023a0;
+border: 2px solid #c28bea;
+}
+
+.debug-score-section.hard .score-mode-block {
 border-color: #c28bea;
 }
 
-.debug-score-section:nth-of-type(3) .score-mode-block::before {
-content: "🟣  HARD モード";
-display: block;
-font-size: 1.05rem;
+/* スコア一覧 */
+
+.score-list-header {
+display: grid;
+grid-template-columns: 1fr 70px;
+padding: 8px 0;
+border-bottom: 1px solid #ddd;
+font-size: 0.85rem;
 font-weight: bold;
-color: #7023a0;
-background: #f5eafd;
-margin: 0 -10px;
-padding: 10px;
+color: #71809a;
+}
+
+.score-list-header span:last-child {
+text-align: right;
 }
 
 .pv-list {
@@ -312,10 +291,10 @@ margin: 0;
 
 .pv-item {
 display: grid;
-grid-template-columns: 1fr 65px;
+grid-template-columns: 1fr 70px;
 align-items: center;
 gap: 8px;
-padding: 8px 0;
+padding: 9px 0;
 border-bottom: 1px dashed #ddd;
 font-size: 0.9rem;
 }
@@ -324,8 +303,7 @@ font-size: 0.9rem;
 border-bottom: none;
 }
 
-.score-rank {
-font-weight: bold;
+.score-time {
 color: #60708a;
 }
 
@@ -334,13 +312,6 @@ font-weight: bold;
 font-size: 1rem;
 color: #17233d;
 text-align: right;
-}
-
-.score-time {
-font-size: 0.75rem;
-color: #66758f;
-grid-column: 1;
-grid-row: 1;
 }
 
 .pv-empty {
@@ -352,6 +323,10 @@ padding: 15px 0;
 /* ==========================================================================
    操作
    ========================================================================== */
+
+.debug-operation {
+padding: 14px;
+}
 
 .debug-btn-danger {
 width: 100%;
@@ -428,11 +403,9 @@ font-size: 0.7rem;
 margin-top: 5px;
 }
 
-.debug-score-section {
-display: block;
-width: 100%;
-margin-right: 0;
-margin-bottom: 12px;
+.score-columns {
+grid-template-columns: 1fr;
+gap: 12px;
 }
 
 .score-mode-block {
