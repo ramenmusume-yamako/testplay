@@ -1,7 +1,6 @@
 /* ==========================================================================
    1. 全体のベース（和紙っぽい背景と文字色）
    ========================================================================== */
-
 body {
     margin: 0;
     padding: 0;
@@ -11,9 +10,8 @@ body {
 }
 
 /* ==========================================================================
-   2. ハンバーガーメニューの機能
+   2. ハンバーガーメニューの機能（完全版）
    ========================================================================== */
-
 #menu-btn-check {
     display: none;
 }
@@ -128,12 +126,11 @@ body {
 /* ==========================================================================
    3. メイン看板
    ========================================================================== */
-
 .shop-kanban {
     position: relative;
     background-color: #800000;
     width: 100%;
-    height: 300px;
+    height: 380px;
     overflow: hidden;
     border-bottom: 5px solid #2b2b2b;
     box-shadow: 0 8px 0 rgba(0, 0, 0, 0.1);
@@ -143,7 +140,6 @@ body {
 }
 
 /* 看板背景 */
-
 .kanban-bg-img {
     position: absolute;
     top: 50%;
@@ -157,33 +153,28 @@ body {
     pointer-events: none;
 }
 
-/* ロゴを置く透明な箱 */
-
+/* ロゴを置く場所 */
 .kanban-text-overlay {
     position: relative;
     z-index: 2;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
     padding: 20px;
-    box-sizing: border-box;
 }
 
-/* ロゴ */
-
-.shop-logo {
-    display: block;
-    width: 420px;
-    max-width: 70%;
+/* ==========================================================================
+   ★ rogo.png の大きさ
+   ========================================================================== */
+.rogo-img {
+    width: 500px;
+    max-width: 80%;
     height: auto;
+    display: block;
     margin: 0 auto;
 }
 
 /* ==========================================================================
    4. メインコンテンツ・キャラクター一覧
    ========================================================================== */
-
 .main-container {
     max-width: 900px;
     margin: 40px auto;
@@ -299,13 +290,11 @@ body {
 /* ==========================================================================
    5. スマホ・タブレット用
    ========================================================================== */
-
 @media (max-width: 768px) {
-
     .shop-kanban {
         height: auto;
         aspect-ratio: 1200 / 380;
-        min-height: 80px;
+        min-height: 160px;
     }
 
     .kanban-bg-img {
@@ -314,11 +303,10 @@ body {
         object-fit: cover;
     }
 
-    /* スマホ用ロゴ */
-
-    .shop-logo {
-        width: 320px;
-        max-width: 75%;
+    /* スマホではロゴを小さくする */
+    .rogo-img {
+        width: 300px;
+        max-width: 80%;
     }
 
     .main-container {
@@ -369,15 +357,12 @@ body {
         font-size: 0.85rem;
         padding: 6px 0;
     }
-
 }
 
 /* ==========================================================================
    6. 超スリムなスマホ
    ========================================================================== */
-
 @media (max-width: 400px) {
-
     .character-grid {
         display: flex;
         flex-direction: column;
@@ -411,13 +396,11 @@ body {
     .menu-btn span:after {
         top: 6px;
     }
-
 }
 
 /* ==========================================================================
    7. デバッグモード用スタイル
    ========================================================================== */
-
 .kanban-bg-img,
 #footer-copyright {
     cursor: default !important;
@@ -431,8 +414,6 @@ body {
     pointer-events: auto !important;
     -webkit-user-drag: none;
 }
-
-/* デバッグメニューリンク */
 
 .menu-content ul li a.debug-link {
     color: #ff4757;
