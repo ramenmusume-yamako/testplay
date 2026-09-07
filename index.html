@@ -7,16 +7,19 @@
     <link rel="stylesheet" href="hp.css">
 </head>
 <body>
+
 <header>
     <div class="hamburger-menu">
         <input type="checkbox" id="menu-btn-check">
         <label for="menu-btn-check" class="menu-btn"><span></span></label>
+
         <div class="menu-content">
             <ul>
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="character.html">キャラ紹介</a></li>
                 <li><a href="game.html">ミニゲーム</a></li>
-                <li><a href="news.html">お知らせ</a></li>
+                <li><a href="news.html">お知らせ</a>
+
                 <!-- デバッグモード時のみ表示されるメニュー項目 -->
                 <li id="debug-menu-item" style="display: none;">
                     <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
@@ -26,166 +29,265 @@
     </div>
 </header>
 
-    <div class="shop-kanban">
-        <!-- 判定用に id="header-img" を追加 -->
-        <img src="header.png" alt="看板背景" class="kanban-bg-img" id="header-img">
-        
-        <div class="kanban-text-overlay">
-            <h1 class="shop-title">ラーメン娘</h1>
-            <p class="shop-subtitle">―― 魂の一杯、召し上がれ ――</p>
-        </div>
+<!-- ==================== メイン看板 ==================== -->
+
+<div class="shop-kanban">
+
+    <!-- 看板背景 -->
+    <img src="header.png" alt="看板背景" class="kanban-bg-img" id="header-img">
+
+    <!-- ロゴ -->
+    <div class="kanban-text-overlay">
+        <img src="rogo.png" alt="ラーメン娘" class="shop-logo">
     </div>
 
-    <main class="main-container">
-        
-        <section id="hero" class="menu-card-home">
-            <h2 class="section-title">What are Ra-men Girls?</h2>
-            <p class="intro-text">山形工業高校と山形のラーメン屋さんが協力して行っている企画。<br>ラーメン消費量日本一位である山形県の様々なラーメン屋さんの魅力を伝えることが目的。<br>ラーメン屋さんごとにそれぞれのお店の魅力を詰め込んだ"ラーメン娘"という女の子キャラクターを作り、宣伝している。</p>
-        </section>
+</div>
 
-        <section id="characters" class="menu-card-home">
-            <h2 class="section-title">Character List</h2>
-            <div class="character-grid">
-                
-                <article class="chara-fuda">
-                    <div class="fuda-img-wrap">
-                        <img src="仮.png" alt="キャラ1" class="fuda-img">
-                    </div>
-                    <h4 class="fuda-name">メーナ</h4>
-                    <p class="fuda-desc">ケンチャンラーメン</p>
-                    <a href="meana.html" class="fuda-btn">詳細を見る</a>
-                </article>
+<!-- ==================== メインコンテンツ ==================== -->
 
-                <article class="chara-fuda">
-                    <div class="fuda-img-wrap">
-                        <img src="left.png" alt="キャラ2" class="fuda-img">
-                    </div>
-                    <h4 class="fuda-name">たつ子</h4>
-                    <p class="fuda-desc">麺辰</p>
-                    <a href="tatsuko.html" class="fuda-btn">詳細を見る</a>
-                </article>
+<main class="main-container">
 
-            </div>
-        </section>
-    </main>
+    <section id="hero" class="menu-card-home">
+        <h2 class="section-title">What are Ra-men Girls?</h2>
 
-    <hr>
+        <p class="intro-text">
+            山形工業高校と山形のラーメン屋さんが協力して行っている企画。<br>
+            ラーメン消費量日本一位である山形県の様々なラーメン屋さんの魅力を伝えることが目的。<br>
+            ラーメン屋さんごとにそれぞれのお店の魅力を詰め込んだ"ラーメン娘"という女の子キャラクターを作り、宣伝している。
+        </p>
+    </section>
 
-    <footer class="shop-footer">
-        <!-- 判定用に id="footer-copyright" を追加 -->
-        <p id="footer-copyright">&copy; 2026 ramengirls</p>
-    </footer>
+    <section id="characters" class="menu-card-home">
 
-    <!-- デバッグモード起動JavaScript -->
-    <!-- デバッグモード起動JavaScript -->
-    <script>
-  let headerTaps = 0;
-  let footerTaps = 0;
-  let resetTimer = null;
+        <h2 class="section-title">Character List</h2>
 
-  // 🔒 デバッグモード解除用のパスワード（好きな文字列に変更できます）
-  const DEBUG_PASSWORD = "pW3$zR9!mK";
+        <div class="character-grid">
 
-  function updateDebugMenu() {
+            <article class="chara-fuda">
+
+                <div class="fuda-img-wrap">
+                    <img src="仮.png" alt="キャラ1" class="fuda-img">
+                </div>
+
+                <h4 class="fuda-name">メーナ</h4>
+
+                <p class="fuda-desc">ケンチャンラーメン</p>
+
+                <a href="meana.html" class="fuda-btn">詳細を見る</a>
+
+            </article>
+
+            <article class="chara-fuda">
+
+                <div class="fuda-img-wrap">
+                    <img src="left.png" alt="キャラ2" class="fuda-img">
+                </div>
+
+                <h4 class="fuda-name">たつ子</h4>
+
+                <p class="fuda-desc">麺辰</p>
+
+                <a href="tatsuko.html" class="fuda-btn">詳細を見る</a>
+
+            </article>
+
+        </div>
+
+    </section>
+
+</main>
+
+<hr>
+
+<footer class="shop-footer">
+    <p id="footer-copyright">&copy; 2026 ramengirls</p>
+</footer>
+
+<!-- ==================== デバッグモード起動JavaScript ==================== -->
+
+<script>
+
+let headerTaps = 0;
+let footerTaps = 0;
+let resetTimer = null;
+
+// 🔒 デバッグモード解除用のパスワード
+const DEBUG_PASSWORD = "pW3$zR9!mK";
+
+function updateDebugMenu() {
+
     const debugMenuItem = document.getElementById('debug-menu-item');
+
     if (!debugMenuItem) return;
 
     if (localStorage.getItem('debug_mode') === 'true') {
-      debugMenuItem.style.display = 'block';
+        debugMenuItem.style.display = 'block';
     } else {
-      debugMenuItem.style.display = 'none';
+        debugMenuItem.style.display = 'none';
     }
-  }
 
-  function checkDebugUnlock() {
+}
+
+function checkDebugUnlock() {
+
     clearTimeout(resetTimer);
+
     resetTimer = setTimeout(() => {
-      headerTaps = 0;
-      footerTaps = 0;
+        headerTaps = 0;
+        footerTaps = 0;
     }, 5000);
 
-    // ヘッダーとフッターがそれぞれ5回以上タップされたら処理を実行
     if (headerTaps >= 5 && footerTaps >= 5) {
-      // 連続発動を防ぐためにタップ数をリセット
-      headerTaps = 0;
-      footerTaps = 0;
 
-      // パスワード入力ダイアログを表示
-      const inputPassword = prompt('🔒 デバッグモードのパスワードを入力してください:');
+        headerTaps = 0;
+        footerTaps = 0;
 
-      if (inputPassword === DEBUG_PASSWORD) {
-        localStorage.setItem('debug_mode', 'true');
-        alert('🔓 認証成功！ハンバーガーメニューにデバッグページが追加されました。');
-        updateDebugMenu();
-      } else if (inputPassword !== null) {
-        // キャンセルボタン以外が押されてパスワードが違った場合
-        alert('❌ パスワードが違います。');
-      }
+        const inputPassword = prompt(
+            '🔒 デバッグモードのパスワードを入力してください:'
+        );
+
+        if (inputPassword === DEBUG_PASSWORD) {
+
+            localStorage.setItem('debug_mode', 'true');
+
+            alert(
+                '🔓 認証成功！ハンバーガーメニューにデバッグページが追加されました。'
+            );
+
+            updateDebugMenu();
+
+        } else if (inputPassword !== null) {
+
+            alert('❌ パスワードが違います。');
+
+        }
+
     }
-  }
 
-  // タップイベント登録用の共通関数（PCのclickとスマホのtouchstart両対応）
-  function attachSecretTapEvent(element, tapCallback) {
+}
+
+function attachSecretTapEvent(element, tapCallback) {
+
     if (!element) return;
 
-    // スマホ用のタッチイベント
-    element.addEventListener('touchstart', (e) => {
-      e.preventDefault(); 
-      tapCallback();
-    }, { passive: false });
+    element.addEventListener(
+        'touchstart',
+        (e) => {
+            e.preventDefault();
+            tapCallback();
+        },
+        { passive: false }
+    );
 
-    // PCのマウスクリック用
-    element.addEventListener('click', () => {
-      tapCallback();
-    });
-  }
+    element.addEventListener(
+        'click',
+        () => {
+            tapCallback();
+        }
+    );
 
-  // 看板画像とフッターへイベント登録
-  attachSecretTapEvent(document.getElementById('header-img'), () => {
-    headerTaps++;
-    checkDebugUnlock();
-  });
+}
 
-  attachSecretTapEvent(document.getElementById('footer-copyright'), () => {
-    footerTaps++;
-    checkDebugUnlock();
-  });
+attachSecretTapEvent(
+    document.getElementById('header-img'),
+    () => {
+        headerTaps++;
+        checkDebugUnlock();
+    }
+);
 
-  document.addEventListener('DOMContentLoaded', updateDebugMenu);
+attachSecretTapEvent(
+    document.getElementById('footer-copyright'),
+    () => {
+        footerTaps++;
+        checkDebugUnlock();
+    }
+);
+
+document.addEventListener(
+    'DOMContentLoaded',
+    updateDebugMenu
+);
+
 </script>
 
-<!-- PVカウント用スクリプト (Firebase連動) -->
+<!-- ==================== PVカウント用スクリプト ==================== -->
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const firebaseConfig = {
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    increment
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+
     apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+
     authDomain: "ramengirls-bd769.firebaseapp.com",
+
     projectId: "ramengirls-bd769",
+
     storageBucket: "ramengirls-bd769.firebasestorage.app",
+
     messagingSenderId: "211447953783",
+
     appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
-  };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+};
 
-  (async function trackPV() {
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+(async function trackPV() {
+
     // セッション（タブを開いてから閉じるまで）で1回だけカウント
     if (!sessionStorage.getItem('visited_session')) {
-      const today = new Date().toISOString().split('T')[0];
-      const pvRef = doc(db, "pv", today);
 
-      try {
-        // 今日のドキュメントの count を +1（無ければ自動作成）
-        await setDoc(pvRef, { count: increment(1) }, { merge: true });
-        sessionStorage.setItem('visited_session', 'true');
-      } catch (e) {
-        console.error("PVカウントエラー:", e);
-      }
+        const today =
+            new Date().toISOString().split('T')[0];
+
+        const pvRef =
+            doc(db, "pv", today);
+
+        try {
+
+            await setDoc(
+                pvRef,
+                {
+                    count: increment(1)
+                },
+                {
+                    merge: true
+                }
+            );
+
+            sessionStorage.setItem(
+                'visited_session',
+                'true'
+            );
+
+        } catch (e) {
+
+            console.error(
+                "PVカウントエラー:",
+                e
+            );
+
+        }
+
     }
-  })();
+
+})();
+
 </script>
+
 </body>
 </html>
