@@ -137,20 +137,55 @@ pImgR.src = activeChar.right;
 const bgImages = [];
 
 const bgSrcs = [
-    'hiru.png',
-    'hiruyuu.png',
-    'yuu.png',
-    'yuuyoru.png',
-    'yoru.png',
-    'yoruasa.png',
-    'asahiru.png'
+    'hiru.png',       // 6枚分
+    'hiruyuu.png',    // 1枚
+    'yuu.png',        // 6枚分
+    'yuuyoru.png',    // 1枚
+    'yoru.png',       // 6枚分
+    'yoruasa.png',    // 1枚
+    'asahiru.png'     // 1枚
 ];
 
 let bgScroll = 0;
 
+// 画像を読み込む
 bgSrcs.forEach((src, index) => {
     bgImages[index] = new Image();
     bgImages[index].src = src;
+});
+
+
+// 実際にゲーム内で並べる「背景パネル」
+const bgFrames = [];
+
+bgSrcs.forEach((src, imageIndex) => {
+
+    // 6枚を横につないだ画像
+    const isSixPart =
+        src === 'hiru.png' ||
+        src === 'yuu.png' ||
+        src === 'yoru.png';
+
+    if (isSixPart) {
+
+        // 1枚の画像を6パネルとして扱う
+        for (let frame = 0; frame < 6; frame++) {
+            bgFrames.push({
+                imageIndex: imageIndex,
+                frame: frame,
+                sixPart: true
+            });
+        }
+
+    } else {
+
+        // 普通の1枚画像
+        bgFrames.push({
+            imageIndex: imageIndex,
+            frame: 0,
+            sixPart: false
+        });
+    }
 });
 
 
@@ -753,7 +788,7 @@ function update(currentTime) {
         deltaTime / (1000 / 60);
 
     const totalBgWidth =
-        V_WIDTH * bgSrcs.length;
+    V_WIDTH * bgFrames.length;
 
 
     if (gameState === 'PLAYING') {
@@ -1248,43 +1283,62 @@ function draw() {
 
     const bgW = V_WIDTH;
 
-    const totalBgWidth =
-        bgW * bgSrcs.length;
+const totalBgWidth =
+    bgW * bgFrames.length;
 
-    const currentScroll =
-        bgScroll % totalBgWidth;
+const currentScroll =
+    bgScroll % totalBgWidth;
 
-    for (
-        let i = 0;
-        i < bgSrcs.length;
-        i++
+for (let i = 0; i < bgFrames.length; i++) {
+
+    let dx =
+        (i * bgW) -
+        currentScroll;
+
+    // 左側に出た背景を最後尾へ
+    if (dx + bgW < 0) {
+        dx += totalBgWidth;
+    }
+
+    // 右側に出た背景を先頭へ
+    if (dx > V_WIDTH) {
+        dx -= totalBgWidth;
+    }
+
+    // 画面内にある場合だけ描画
+    if (
+        dx < V_WIDTH &&
+        dx + bgW > 0
     ) {
 
-        let dx =
-            (i * bgW) -
-            currentScroll;
+        const frame =
+            bgFrames[i];
 
-        if (dx + bgW < 0) {
-            dx += totalBgWidth;
-        }
-
-        if (dx > V_WIDTH) {
-            dx -= totalBgWidth;
-        }
+        const img =
+            bgImages[frame.imageIndex];
 
         if (
-            dx < V_WIDTH &&
-            dx + bgW > 0
+            img &&
+            img.complete &&
+            img.naturalWidth > 0
         ) {
 
-            if (
-                bgImages[i] &&
-                bgImages[i].complete &&
-                bgImages[i].naturalWidth > 0
-            ) {
+            if (frame.sixPart) {
+
+                // 横につながった画像を6等分する
+                const frameW =
+                    img.naturalWidth / 6;
 
                 ctx.drawImage(
-                    bgImages[i],
+                    img,
+
+                    // 元画像のどこから切り取るか
+                    frame.frame * frameW,
+                    0,
+                    frameW,
+                    img.naturalHeight,
+
+                    // ゲーム画面のどこに描くか
                     dx,
                     0,
                     bgW,
@@ -1293,18 +1347,31 @@ function draw() {
 
             } else {
 
-                ctx.fillStyle =
-                    '#34495e';
-
-                ctx.fillRect(
+                // 普通の1枚画像
+                ctx.drawImage(
+                    img,
                     dx,
                     0,
                     bgW,
                     V_HEIGHT
                 );
             }
+
+        } else {
+
+            // 画像が読み込めない場合
+            ctx.fillStyle =
+                '#34495e';
+
+            ctx.fillRect(
+                dx,
+                0,
+                bgW,
+                V_HEIGHT
+            );
         }
     }
+}
 
 
     // 地面
