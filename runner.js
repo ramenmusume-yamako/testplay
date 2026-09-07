@@ -137,26 +137,11 @@ pImgR.src = activeChar.right;
 const bgImages = [];
 
 const bgSrcs = [
-    'hiru1.png',
-    'hiru2.png',
-    'hiru3.png',
-    'hiru4.png',
-    'hiru5.png',
-    'hiru6.png',
+    'hiru.png',
     'hiruyuu.png',
-    'yuu1.png',
-    'yuu2.png',
-    'yuu3.png',
-    'yuu4.png',
-    'yuu5.png',
-    'yuu6.png',
+    'yuu.png',
     'yuuyoru.png',
-    'yoru1.png',
-    'yoru2.png',
-    'yoru3.png',
-    'yoru4.png',
-    'yoru5.png',
-    'yoru6.png',
+    'yoru.png',
     'yoruasa.png',
     'asahiru.png'
 ];
