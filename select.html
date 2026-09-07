@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>キャラクター選択</title>
+    <style>
+        /* 全体の背景：温かみのあるクリーム色 */
+        body {
+            margin: 0; padding: 0; 
+            background: #f7f4e9; 
+            color: #333333; 
+            font-family: sans-serif; display: flex; align-items: center; justify-content: center;
+            width: 100vw; height: 100dvh; overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* メインコンテナ */
+        .game-selection-container {
+            display: flex; flex-direction: column;
+            width: 95vw; height: 90dvh; max-width: 1100px; max-height: 620px;
+            background: #ffffff; 
+            border: 3px solid #000000; 
+            border-radius: 16px; padding: 20px; box-sizing: border-box;
+            box-shadow: 8px 8px 0px #9c1c11; 
+            gap: 15px;
+            position: relative;
+        }
+
+        h2 { 
+            font-size: 22px; margin: 0; text-align: center; 
+            color: #9c1c11; 
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .grid-panel {
+            flex: 1; width: 100%; height: calc(100% - 40px);
+            display: flex; align-items: center; justify-content: center;
+            box-sizing: border-box;
+        }
+
+        /* 基本構造（PC・スマホ横向き）：横5列 × 縦2行 */
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);    
+            gap: 12px; width: 100%; height: 100%;
+            box-sizing: border-box;
+            transform: rotateY(-4px) rotateX(2px); /* 緩やかな立体感 */
+        }
+
+        .char-card {
+            background: #ffffff; 
+            border: 2px solid #cdcdcd; 
+            border-radius: 8px; display: flex; flex-direction: column;
+            align-items: center; justify-content: space-between; position: relative;
+            transition: all 0.2s ease; padding: 8px; box-sizing: border-box;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.03);
+            width: 100%; height: 100%;
+            overflow: hidden;
+        }
+
+        .char-card img { 
+            width: 100%; 
+            height: 65%; 
+            object-fit: contain; 
+            background: #fafafa;
+            border: 1px solid #eeeeee;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .char-card .char-name { 
+            margin: 4px 0 0; font-size: 13px; font-weight: bold; 
+            color: #333333; 
+            text-align: center;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 選択中：緑の太枠 */
+        .char-card.selected {
+            border: 3px solid #2ecc71 !important;
+            box-shadow: 4px 4px 0px #2ecc71 !important;
+            background: rgba(46, 204, 113, 0.03) !important;
+        }
+
+        .char-card.unlocked { cursor: pointer; }
+        .char-card.unlocked:hover:not(.selected) {
+            border-color: #9c1c11; 
+            box-shadow: 4px 4px 0px rgba(156, 28, 17, 0.2);
+        }
+
+        /* 未解放 */
+        .char-card.locked { 
+            cursor: default; 
+            background: #f7f7f7; 
+            opacity: 0.7; 
+        }
+        .char-card.locked img { filter: grayscale(100%); opacity: 0.5; }
+        .char-card.locked .char-name { color: #999999; }
+
+        .confirm-btn-container {
+            width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center;
+            box-sizing: border-box;
+        }
+        
+        .confirm-btn {
+            width: 100%; height: 100%; 
+            background: #9c1c11; 
+            border: 2px solid #000000; border-radius: 8px; color: white; font-size: 18px;
+            font-weight: bold; cursor: pointer; transition: 0.2s;
+            box-shadow: 4px 4px 0px #f7c11e; 
+            letter-spacing: 2px;
+            box-sizing: border-box;
+        }
+        .confirm-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #f7c11e; }
+        .confirm-btn:active { transform: scale(0.98); }
+
+        /* ==========================================================================
+           📱 スマホ縦画面（Portrait）用の正常なレスポンシブ設定
+           ========================================================================== */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .game-selection-container {
+                width: 92vw;
+                height: 92dvh;
+                max-height: none;
+                padding: 15px;
+                box-shadow: 5px 5px 0px #9c1c11;
+                gap: 10px;
+            }
+
+            h2 { font-size: 16px; letter-spacing: 1px; }
+
+            /* 💡 縦画面時は「横2列 × 縦5行」にグリッドを組み替える */
+            .char-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(5, 1fr);
+                gap: 8px;
+                transform: none; /* スマホ縦は傾きを戻して見やすく */
+            }
+
+            .char-card { padding: 6px; }
+            .char-card .char-name { font-size: 11px; }
+            .confirm-btn { font-size: 15px; box-shadow: 3px 3px 0px #f7c11e; }
+        }
+
+        /* スマホ横画面用 */
+        @media (max-width: 920px) and (orientation: landscape) {
+            .game-selection-container { height: 95vh; padding: 10px; gap: 8px; }
+            h2 { font-size: 16px; }
+            .char-grid { gap: 8px; }
+            .char-card { padding: 4px; }
+            .char-card .char-name { font-size: 11px; }
+            .confirm-btn { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="game-selection-container">
+        <h2 id="selectTitle">キャラクターを選択してください</h2>
+        <div class="grid-panel">
+            <div class="char-grid" id="gridContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        const CHAR_DATA = {
+            hajime: { name: "ハジメ",     imgL: "hajimel.png" }, 
+            meana:  { name: "メーナ",     imgL: "meanal.png" },  
+            boy:    { name: "中華ボーイ",   imgL: "boy_l.png" },  
+            aniki:  { name: "チャーシュー兄", imgL: "aniki_l.png" }, 
+            naruto: { name: "ナルトちゃん", imgL: "naruto_l.png" }  
+        };
+
+        const CHAR_KEYS = Object.keys(CHAR_DATA);
+        let tempSelectedChar = localStorage.getItem("selectedChar") || "hajime";
+        
+        let unlocked = [];
+        try { unlocked = JSON.parse(localStorage.getItem("unlockedChars")) || []; } catch(e) { unlocked = []; }
+        if (!unlocked.includes("hajime")) { 
+            unlocked.push("hajime"); 
+            localStorage.setItem("unlockedChars", JSON.stringify(unlocked));
+        }
+        if (!CHAR_DATA[tempSelectedChar]) tempSelectedChar = "hajime";
+
+        function renderGrid() {
+            const container = document.getElementById("gridContainer");
+            container.innerHTML = ""; 
+
+            // 💡 現在画面が「スマホの縦向き」かどうかを判定
+            const isPortrait = window.matchMedia("(max-width: 768px) and (orientation: portrait)").matches;
+            
+            // 列数を決定（縦向きなら2列、横向き・PCなら5列）
+            const colsCount = isPortrait ? 2 : 5;
+
+            for (let i = 0; i < 10; i++) {
+                // 💡 列数(colsCount)を元に行と列を動的に計算する
+                const row = Math.floor(i / colsCount) + 1;
+                const col = (i % colsCount) + 1;
+
+                // 💡 10マス目（最後）に「選択完了ボタン」を入れる計算
+                // 横5列なら(row=2, col=5)、縦2列なら(row=5, col=2)になる
+                if (i === 9) {
+                    const btnContainer = document.createElement('div');
+                    btnContainer.className = "confirm-btn-container";
+                    btnContainer.style.gridColumn = col;
+                    btnContainer.style.gridRow = row;
+                    btnContainer.innerHTML = `<button class="confirm-btn" onclick="saveSelection()">選択完了</button>`;
+                    container.appendChild(btnContainer);
+                    continue;
+                }
+
+                const card = document.createElement('div');
+                card.style.gridColumn = col;
+                card.style.gridRow = row;
+
+                if (i < CHAR_KEYS.length) {
+                    const id = CHAR_KEYS[i];
+                    const char = CHAR_DATA[id];
+                    const isUnlocked = unlocked.includes(id);
+
+                    card.className = `char-card ${isUnlocked ? 'unlocked' : 'locked'} ${tempSelectedChar === id ? 'selected' : ''}`;
+                    card.dataset.id = id;
+
+                    if (isUnlocked) {
+                        card.innerHTML = `
+                            <img src="${char.imgL}" alt="${char.name}">
+                            <div class="char-name">${char.name}</div>
+                        `;
+                        card.addEventListener('click', () => { selectCharacter(id); });
+                    } else {
+                        card.innerHTML = `
+                            <img src="question.png" alt="未解放">
+                            <div class="char-name">????</div>
+                        `;
+                    }
+                } else {
+                    card.className = `char-card locked`;
+                    card.innerHTML = `
+                        <img src="question.png" alt="未解放">
+                        <div class="char-name">????</div>
+                    `;
+                }
+
+                container.appendChild(card);
+            }
+        }
+
+        function selectCharacter(id) {
+            if (!unlocked.includes(id)) return;
+            tempSelectedChar = id;
+            document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
+            const selectedCard = document.querySelector(`.char-card[data-id="${id}"]`);
+            if (selectedCard) selectedCard.classList.add('selected');
+        }
+
+        // PC専用：矢印キー
+        document.addEventListener('keydown', (event) => {
+            const unlockedList = CHAR_KEYS.filter(id => unlocked.includes(id));
+            let currentIndex = unlockedList.indexOf(tempSelectedChar);
+
+            if (event.key === 'ArrowRight' || event.key === 'ArrowDown') {
+                currentIndex = (currentIndex + 1) % unlockedList.length;
+                selectCharacter(unlockedList[currentIndex]);
+                event.preventDefault(); 
+            } else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
+                currentIndex = (currentIndex - 1 + unlockedList.length) % unlockedList.length;
+                selectCharacter(unlockedList[currentIndex]);
+                event.preventDefault();
+            }
+        });
+
+        function saveSelection() {
+            localStorage.setItem("selectedChar", tempSelectedChar);
+            window.location.href = "game.html";
+        }
+
+        // 💡 画面の向きが変わったり、サイズが変わったらグリッドを再描画する
+        window.addEventListener('resize', renderGrid);
+        window.addEventListener('orientationchange', () => { setTimeout(renderGrid, 200); });
+
+        renderGrid();
+    </script>
+</body>
+</html>

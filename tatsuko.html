@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お品書き｜たつ子</title>
+    <link rel="stylesheet" href="tatsuko.css">
+</head>
+<body class="shoyu-theme">
+
+    <div class="header-nav">
+        <a href="character.html" class="home-btn">キャラ選択<br>に戻る</a>
+    </div>
+
+    <div class="menu-container">
+        
+        <div class="menu-visual">
+            <img src="仮.png" alt="メーナ" class="chara-img">
+        </div>
+
+        <div class="menu-card">
+            <div class="menu-header">
+                <span class="sub-title">―― NO.2 ――</span>
+                <h1 class="chara-name">たつ子</h1>
+            </div>
+
+            <div class="menu-details">
+                <div class="detail-item"><label>【好】</label><span>鳥中華 多加水中太ちぢれ麺</span></div>
+                <div class="detail-item"><label>【質】</label><span>頼れるお姉さん</span></div>
+                <div class="detail-item"><label>【店】</label><span>麺辰</span></div>
+            </div>
+
+            <div class="menu-description">
+                <p>
+                    みんなの姉貴分<br>
+                    面倒見がよく、気前もいい。<br>
+                </p>
+            </div>
+
+            <div class="hanko">極</div>
+        </div>
+
+    </div> <div class="google-map-chara-zone">
+        <div class="map-card-box">
+            <h2 class="map-card-title">店舗情報</h2>
+            <p class="map-card-text">たつ子の所属しているお店は、ここ！ぜひ足を運んでみてください。</p>
+            
+            <div class="map-iframe-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3134.576154618976!2d140.33450547610053!3d38.21973587187664!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8bb5b2498fd743%3A0x7abbb68e5623eb0f!2z6bq66L6w!5e0!3m2!1sja!2sjp!4v1787642531964!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- PVカウント用スクリプト (Firebase連動) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+    authDomain: "ramengirls-bd769.firebaseapp.com",
+    projectId: "ramengirls-bd769",
+    storageBucket: "ramengirls-bd769.firebasestorage.app",
+    messagingSenderId: "211447953783",
+    appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  (async function trackPV() {
+    // セッション（タブを開いてから閉じるまで）で1回だけカウント
+    if (!sessionStorage.getItem('visited_session')) {
+      const today = new Date().toISOString().split('T')[0];
+      const pvRef = doc(db, "pv", today);
+
+      try {
+        // 今日のドキュメントの count を +1（無ければ自動作成）
+        await setDoc(pvRef, { count: increment(1) }, { merge: true });
+        sessionStorage.setItem('visited_session', 'true');
+      } catch (e) {
+        console.error("PVカウントエラー:", e);
+      }
+    }
+  })();
+</script>
+
+</body>
+</html>
