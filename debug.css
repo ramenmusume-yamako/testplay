@@ -2,6 +2,11 @@
    デバッグページ専用スタイル
    ========================================================================== */
 
+body {
+background: #f7f3e9;
+color: #17233d;
+}
+
 .debug-container {
 max-width: 1000px;
 margin: 30px auto;
@@ -13,24 +18,25 @@ box-sizing: border-box;
 font-size: 1.8rem;
 color: #800000;
 text-align: center;
-margin-bottom: 25px;
+margin: 0 0 25px;
 border-bottom: 3px solid #2b2b2b;
 padding-bottom: 10px;
 }
 
 .debug-card {
-background: #ffffff;
-border: 2px solid #2b2b2b;
-box-shadow: 6px 6px 0px #800000;
-padding: 20px;
-margin-bottom: 25px;
+background: #fff;
+border: 2px solid #d5d5d5;
+border-radius: 8px;
+padding: 18px;
+margin-bottom: 18px;
+box-sizing: border-box;
 }
 
 .debug-card h2 {
 font-size: 1.2rem;
-color: #2b2b2b;
-margin: 0 0 15px;
-border-bottom: 1px solid #ccc;
+color: #17233d;
+margin: 0 0 14px;
+border-bottom: 1px solid #ddd;
 padding-bottom: 8px;
 }
 
@@ -46,24 +52,27 @@ border-left: 4px solid #800000;
 margin-bottom: 10px;
 font-size: 1rem;
 font-weight: bold;
-color: #2b2b2b;
+color: #176b50;
 }
 
-.debug-date-picker input[type="date"],
-.pv-month-selector input[type="month"] {
-padding: 6px 10px;
+.debug-date-picker input[type="date"] {
+padding: 7px 10px;
 font-size: 1rem;
-border: 2px solid #2b2b2b;
-background-color: #f7f3e9;
-color: #2b2b2b;
-border-radius: 4px;
+border: 2px solid #cfd5df;
+background: #fff;
+color: #17233d;
+border-radius: 6px;
 outline: none;
 }
+
+/* ==========================================================================
+   PVカレンダー
+   ========================================================================== */
 
 .pv-calendar-area {
 display: flex;
 gap: 20px;
-align-items: flex-start;
+align-items: stretch;
 }
 
 .pv-calendar-main {
@@ -75,19 +84,34 @@ min-width: 0;
 display: flex;
 justify-content: center;
 align-items: center;
-gap: 10px;
-margin-bottom: 12px;
+gap: 40px;
+margin-bottom: 10px;
+}
+
+.pv-month-selector input[type="month"] {
+padding: 6px 10px;
+font-size: 1.4rem;
+font-weight: bold;
+border: none;
+background: transparent;
+color: #17233d;
+text-align: center;
 }
 
 .pv-month-selector button {
-width: 38px;
-height: 38px;
-font-size: 1.5rem;
+width: 60px;
+height: 42px;
+font-size: 1.8rem;
 font-weight: bold;
-background: #f7f3e9;
-border: 2px solid #2b2b2b;
+background: #fff;
+color: #9b1c31;
+border: 2px solid #cfd5df;
+border-radius: 7px;
 cursor: pointer;
-line-height: 1;
+}
+
+.pv-month-selector button:hover {
+background: #f7f3e9;
 }
 
 .pv-month-selector button:active {
@@ -104,75 +128,180 @@ grid-template-columns: repeat(7, 1fr);
 text-align: center;
 font-weight: bold;
 padding: 6px 0;
-color: #555;
+color: #17233d;
+}
+
+.pv-weekdays div:nth-child(6) {
+color: #1976d2;
+}
+
+.pv-weekdays div:nth-child(7) {
+color: #d32f45;
 }
 
 .pv-day {
 min-height: 65px;
 border: 1px solid #ddd;
-background: #ffffff;
-padding: 5px;
+background: #fff;
+padding: 6px;
 box-sizing: border-box;
 cursor: pointer;
 transition: background-color 0.1s;
 }
 
 .pv-day:hover {
-background: #f7f3e9;
+background: #f5f8fc;
 }
 
 .pv-day.empty {
-background: #f5f5f5;
+background: #fafafa;
 cursor: default;
 }
 
 .pv-day.today {
-border: 2px solid #800000;
+border: 2px solid #d32f45;
 }
 
 .pv-day.selected {
-background: #f7f3e9;
-box-shadow: inset 0 0 0 2px #800000;
+background: #ffe5e8;
+box-shadow: inset 0 0 0 2px #e44b5f;
 }
 
 .pv-day-number {
 font-weight: bold;
-font-size: 0.9rem;
-color: #2b2b2b;
+font-size: 0.95rem;
+color: #17233d;
 }
 
 .pv-day-count {
 font-size: 0.8rem;
 font-weight: bold;
-color: #800000;
-margin-top: 8px;
+color: #617493;
+margin-top: 7px;
+}
+
+.pv-day:nth-child(7n) .pv-day-number {
+color: #d32f45;
+}
+
+.pv-day:nth-child(7n-1) .pv-day-number {
+color: #1976d2;
 }
 
 .pv-detail {
-width: 180px;
-border: 2px solid #2b2b2b;
-background: #f7f3e9;
-padding: 15px;
+width: 290px;
+border-left: 2px solid #d5d5d5;
+padding-left: 18px;
 box-sizing: border-box;
 }
 
 .pv-detail h3 {
 font-size: 1rem;
-margin: 0 0 10px;
-color: #800000;
+margin: 0;
+padding: 0;
 }
 
 .pv-selected-date {
+font-size: 1.25rem;
 font-weight: bold;
-font-size: 0.9rem;
-margin-bottom: 10px;
-color: #555;
+margin: 8px 0 14px;
+color: #6d1720;
 }
 
 .pv-selected-count {
 font-size: 1.3rem;
 font-weight: bold;
-color: #800000;
+color: #d93668;
+}
+
+/* ==========================================================================
+   ゲームスコア
+   ========================================================================== */
+
+.debug-score-section {
+margin-top: 14px;
+}
+
+.debug-score-section h3 {
+display: none;
+}
+
+.debug-score-section {
+display: inline-block;
+width: calc(33.333% - 12px);
+vertical-align: top;
+margin-right: 12px;
+}
+
+.debug-score-section:last-child {
+margin-right: 0;
+}
+
+.debug-score-section:nth-of-type(2) {
+}
+
+/* スコアカード */
+
+.score-mode-block {
+height: 285px;
+max-height: 285px;
+overflow-y: auto;
+border: 2px solid #ccc;
+border-radius: 7px;
+background: #fff;
+padding: 0 10px;
+box-sizing: border-box;
+}
+
+/* EASY */
+
+.debug-score-section:nth-of-type(1) .score-mode-block {
+border-color: #72c9a5;
+}
+
+.debug-score-section:nth-of-type(1) .score-mode-block::before {
+content: "🟢  EASY モード";
+display: block;
+font-size: 1.05rem;
+font-weight: bold;
+color: #187c58;
+background: #e5f6ee;
+margin: 0 -10px;
+padding: 10px;
+}
+
+/* NORMAL */
+
+.debug-score-section:nth-of-type(2) .score-mode-block {
+border-color: #7bb8ed;
+}
+
+.debug-score-section:nth-of-type(2) .score-mode-block::before {
+content: "🔵  NORMAL モード";
+display: block;
+font-size: 1.05rem;
+font-weight: bold;
+color: #18558e;
+background: #e8f4ff;
+margin: 0 -10px;
+padding: 10px;
+}
+
+/* HARD */
+
+.debug-score-section:nth-of-type(3) .score-mode-block {
+border-color: #c28bea;
+}
+
+.debug-score-section:nth-of-type(3) .score-mode-block::before {
+content: "🟣  HARD モード";
+display: block;
+font-size: 1.05rem;
+font-weight: bold;
+color: #7023a0;
+background: #f5eafd;
+margin: 0 -10px;
+padding: 10px;
 }
 
 .pv-list {
@@ -181,22 +310,14 @@ padding: 0;
 margin: 0;
 }
 
-.score-mode-block {
-max-height: 235px;
-overflow-y: auto;
-border: 1px solid #ddd;
-padding: 0 10px;
-box-sizing: border-box;
-}
-
 .pv-item {
 display: grid;
-grid-template-columns: 40px 1fr 100px;
+grid-template-columns: 1fr 65px;
 align-items: center;
 gap: 8px;
 padding: 8px 0;
 border-bottom: 1px dashed #ddd;
-font-size: 1rem;
+font-size: 0.9rem;
 }
 
 .pv-item:last-child {
@@ -205,33 +326,40 @@ border-bottom: none;
 
 .score-rank {
 font-weight: bold;
-color: #555;
+color: #60708a;
 }
 
 .score-value {
 font-weight: bold;
-font-size: 1.1rem;
-color: #800000;
+font-size: 1rem;
+color: #17233d;
+text-align: right;
 }
 
 .score-time {
-text-align: right;
-font-size: 0.85rem;
-color: #777;
+font-size: 0.75rem;
+color: #66758f;
+grid-column: 1;
+grid-row: 1;
 }
 
 .pv-empty {
 color: #888;
 text-align: center;
-padding: 12px 0;
+padding: 15px 0;
 }
+
+/* ==========================================================================
+   操作
+   ========================================================================== */
 
 .debug-btn-danger {
 width: 100%;
-background-color: #ff4757;
-color: #ffffff;
-border: 2px solid #2b2b2b;
-box-shadow: 3px 3px 0px #2b2b2b;
+background-color: #d93232;
+color: #fff;
+border: 2px solid #b52323;
+border-radius: 6px;
+box-shadow: 3px 3px 0 #8c1c1c;
 padding: 12px 0;
 font-size: 1rem;
 font-weight: bold;
@@ -241,16 +369,16 @@ transition: transform 0.1s, box-shadow 0.1s;
 
 .debug-btn-danger:active {
 transform: translate(2px, 2px);
-box-shadow: 1px 1px 0px #2b2b2b;
+box-shadow: 1px 1px 0 #8c1c1c;
 }
 
 .debug-back-link {
-text-align: center;
+text-align: left;
 margin-top: 15px;
 }
 
 .debug-back-link a {
-color: #2b2b2b;
+color: #1670c5;
 font-weight: bold;
 text-decoration: none;
 }
@@ -259,15 +387,20 @@ text-decoration: none;
 text-decoration: underline;
 }
 
+/* ==========================================================================
+   スマホ
+   ========================================================================== */
+
 @media (max-width: 800px) {
+
 .debug-container {
 margin: 20px auto;
 padding: 0 12px;
 }
 
 .debug-card {
-padding: 15px;
-margin-bottom: 20px;
+padding: 14px;
+margin-bottom: 16px;
 }
 
 .pv-calendar-area {
@@ -280,6 +413,10 @@ width: 100%;
 
 .pv-detail {
 width: 100%;
+border-left: none;
+border-top: 2px solid #d5d5d5;
+padding-left: 0;
+padding-top: 15px;
 }
 
 .pv-day {
@@ -291,12 +428,16 @@ font-size: 0.7rem;
 margin-top: 5px;
 }
 
-.pv-item {
-grid-template-columns: 35px 1fr 80px;
-font-size: 0.9rem;
+.debug-score-section {
+display: block;
+width: 100%;
+margin-right: 0;
+margin-bottom: 12px;
 }
 
-.score-time {
-font-size: 0.75rem;
+.score-mode-block {
+height: 220px;
+max-height: 220px;
 }
+
 }
