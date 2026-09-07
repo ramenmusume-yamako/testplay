@@ -341,10 +341,11 @@ let currentMenuIndex = 0;
 
 const menuButtons = [
     document.getElementById('link-restart'),
-    document.getElementById('link-hard'),
+    document.getElementById('link-easy'),
     document.getElementById('link-normal'),
+    document.getElementById('link-hard'),
     document.getElementById('link-home')
-];
+].filter(Boolean);
 
 function updateMenuFocus() {
     menuButtons.forEach((btn, idx) => {
