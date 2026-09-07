@@ -317,7 +317,7 @@ const obstacleTypes = [
     {
         id: 'nori',
         w: 220,
-        h: 100,
+        h: 86,
         img: imgNori
     },
     {
