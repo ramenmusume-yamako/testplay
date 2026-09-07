@@ -970,7 +970,7 @@ function update(currentTime) {
             // 速度が上がるほどジャンプ中の時間経過を速くする
             const gentleGravityRatio =
                 1.0 +
-                (Math.sqrt(speedRatio) - 1.0) * 0.5;
+                (Math.sqrt(speedRatio) - 1.0) * 1.0;
 
             // ジャンプ中だけ速度補正を適用
             const jumpDt =
