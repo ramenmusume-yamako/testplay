@@ -148,6 +148,18 @@ font-size: 0.95rem;
 color: #17233d;
 }
 
+.pv-day.saturday .pv-day-number {
+color: #1976d2;
+}
+
+.pv-day.sunday .pv-day-number {
+color: #d32f45;
+}
+
+.pv-day.holiday .pv-day-number {
+color: #d32f45;
+}
+
 .pv-day-count {
 font-size: 0.8rem;
 font-weight: bold;
@@ -219,18 +231,6 @@ padding: 10px 12px;
 border-radius: 7px 7px 0 0;
 }
 
-.score-mode-block {
-height: 230px;
-max-height: 230px;
-overflow-y: auto;
-background: #fff;
-border: 2px solid;
-border-top: none;
-border-radius: 0 0 7px 7px;
-padding: 0 10px;
-box-sizing: border-box;
-}
-
 /* EASY */
 
 .debug-score-section.easy .score-header {
@@ -267,7 +267,19 @@ border: 2px solid #c28bea;
 border-color: #c28bea;
 }
 
-/* スコア一覧 */
+/* スコア欄 */
+
+.score-mode-block {
+height: 230px;
+max-height: 230px;
+overflow-y: auto;
+background: #fff;
+border: 2px solid;
+border-top: none;
+border-radius: 0 0 7px 7px;
+padding: 0 10px;
+box-sizing: border-box;
+}
 
 .score-list-header {
 display: grid;
@@ -277,6 +289,9 @@ border-bottom: 1px solid #ddd;
 font-size: 0.85rem;
 font-weight: bold;
 color: #71809a;
+position: sticky;
+top: 0;
+background: #fff;
 }
 
 .score-list-header span:last-child {
