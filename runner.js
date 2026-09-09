@@ -202,9 +202,6 @@ imgMenma.src = 'menma.png';
 const imgNori = new Image();
 imgNori.src = 'nori.png';
 
-const imgStartCallBg = new Image();
-imgStartCallBg.src = 'start_bg.png';
-
 const imgChashu = new Image();
 if (config.useChashu) {
     imgChashu.src = 'tya-syu-.png';
