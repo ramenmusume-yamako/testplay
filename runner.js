@@ -1481,32 +1481,6 @@ for (let i = 0; i < bgFrames.length; i++) {
                 startCallTimer / 15;
         }
 
-        if (
-            imgStartCallBg.complete &&
-            imgStartCallBg.width > 0
-        ) {
-
-            const imgW =
-                imgStartCallBg.width;
-
-            const imgH =
-                imgStartCallBg.height;
-
-            ctx.drawImage(
-                imgStartCallBg,
-                (
-                    V_WIDTH / 2 -
-                    imgW / 2
-                ),
-                (
-                    V_HEIGHT / 2 -
-                    imgH / 2
-                ),
-                imgW,
-                imgH
-            );
-        }
-
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
 
