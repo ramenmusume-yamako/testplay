@@ -565,3 +565,39 @@ body {
     transform: translate(2px, 2px);
     box-shadow: 1px 1px 0px #2b2b2b;
 }
+.news-admin-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 5px;
+}
+.edit-news-list-btn,
+.edit-news-btn {
+    background-color: #2980b9;
+    color: #ffffff;
+    border: 1px solid #2b2b2b;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.edit-news-btn {
+    padding: 5px 12px;
+    font-size: 0.85rem;
+}
+.edit-news-list-btn:hover,
+.edit-news-btn:hover {
+    opacity: 0.85;
+}
+.detail-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.detail-preview-label {
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #800000;
+    margin-bottom: 5px;
+}

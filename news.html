@@ -151,7 +151,7 @@
                     <span id="detail-date" class="news-date"></span>
                     <span id="detail-category" class="news-label"></span>
                 </div>
-                <button id="close-detail-btn" class="close-btn">&times;</button>
+                <div class="detail-header-actions"><button id="edit-detail-btn" class="edit-news-btn" style="display: none;">編集</button><button id="close-detail-btn" class="close-btn">&times;</button></div>
             </div>
             
             <h2 id="detail-title" class="detail-modal-title"></h2>
@@ -171,10 +171,11 @@
     <div id="news-modal" class="news-modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>瓦版 新規投稿</h2>
+                <h2 id="news-modal-title">瓦版 新規投稿</h2>
                 <button id="close-modal-btn" class="close-btn">&times;</button>
             </div>
             <form id="news-form">
+                <input type="hidden" id="editing-news-id" value="">
                 <div class="form-group">
                     <label>カテゴリ</label>
                     <select id="news-category" required>
@@ -210,10 +211,11 @@
                     <label>詳細用追加画像 (複数可)</label>
                     <input type="file" id="news-detail-imgs" accept="image/*" multiple>
                     <!-- ★ 1枚ずつプレビュー・削除を行うコンテナ -->
+                    <div id="existing-detail-preview-list" class="detail-preview-list"></div>
                     <div id="detail-preview-list" class="detail-preview-list"></div>
                 </div>
 
-                <button type="submit" class="submit-btn">投稿する</button>
+                <button type="submit" class="submit-btn" id="news-submit-btn">投稿する</button>
             </form>
         </div>
     </div>
@@ -298,6 +300,8 @@
         let cropper = null; 
         let croppedBase64Result = ''; 
         let detailImgFilesList = []; // ★ 詳細画像ファイルを保持する配列
+        let existingDetailImgsList = [];
+        let editingNewsId = '';
 
         // ユーティリティ関数
         function fileToBase64(file) {
@@ -367,6 +371,12 @@
             
             // ★ 詳細画像配列およびプレビュー表示をクリア
             detailImgFilesList = [];
+            existingDetailImgsList = [];
+            editingNewsId = '';
+            document.getElementById('editing-news-id').value = '';
+            document.getElementById('news-modal-title').textContent = '瓦版 新規投稿';
+            document.getElementById('news-submit-btn').textContent = '投稿する';
+            renderExistingDetailImagePreviews();
             renderDetailImagePreviews();
         }
 
@@ -395,7 +405,7 @@
                         </div>
                     </div>
 
-                    ${isDebug ? `<button class="delete-news-btn" data-id="${item.id}">削除</button>` : ''}
+                    ${isDebug ? `<div class="news-admin-buttons"><button class="edit-news-list-btn" data-id="${item.id}">編集</button><button class="delete-news-btn" data-id="${item.id}">削除</button></div>` : ''}
                 </li>
             `).join('');
 
@@ -409,6 +419,13 @@
 
             // 削除ボタンイベント（デバッグ時のみ）
             if (isDebug) {
+                document.querySelectorAll('.edit-news-list-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-id');
+                        if (id) openEditNews(id);
+                    });
+                });
                 document.querySelectorAll('.delete-news-btn').forEach(btn => {
                     btn.addEventListener('click', (e) => {
                         e.stopPropagation();
@@ -448,7 +465,68 @@
                 galleryEl.innerHTML = '';
             }
 
+            const editDetailBtn = document.getElementById('edit-detail-btn');
+            if (editDetailBtn) {
+                editDetailBtn.style.display = isDebug ? 'inline-block' : 'none';
+                editDetailBtn.dataset.id = id;
+            }
             document.getElementById('detail-modal').style.display = 'flex';
+        }
+
+        function renderExistingDetailImagePreviews() {
+            const container = document.getElementById('existing-detail-preview-list');
+            if (!container) return;
+            container.innerHTML = '';
+            if (existingDetailImgsList.length === 0) return;
+            const label = document.createElement('div');
+            label.className = 'detail-preview-label';
+            label.textContent = '現在の詳細画像（✕で削除）';
+            container.appendChild(label);
+            existingDetailImgsList.forEach((imgSrc, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'detail-preview-item';
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                const removeBtn = document.createElement('button');
+                removeBtn.type = 'button';
+                removeBtn.className = 'detail-preview-remove';
+                removeBtn.innerHTML = '✕';
+                removeBtn.title = '画像を削除';
+                removeBtn.addEventListener('click', () => {
+                    existingDetailImgsList.splice(index, 1);
+                    renderExistingDetailImagePreviews();
+                });
+                itemDiv.appendChild(img);
+                itemDiv.appendChild(removeBtn);
+                container.appendChild(itemDiv);
+            });
+        }
+        function openEditNews(id) {
+            const item = newsDataList.find(n => n.id === id);
+            if (!item || !isDebug) return;
+            editingNewsId = id;
+            existingDetailImgsList = Array.isArray(item.detailImgs) ? [...item.detailImgs] : [];
+            detailImgFilesList = [];
+            document.getElementById('news-category').value = item.category || 'label-sonota';
+            document.getElementById('news-title').value = item.title || '';
+            document.getElementById('news-detail-text').value = item.text || '';
+            croppedBase64Result = item.titleImg || '';
+            const preview = document.getElementById('title-cropped-preview');
+            const removeBtn = document.getElementById('remove-title-img-btn');
+            if (croppedBase64Result) {
+                preview.src = croppedBase64Result;
+                preview.style.display = 'block';
+                if (removeBtn) removeBtn.style.display = 'inline-block';
+            } else {
+                clearTitleImage();
+            }
+            document.getElementById('editing-news-id').value = id;
+            document.getElementById('news-modal-title').textContent = '瓦版 お知らせ編集';
+            document.getElementById('news-submit-btn').textContent = '変更を保存';
+            renderExistingDetailImagePreviews();
+            renderDetailImagePreviews();
+            document.getElementById('detail-modal').style.display = 'none';
+            document.getElementById('news-modal').style.display = 'flex';
         }
 
         // 削除処理
@@ -616,17 +694,43 @@
                         };
 
                         try {
-                            await addDoc(collection(db, "news"), newNewsItem);
-
-                            resetNewsForm();
-                            modal.style.display = 'none';
-                            alert('全体へお知らせを配信しました！');
+                            if (editingNewsId) {
+                                await setDoc(
+                                    doc(db, "news", editingNewsId),
+                                    {
+                                        category: category,
+                                        categoryName: categoryLabels[category],
+                                        title: title,
+                                        titleImg: croppedBase64Result,
+                                        text: text,
+                                        detailImgs: [...existingDetailImgsList, ...detailImgsBase64],
+                                        updatedAt: new Date()
+                                    },
+                                    { merge: true }
+                                );
+                                resetNewsForm();
+                                modal.style.display = 'none';
+                                alert('お知らせを編集しました！');
+                            } else {
+                                await addDoc(collection(db, "news"), newNewsItem);
+                                resetNewsForm();
+                                modal.style.display = 'none';
+                                alert('全体へお知らせを配信しました！');
+                            }
                         } catch (error) {
-                            console.error("投稿エラー:", error);
-                            alert('投稿に失敗しました: ' + error.message);
+                            console.error("投稿・編集エラー:", error);
+                            alert((editingNewsId ? '編集' : '投稿') + 'に失敗しました: ' + error.message);
                         }
                     });
                 }
+            }
+
+            const editDetailBtn = document.getElementById('edit-detail-btn');
+            if (editDetailBtn) {
+                editDetailBtn.addEventListener('click', () => {
+                    const id = editDetailBtn.dataset.id;
+                    if (isDebug && id) openEditNews(id);
+                });
             }
 
             // 4. 共通イベント（詳細モーダルの閉じるボタン）
