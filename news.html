@@ -133,6 +133,17 @@
                 <h1 class="page-title">かわら版（お知らせ）</h1>
             </div>
 
+            <div class="news-filter">
+                <label for="category-filter">カテゴリー</label>
+                <select id="category-filter">
+                    <option value="all">すべて</option>
+                    <option value="label-menu">新メニュー</option>
+                    <option value="label-shop">お店情報</option>
+                    <option value="label-girls">ラーメン娘</option>
+                    <option value="label-sonota">その他</option>
+                </select>
+            </div>
+
             <!-- 動的にお知らせが入るリスト容器 -->
             <ul class="news-list" id="news-list"></ul>
 
@@ -381,14 +392,18 @@
         }
 
         // お知らせ描画
-        function renderNews() {
+        function renderNews(selectedCategory = 'all') {
             const newsListEl = document.getElementById('news-list');
             if (!newsListEl) return;
-            
-            if (newsDataList.length === 0) {
-                newsListEl.innerHTML = '<li class="news-empty">現在お知らせはありません。</li>';
-                return;
-            }
+
+            const filteredNews = selectedCategory === 'all'
+                ? newsDataList
+                : newsDataList.filter(item => item.category === selectedCategory);
+
+            if (filteredNews.length === 0) {
+                newsListEl.innerHTML = '<li class="news-empty">該当するお知らせはありません。</li>';
+            return;
+        }
 
             newsListEl.innerHTML = newsDataList.map(item => `
                 <li class="news-item" id="news-${item.id}">

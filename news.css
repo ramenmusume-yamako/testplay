@@ -601,3 +601,26 @@ body {
     color: #800000;
     margin-bottom: 5px;
 }
+
+/* カテゴリー絞り込み */
+.news-filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 18px;
+}
+
+.news-filter label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.news-filter select {
+    padding: 5px 28px 5px 8px;
+    font-size: 0.9rem;
+    border: 1px solid #800000;
+    background-color: #ffffff;
+    color: #333333;
+    cursor: pointer;
+}
