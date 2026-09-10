@@ -393,63 +393,60 @@
 
         // お知らせ描画
         function renderNews(selectedCategory = 'all') {
-            const newsListEl = document.getElementById('news-list');
-            if (!newsListEl) return;
+    const newsListEl = document.getElementById('news-list');
+    if (!newsListEl) return;
 
-            const filteredNews = selectedCategory === 'all'
-                ? newsDataList
-                : newsDataList.filter(item => item.category === selectedCategory);
+    const filteredNews = selectedCategory === 'all'
+        ? newsDataList
+        : newsDataList.filter(item => item.category === selectedCategory);
 
-            if (filteredNews.length === 0) {
-                newsListEl.innerHTML = '<li class="news-empty">該当するお知らせはありません。</li>';
-            return;
-        }
+    if (filteredNews.length === 0) {
+        newsListEl.innerHTML = '<li class="news-empty">該当するお知らせはありません。</li>';
+        return;
+    }
 
-            newsListEl.innerHTML = newsDataList.map(item => `
-                <li class="news-item" id="news-${item.id}">
-                    <div class="news-meta">
-                        <span class="news-date">${item.date || ''}</span>
-                        <span class="news-label ${item.category}">${item.categoryName || categoryLabels[item.category] || 'お知らせ'}</span>
-                    </div>
-                    
-                    <div class="news-content">
-                        <div class="news-title-area" data-id="${item.id}">
-                            <h3 class="news-item-title">${item.title}</h3>
-                            ${item.titleImg ? `<div class="news-title-img-wrap"><img src="${item.titleImg}" alt="タイトル画像" class="news-title-img"></div>` : ''}
-                            <span class="toggle-icon">クリックで詳細を表示 🔍</span>
-                        </div>
-                    </div>
+    newsListEl.innerHTML = filteredNews.map(item => `
+        <li class="news-item" id="news-${item.id}">
+            <div class="news-meta">
+                <span class="news-date">${item.date || ''}</span>
+                <span class="news-label ${item.category}">${item.categoryName || categoryLabels[item.category] || 'お知らせ'}</span>
+            </div>
+            <div class="news-content">
+                <div class="news-title-area" data-id="${item.id}">
+                    <h3 class="news-item-title">${item.title}</h3>
+                    ${item.titleImg ? `<div class="news-title-img-wrap"><img src="${item.titleImg}" alt="タイトル画像" class="news-title-img"></div>` : ''}
+                    <span class="toggle-icon">クリックで詳細を表示 🔍</span>
+                </div>
+            </div>
+            ${isDebug ? `<div class="news-admin-buttons"><button class="edit-news-list-btn" data-id="${item.id}">編集</button><button class="delete-news-btn" data-id="${item.id}">削除</button></div>` : ''}
+        </li>
+    `).join('');
 
-                    ${isDebug ? `<div class="news-admin-buttons"><button class="edit-news-list-btn" data-id="${item.id}">編集</button><button class="delete-news-btn" data-id="${item.id}">削除</button></div>` : ''}
-                </li>
-            `).join('');
+    document.querySelectorAll('.news-title-area').forEach(el => {
+        el.addEventListener('click', () => {
+            const id = el.getAttribute('data-id');
+            openDetail(id);
+        });
+    });
 
-            // 詳細モーダル開くイベント
-            document.querySelectorAll('.news-title-area').forEach(el => {
-                el.addEventListener('click', () => {
-                    const id = el.getAttribute('data-id');
-                    openDetail(id);
-                });
+    if (isDebug) {
+        document.querySelectorAll('.edit-news-list-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = btn.getAttribute('data-id');
+                openEditNews(id);
             });
+        });
 
-            // 削除ボタンイベント（デバッグ時のみ）
-            if (isDebug) {
-                document.querySelectorAll('.edit-news-list-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const id = btn.getAttribute('data-id');
-                        if (id) openEditNews(id);
-                    });
-                });
-                document.querySelectorAll('.delete-news-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        const id = btn.getAttribute('data-id');
-                        deleteNews(id);
-                    });
-                });
-            }
-        }
+        document.querySelectorAll('.delete-news-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = btn.getAttribute('data-id');
+                deleteNews(id);
+            });
+        });
+    }
+}
 
         // 詳細表示
         function openDetail(id) {
@@ -569,6 +566,13 @@
             const modal = document.getElementById('news-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
             const newsForm = document.getElementById('news-form');
+                const categoryFilter = document.getElementById('category-filter');
+
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', () => {
+                    renderNews(categoryFilter.value);
+                 });
+                }
 
             // 2. リアルタイム監視 (Firestore)
             const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
@@ -580,7 +584,7 @@
                         ...docSnapshot.data()
                     });
                 });
-                renderNews();
+                renderNews(categoryFilter ? categoryFilter.value : 'all');
             }, (error) => {
                 console.error("Firebase取得エラー:", error);
             });
