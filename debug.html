@@ -603,9 +603,11 @@ document
 .getElementById("debug-exit")
 .addEventListener("click", () => {
 
-sessionStorage.removeItem("debugMode");
+localStorage.setItem("debug_mode", "false");
 
-window.location.href = "game.html";
+alert("デバッグモードを解除しました。");
+
+window.location.href = "index.html";
 
 });
 
