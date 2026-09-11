@@ -161,8 +161,8 @@ body {
 /* カード本体（黒枠なし、角丸＆ソフトな影） */
 .chara-grid-card {
     background: #ffffff;
-    border: none;
-    border-radius: 16px;
+    border: 2px solid #2b2b2b;
+    border-radius: 8px;
     padding: 18px 10px;
     display: flex;
     flex-direction: column;
@@ -170,14 +170,19 @@ body {
     justify-content: center;
     text-decoration: none;
     color: #333333;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    box-shadow: 6px 6px 0px #800000;
     box-sizing: border-box;
+    transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .chara-grid-card.unlocked:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(128, 0, 0, 0.15);
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0px #800000;
+}
+
+.chara-grid-card.unlocked:active {
+    transform: translate(6px, 6px);
+    box-shadow: none;
 }
 
 /* ロック中カード（グレーアウトを解除しカラー表示） */
