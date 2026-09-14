@@ -6,117 +6,55 @@
     <title>キャラクター紹介 | ラーメン娘</title>
     <link rel="stylesheet" href="character.css">
 </head>
-
 <header>
     <div class="hamburger-menu">
         <input type="checkbox" id="menu-btn-check">
-        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <label for="menu-btn-check" class="menu-btn">
+          <img src="rogo.png" alt="メニュー">
+        </label>
         <div class="menu-content">
             <ul>
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="character.html">キャラ紹介</a></li>
                 <li><a href="game.html">ミニゲーム</a></li>
                 <li><a href="news.html">お知らせ</a></li>
-                <li id="debug-menu-item" style="display: none;">
-                    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
-                </li>
             </ul>
         </div>
     </div>
 </header>
-
 <body class="chara-page-theme">
 
-    <div class="full-container">
+    <div class="chara-window">
         <h1 class="page-title">本日のおすすめ（娘選択）</h1>
 
-        <!-- 画面いっぱいに広がるグリッド -->
-        <div class="grid-container" id="gridContainer"></div>
+        <input type="radio" name="chara-slider" id="chara1" checked>
+        <input type="radio" name="chara-slider" id="chara2">
+
+        <div class="chara-rail">
+            
+            <div class="chara-card">
+                <a href="meana.html" class="card-link">
+                    <div class="card-img-wrap">
+                        <img src="仮.png" alt="醤油くるみ">
+                    </div>
+                    <div class="card-info">
+                        <span class="card-sub">NO.1 ／ 醤油 極太ちぢれ麺</span>
+                        <h2>メーナ</h2>
+                        <p class="card-tap-tip">クリックでお品書きを見る ➔</p>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+
+        <div class="chara-arrows">
+            <label for="chara2" class="arrow-btn arrow-left for-c1">＜</label>
+            <label for="chara2" class="arrow-btn arrow-right for-c1">＞</label>
+
+            <label for="chara1" class="arrow-btn arrow-left for-c2">＜</label>
+            <label for="chara1" class="arrow-right for-c2">＞</label>
+        </div>
     </div>
-
-    <!-- PVカウント用スクリプト (Firebase連動) -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-      import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
-        authDomain: "ramengirls-bd769.firebaseapp.com",
-        projectId: "ramengirls-bd769",
-        storageBucket: "ramengirls-bd769.firebasestorage.app",
-        messagingSenderId: "211447953783",
-        appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      (async function trackPV() {
-        if (!sessionStorage.getItem('visited_session')) {
-          const today = new Date().toISOString().split('T')[0];
-          const pvRef = doc(db, "pv", today);
-
-          try {
-            await setDoc(pvRef, { count: increment(1) }, { merge: true });
-            sessionStorage.setItem('visited_session', 'true');
-          } catch (e) {
-            console.error("PVカウントエラー:", e);
-          }
-        }
-      })();
-    </script>
-
-    <script>
-      // デバッグモード判定
-      document.addEventListener('DOMContentLoaded', () => {
-        const debugMenuItem = document.getElementById('debug-menu-item');
-        if (debugMenuItem && localStorage.getItem('debug_mode') === 'true') {
-          debugMenuItem.style.display = 'block';
-        }
-      });
-
-      // キャラクターデータ
-      const CHAR_DATA = [
-        { id: "meana",   name: "メーナ",     img: "meana up.png", link: "meana.html" },
-        { id: "tatsuko", name: "たつ子",     img: "left.png",  link: "tatsuko.html" },
-      ];
-
-      // グリッド生成（全10マス）
-      function renderGrid() {
-        const container = document.getElementById("gridContainer");
-        if (!container) return;
-        container.innerHTML = "";
-
-        for (let i = 0; i < 8; i++) {
-          const card = document.createElement('a');
-
-          if (i < CHAR_DATA.length) {
-            const char = CHAR_DATA[i];
-            card.className = "chara-grid-card unlocked";
-            card.href = char.link;
-            card.innerHTML = `
-              <div class="avatar-crop">
-                <img src="${char.img}" alt="${char.name}">
-              </div>
-              <div class="chara-grid-name">${char.name}</div>
-              <div class="chara-grid-sub">お品書きを見る ➔</div>
-            `;
-          } else {
-            card.className = "chara-grid-card locked";
-            card.innerHTML = `
-              <div class="avatar-crop">
-                <img src="shignon.png" alt="準備中">
-              </div>
-              <div class="chara-grid-name" style="color:#888;">????</div>
-              <div class="chara-grid-sub" style="color:#aaa;">準備中</div>
-            `;
-          }
-          container.appendChild(card);
-        }
-      }
-
-      renderGrid();
-    </script>
 
 </body>
 </html>
