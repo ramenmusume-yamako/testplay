@@ -45,9 +45,9 @@
 
         <section class="home-news">
           <h2 class="home-news-title">お知らせ</h2>
-          <div class="home-news-list" id="home-news-list">
-            <p class="home-news-loading">お知らせを読み込んでいます...</p>
-          </div>
+          <ul class="home-news-list" id="home-news-list">
+            <li class="home-news-loading">お知らせを読み込んでいます...</li>
+          </ul>
           <a href="news.html" class="home-news-more">もっと見る</a>
         </section>
 
@@ -150,7 +150,7 @@
     query,
     orderBy,
     limit,
-    getDocs
+    onSnapshot
   } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -165,22 +165,26 @@
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  async function loadLatestNews() {
+  const categoryLabels = {
+    'label-menu': '新メニュー',
+    'label-shop': 'お店情報',
+    'label-girls': 'ラーメン娘',
+    'label-sonota': 'その他'
+};
+
+function loadLatestNews() {
     const newsList = document.getElementById('home-news-list');
     if (!newsList) return;
 
-    try {
-        const newsRef = collection(db, "news");
-        const newsQuery = query(
-            newsRef,
-            orderBy("createdAt", "desc"),
-            limit(3)
-        );
+    const newsQuery = query(
+        collection(db, "news"),
+        orderBy("createdAt", "desc"),
+        limit(3)
+    );
 
-        const snapshot = await getDocs(newsQuery);
-
+    onSnapshot(newsQuery, (snapshot) => {
         if (snapshot.empty) {
-            newsList.innerHTML = '<p class="home-news-empty">現在、お知らせはありません。</p>';
+            newsList.innerHTML = '<li class="home-news-empty">現在、お知らせはありません。</li>';
             return;
         }
 
@@ -189,36 +193,68 @@
         snapshot.forEach((docSnap) => {
             const item = docSnap.data();
 
-            let dateText = '';
-
-            if (item.createdAt) {
-                const date = item.createdAt.toDate
-                    ? item.createdAt.toDate()
-                    : new Date(item.createdAt);
-
-                dateText =
-                    date.getFullYear() + '.' +
-                    String(date.getMonth() + 1).padStart(2, '0') + '.' +
-                    String(date.getDate()).padStart(2, '0');
-            } else if (item.date) {
-                dateText = item.date;
-            }
-
-            const newsItem = document.createElement('a');
-            newsItem.href = 'news.html';
+            const newsItem = document.createElement('li');
             newsItem.className = 'home-news-item';
 
-            newsItem.innerHTML = `
-                <span class="home-news-date">${dateText}</span>
-                <span class="home-news-text">${item.title || '無題のお知らせ'}</span>
-            `;
+            const newsLink = document.createElement('a');
+            newsLink.href = 'news.html';
+            newsLink.className = 'home-news-link';
 
+            const meta = document.createElement('div');
+            meta.className = 'home-news-meta';
+
+            const date = document.createElement('span');
+            date.className = 'home-news-date';
+            date.textContent = item.date || '';
+
+            const label = document.createElement('span');
+            label.className = `home-news-label ${item.category || ''}`;
+            label.textContent =
+                item.categoryName ||
+                categoryLabels[item.category] ||
+                'お知らせ';
+
+            meta.appendChild(date);
+            meta.appendChild(label);
+
+            const content = document.createElement('div');
+            content.className = 'home-news-content';
+
+            const title = document.createElement('h3');
+            title.className = 'home-news-item-title';
+            title.textContent = item.title || '';
+
+            content.appendChild(title);
+
+            if (item.titleImg) {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'home-news-title-img-wrap';
+
+                const img = document.createElement('img');
+                img.src = item.titleImg;
+                img.alt = item.title || 'お知らせ画像';
+                img.className = 'home-news-title-img';
+
+                imgWrap.appendChild(img);
+                content.appendChild(imgWrap);
+            }
+
+            const toggle = document.createElement('span');
+            toggle.className = 'home-news-toggle';
+            toggle.textContent = 'クリックで詳細を表示 🔍';
+
+            content.appendChild(toggle);
+
+            newsLink.appendChild(meta);
+            newsLink.appendChild(content);
+            newsItem.appendChild(newsLink);
             newsList.appendChild(newsItem);
         });
-    } catch (error) {
+    }, (error) => {
         console.error('お知らせ取得エラー:', error);
-        newsList.innerHTML = '<p class="home-news-empty">お知らせを取得できませんでした。</p>';
-    }
+        newsList.innerHTML =
+            '<li class="home-news-empty">お知らせを取得できませんでした。</li>';
+    });
 }
 
 loadLatestNews();
