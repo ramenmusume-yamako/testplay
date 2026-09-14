@@ -42,6 +42,15 @@
             <h2 class="section-title">What are Ra-men Girls?</h2>
             <p class="intro-text">山形工業高校と山形のラーメン屋さんが協力して行っている企画。<br>ラーメン消費量日本一位である山形県の様々なラーメン屋さんの魅力を伝えることが目的。<br>ラーメン屋さんごとにそれぞれのお店の魅力を詰め込んだ"ラーメン娘"という女の子キャラクターを作り、宣伝している。</p>
         </section>
+
+        <section class="home-news">
+          <h2 class="home-news-title">お知らせ</h2>
+          <div class="home-news-list" id="home-news-list">
+            <p class="home-news-loading">お知らせを読み込んでいます...</p>
+          </div>
+          <a href="news.html" class="home-news-more">もっと見る</a>
+        </section>
+
     </main>
 
     <hr>
@@ -132,7 +141,17 @@
 <!-- PVカウント用スクリプト (Firebase連動) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    increment,
+    collection,
+    query,
+    orderBy,
+    limit,
+    getDocs
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
@@ -145,6 +164,64 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+
+  async function loadLatestNews() {
+    const newsList = document.getElementById('home-news-list');
+    if (!newsList) return;
+
+    try {
+        const newsRef = collection(db, "news");
+        const newsQuery = query(
+            newsRef,
+            orderBy("createdAt", "desc"),
+            limit(3)
+        );
+
+        const snapshot = await getDocs(newsQuery);
+
+        if (snapshot.empty) {
+            newsList.innerHTML = '<p class="home-news-empty">現在、お知らせはありません。</p>';
+            return;
+        }
+
+        newsList.innerHTML = '';
+
+        snapshot.forEach((docSnap) => {
+            const item = docSnap.data();
+
+            let dateText = '';
+
+            if (item.createdAt) {
+                const date = item.createdAt.toDate
+                    ? item.createdAt.toDate()
+                    : new Date(item.createdAt);
+
+                dateText =
+                    date.getFullYear() + '.' +
+                    String(date.getMonth() + 1).padStart(2, '0') + '.' +
+                    String(date.getDate()).padStart(2, '0');
+            } else if (item.date) {
+                dateText = item.date;
+            }
+
+            const newsItem = document.createElement('a');
+            newsItem.href = 'news.html';
+            newsItem.className = 'home-news-item';
+
+            newsItem.innerHTML = `
+                <span class="home-news-date">${dateText}</span>
+                <span class="home-news-text">${item.title || '無題のお知らせ'}</span>
+            `;
+
+            newsList.appendChild(newsItem);
+        });
+    } catch (error) {
+        console.error('お知らせ取得エラー:', error);
+        newsList.innerHTML = '<p class="home-news-empty">お知らせを取得できませんでした。</p>';
+    }
+}
+
+loadLatestNews();
 
   (async function trackPV() {
     // セッション（タブを開いてから閉じるまで）で1回だけカウント
