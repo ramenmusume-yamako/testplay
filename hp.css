@@ -563,14 +563,14 @@ body {
    ========================================================================== */
 
 .pc-header-nav {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100px;
     align-items: center;
-    justify-content: center;
     z-index: 90;
     pointer-events: none;
 }
@@ -590,20 +590,17 @@ body {
 
 .pc-nav-left,
 .pc-nav-right {
-    position: absolute;
-    top: 0;
-    height: 100px;
     display: flex;
     align-items: center;
     gap: 18px;
 }
 
 .pc-nav-left {
-    left: 40px;
+    justify-content: flex-end;
 }
 
 .pc-nav-right {
-    right: 40px;
+    justify-content: flex-start;
 }
 
 .pc-nav-left a,
@@ -628,11 +625,23 @@ body {
 }
 
 /* ==========================================================================
-   スマホではPC用ナビゲーションを消してハンバーガーに戻す
+   PCではハンバーガーメニューを非表示
+   ========================================================================== */
+
+.hamburger-menu {
+    display: none;
+}
+
+/* ==========================================================================
+   スマホではPC用ナビを消してハンバーガーを表示
    ========================================================================== */
 
 @media (max-width: 768px) {
     .pc-header-nav {
         display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
     }
 }
