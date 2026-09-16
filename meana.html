@@ -181,6 +181,10 @@
 
         let currentPhoto = 0;
 
+        // 自動スライド用タイマー
+        let autoSlideTimer;
+
+        // 写真を表示する
         function showPhoto(index) {
             currentPhoto = index;
 
@@ -188,6 +192,16 @@
                 `translateX(-${currentPhoto * 100}%)`;
         }
 
+        // 3秒後に自動スライドを開始する
+        function startAutoSlide() {
+            clearTimeout(autoSlideTimer);
+
+            autoSlideTimer = setTimeout(function() {
+                nextPhoto();
+            }, 3000);
+        }
+
+        // 次の写真へ
         function nextPhoto() {
             currentPhoto++;
 
@@ -196,32 +210,50 @@
             }
 
             showPhoto(currentPhoto);
+
+            // 自動スライド後も3秒待つ
+            startAutoSlide();
         }
 
-        // 3秒ごとに自動切り替え
-        setInterval(nextPhoto, 3000);
+        // 最初の自動スライド
+        startAutoSlide();
 
 
+        // =========================
         // スワイプ操作
+        // =========================
+
         let touchStartX = 0;
         let touchEndX = 0;
 
         photoTrack.addEventListener('touchstart', function(event) {
             touchStartX = event.touches[0].clientX;
+
+            // スワイプした瞬間に自動スライドのタイマーをリセット
+            clearTimeout(autoSlideTimer);
         });
 
         photoTrack.addEventListener('touchend', function(event) {
+
             touchEndX = event.changedTouches[0].clientX;
 
             const difference = touchStartX - touchEndX;
 
             // 左スワイプ
             if (difference > 50) {
-                nextPhoto();
+
+                currentPhoto++;
+
+                if (currentPhoto >= photoSlides.length) {
+                    currentPhoto = 0;
+                }
+
+                showPhoto(currentPhoto);
             }
 
             // 右スワイプ
-            if (difference < -50) {
+            else if (difference < -50) {
+
                 currentPhoto--;
 
                 if (currentPhoto < 0) {
@@ -230,6 +262,9 @@
 
                 showPhoto(currentPhoto);
             }
+
+            // スワイプ後は3秒待ってから自動スライド
+            startAutoSlide();
         });
     }
 </script>

@@ -792,4 +792,9 @@ body {
         margin-top: 40px;
     }
 
+     .map-iframe-wrapper {
+        padding-top: 80%;
+    }
+
+
 }
