@@ -603,6 +603,10 @@ body {
 
 @media (max-width: 768px) {
 
+   .map-iframe-wrapper {
+        padding-top: 80%;
+    }
+
     /* ------------------------------
        のれんボタン
        ------------------------------ */
@@ -790,10 +794,6 @@ body {
 
     .map-area {
         margin-top: 40px;
-    }
-
-     .map-iframe-wrapper {
-        padding-top: 80%;
     }
 
 
