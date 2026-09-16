@@ -28,8 +28,8 @@ body {
 
 .menu-btn img {
     display: block;
-    width: 40px;
-    height: 40px;
+    width:  100px;
+    height: 100px;
     object-fit: contain;
 }
 
@@ -244,8 +244,8 @@ input[name="chara-slider"] {
     .menu-btn {
         top: 15px;      /* ボタンの位置を少し上に上げて文字との被りを解消 */
         right: 15px;    /* ボタンの位置を少し右に寄せる */
-        height: 44px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
-        width: 44px;
+        height: 88px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
+        width: 88px;
     }
 
     .menu-btn span,
