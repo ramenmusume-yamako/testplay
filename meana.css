@@ -460,7 +460,7 @@ body {
    ------------------------------ */
 
 .recommend-image {
-    width: 300px;
+    width: 250px;
 
     flex-shrink: 0;
 
@@ -496,6 +496,13 @@ body {
     text-align: center;
 
     font-size: 1.2rem;
+    font-family: ta-kotodama-r, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.recommend-bubble strong {
+    font-weight: bold;
 }
 
 
