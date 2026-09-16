@@ -399,39 +399,30 @@ body {
    9. 店舗写真3枚
    ========================================================================== */
 
-.shop-photo-list {
-    display: flex;
+/* ==========================================================================
+   9. 店舗写真3枚
+   ========================================================================== */
 
-    gap: 25px;
-
+.shop-photo-slider {
     margin-top: 45px;
 }
 
-
-/* ------------------------------
-   写真1枚分
-   ------------------------------ */
-
-.shop-photo {
-    flex: 1;
+.shop-photo-track {
+    display: flex;
+    gap: 25px;
 }
 
+.shop-photo-slide {
+    flex: 1;
+    min-width: 0;
+}
 
-/* ------------------------------
-   写真
-   ------------------------------ */
-
-.shop-photo img {
+.shop-photo-slide img {
     width: 100%;
-
     aspect-ratio: 1.5 / 1;
-
     object-fit: cover;
-
     display: block;
-
     border: 2px solid #2b2b2b;
-
     box-sizing: border-box;
 }
 
@@ -732,16 +723,32 @@ body {
 
 
     /* ------------------------------
-       店舗写真3枚
-       ------------------------------ */
+   店舗写真スライダー
+   ------------------------------ */
 
-    .shop-photo-list {
-        gap: 10px;
-    }
+.shop-photo-slider {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+}
 
-    .shop-photo img {
-        aspect-ratio: 1 / 1;
-    }
+.shop-photo-track {
+    display: flex;
+    gap: 0;
+    transition: transform 0.5s ease;
+}
+
+.shop-photo-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.shop-photo-slide img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
 
 
     /* ==========================================================================

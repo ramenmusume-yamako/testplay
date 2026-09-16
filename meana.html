@@ -81,21 +81,25 @@
 
 
         <!-- 店舗写真3枚 -->
-        <div class="shop-photo-list">
+        <div class="shop-photo-slider">
 
-            <div class="shop-photo">
-                <img src="meana1.JPG" alt="店舗写真">
-            </div>
+    <div class="shop-photo-track">
 
-            <div class="shop-photo">
-                <img src="meana2.JPG" alt="店舗写真">
-            </div>
-
-            <div class="shop-photo">
-                <img src="meana3.jpg" alt="店舗写真">
-            </div>
-
+        <div class="shop-photo-slide">
+            <img src="meana1.JPG" alt="店舗写真">
         </div>
+
+        <div class="shop-photo-slide">
+            <img src="meana2.JPG" alt="店舗写真">
+        </div>
+
+        <div class="shop-photo-slide">
+            <img src="meana3.jpg" alt="店舗写真">
+        </div>
+
+    </div>
+
+</div>
 
 
         <!-- おすすめメニュー -->
@@ -167,6 +171,67 @@
       }
     }
   })();
+</script>
+
+<script>
+    if (window.innerWidth <= 768) {
+
+        const photoTrack = document.querySelector('.shop-photo-track');
+        const photoSlides = document.querySelectorAll('.shop-photo-slide');
+
+        let currentPhoto = 0;
+
+        function showPhoto(index) {
+            currentPhoto = index;
+
+            photoTrack.style.transform =
+                `translateX(-${currentPhoto * 100}%)`;
+        }
+
+        function nextPhoto() {
+            currentPhoto++;
+
+            if (currentPhoto >= photoSlides.length) {
+                currentPhoto = 0;
+            }
+
+            showPhoto(currentPhoto);
+        }
+
+        // 3秒ごとに自動切り替え
+        setInterval(nextPhoto, 3000);
+
+
+        // スワイプ操作
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        photoTrack.addEventListener('touchstart', function(event) {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        photoTrack.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].clientX;
+
+            const difference = touchStartX - touchEndX;
+
+            // 左スワイプ
+            if (difference > 50) {
+                nextPhoto();
+            }
+
+            // 右スワイプ
+            if (difference < -50) {
+                currentPhoto--;
+
+                if (currentPhoto < 0) {
+                    currentPhoto = photoSlides.length - 1;
+                }
+
+                showPhoto(currentPhoto);
+            }
+        });
+    }
 </script>
 
 </body>
