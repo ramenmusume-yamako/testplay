@@ -259,6 +259,8 @@ body {
     padding: 40px;
 
     box-sizing: border-box;
+
+    min-width: 300px;
 }
 
 
