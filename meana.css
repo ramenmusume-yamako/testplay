@@ -606,8 +606,8 @@ body {
 @media (max-width: 768px) {
 
    .map-iframe-wrapper {
-        width: 350px;
-        height: 400px;
+        width: 400px;
+        height: 300px;
         padding-top: 0;
         margin-left: -8px;
     }
