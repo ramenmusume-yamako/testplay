@@ -606,8 +606,8 @@ body {
 @media (max-width: 768px) {
 
    .map-iframe-wrapper {
-        padding-top: 80%;
-    }
+    width: 110%;
+}
     .shop-info-card {
     margin-left: -8px;
 }
