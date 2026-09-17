@@ -608,6 +608,9 @@ body {
    .map-iframe-wrapper {
         padding-top: 80%;
     }
+    .shop-info-card {
+    margin-left: -8px;
+}
 
     /* ------------------------------
        のれんボタン
