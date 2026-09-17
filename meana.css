@@ -606,10 +606,10 @@ body {
 @media (max-width: 768px) {
 
    .map-iframe-wrapper {
-        width: 100%;
-        padding-top: 50%;
-        transform: scale(1.1);
-    }
+    width: 100%;
+    padding-top: 60%;
+    margin-left: -8px;
+}
     .shop-info-card {
     margin-left: -8px;
 }
