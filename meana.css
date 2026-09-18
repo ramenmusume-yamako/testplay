@@ -606,8 +606,8 @@ body {
 @media (max-width: 768px) {
 
    .map-iframe-wrapper {
-        width: 500px !important;
-        height: 500px !important;
+        width: 350px !important;   /* ← 横幅はここ */
+        height: 500px !important;  /* ← 高さはここ */
         padding-top: 0 !important;
         margin-left: -8px;
     }
