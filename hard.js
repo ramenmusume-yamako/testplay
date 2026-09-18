@@ -15,7 +15,7 @@ startGame({
 
     // 速度変化
     speedMode: 'reset',
-    speedIncreasePC: 0.006,
+    speedIncreasePC: 0.003,
     speedIncreaseSP: 0.009,
 
     // 速度リセット
