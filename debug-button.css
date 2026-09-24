@@ -1,0 +1,27 @@
+/* ========================================
+   デバッグページ移動ボタン
+   ======================================== */
+
+#debug-spana-btn {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+
+    width: 60px;
+    height: 60px;
+
+    z-index: 99999;
+
+    display: none;
+
+    text-decoration: none;
+}
+
+#debug-spana-btn img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
