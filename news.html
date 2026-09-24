@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>かわら版（お知らせ） | ラーメン娘</title>
     <link rel="stylesheet" href="news.css">
+    <link rel="stylesheet" href="debug-button.css">
     
     <!-- Cropper.js (画像トリミング用ライブラリ) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
@@ -107,6 +108,9 @@
     </style>
 </head>
 <body class="news-page-theme">
+    <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
+    <img src="spana.png" alt="">
+</a>
 
     <header class="hamburger-menu">
         <input type="checkbox" id="menu-btn-check">
@@ -117,9 +121,6 @@
                 <li><a href="character.html">キャラ紹介</a></li>
                 <li><a href="game.html">ミニゲーム</a></li>
                 <li><a href="news.html">お知らせ</a></li>
-                <li id="debug-menu-item" style="display: none;">
-                    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
-                </li>
             </ul>
         </div>
     </header>
@@ -557,11 +558,6 @@
             // 1. デバッグモード判定
             isDebug = localStorage.getItem('debug_mode') === 'true';
 
-            const debugMenuItem = document.getElementById('debug-menu-item');
-            if (debugMenuItem) {
-                debugMenuItem.style.display = isDebug ? 'block' : 'none';
-            }
-
             const fabBtn = document.getElementById('add-news-fab');
             const modal = document.getElementById('news-modal');
             const closeModalBtn = document.getElementById('close-modal-btn');
@@ -764,5 +760,6 @@
         // アプリ起動
         initApp();
     </script>
+    <script src="debug-button.js"></script>
 </body>
 </html>

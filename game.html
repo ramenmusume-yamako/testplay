@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ミニゲーム選択 | ラーメン娘</title>
     <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="debug-button.css">
 </head>
 <header>
     <div class="hamburger-menu">
@@ -16,14 +17,14 @@
                 <li><a href="character.html">キャラ紹介</a></li>
                 <li><a href="game.html">ミニゲーム</a></li>
                 <li><a href="news.html">お知らせ</a></li>
-                <li id="debug-menu-item" style="display: none;">
-    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
-</li>
             </ul>
         </div>
     </div>
 </header>
 <body class="game-page-theme">
+    <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
+    <img src="spana.png" alt="">
+</a>
 
     <main class="game-container">
         
@@ -66,7 +67,7 @@
             
             <div class="difficulty-grid">
                 
-                <a href="easy.html" class="diff-card card-easy">
+                <a href="easy1.html" class="diff-card card-easy">
                     <div class="card-inner">
                         <span class="diff-eng">easy</span>
                         <h3 class="diff-jp">初見</h3>
@@ -74,7 +75,7 @@
                     </div>
                 </a>
 
-                <a href="nomal.html" class="diff-card card-normal">
+                <a href="nomal1.html" class="diff-card card-normal">
                     <div class="card-inner">
                         <span class="diff-eng">normal</span>
                         <h3 class="diff-jp">一般客</h3>
@@ -82,7 +83,7 @@
                     </div>
                 </a>
 
-                <a href="hard.html" class="diff-card card-hard">
+                <a href="hard1.html" class="diff-card card-hard">
                     <div class="card-inner">
                         <span class="diff-eng">hard</span>
                         <h3 class="diff-jp">常連</h3>
@@ -201,14 +202,6 @@
     }
   })();
 </script>
-<script>
-  // ページ読み込み時にデバッグモードならメニューを表示する
-  document.addEventListener('DOMContentLoaded', () => {
-    const debugMenuItem = document.getElementById('debug-menu-item');
-    if (debugMenuItem && localStorage.getItem('debug_mode') === 'true') {
-      debugMenuItem.style.display = 'block';
-    }
-  });
-</script>
+<script src="debug-button.js"></script>
 </body>
 </html>

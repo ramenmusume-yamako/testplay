@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ラーメン娘ホームページ</title>
     <link rel="stylesheet" href="hp.css">
+    <link rel="stylesheet" href="debug-button.css">
 </head>
 <body>
+  <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
+    <img src="spana.png" alt="">
+</a>
 <header>
     <div class="hamburger-menu">
         <input type="checkbox" id="menu-btn-check">
@@ -19,9 +23,6 @@
                 <li><a href="character.html">キャラ紹介</a></li>
                 <li><a href="game.html">ミニゲーム</a></li>
                 <li><a href="news.html">お知らせ</a></li>
-                <li id="debug-menu-item" style="display: none;">
-                    <a href="debug.html" class="debug-link">🔧 デバッグページ</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -90,17 +91,6 @@
   // 🔒 デバッグモード解除用のパスワード（好きな文字列に変更できます）
   const DEBUG_PASSWORD = "pW3$zR9!mK";
 
-  function updateDebugMenu() {
-    const debugMenuItem = document.getElementById('debug-menu-item');
-    if (!debugMenuItem) return;
-
-    if (localStorage.getItem('debug_mode') === 'true') {
-      debugMenuItem.style.display = 'block';
-    } else {
-      debugMenuItem.style.display = 'none';
-    }
-  }
-
   function checkDebugUnlock() {
     clearTimeout(resetTimer);
     resetTimer = setTimeout(() => {
@@ -118,9 +108,9 @@
       const inputPassword = prompt('🔒 デバッグモードのパスワードを入力してください:');
 
       if (inputPassword === DEBUG_PASSWORD) {
-        localStorage.setItem('debug_mode', 'true');
-        alert('🔓 認証成功！ハンバーガーメニューにデバッグページが追加されました。');
-        updateDebugMenu();
+    localStorage.setItem('debug_mode', 'true');
+    alert('🔓 デバッグモードを開始しました。');
+    window.location.href = 'debug.html';
       } else if (inputPassword !== null) {
         // キャンセルボタン以外が押されてパスワードが違った場合
         alert('❌ パスワードが違います。');
@@ -154,9 +144,6 @@
     footerTaps++;
     checkDebugUnlock();
   });
-
-  document.addEventListener('DOMContentLoaded', updateDebugMenu);
-</script>
 
 <!-- PVカウント用スクリプト (Firebase連動) -->
 <script type="module">
@@ -295,5 +282,6 @@ loadLatestNews();
     }
   })();
 </script>
+<script src="debug-button.js"></script>
 </body>
 </html>
