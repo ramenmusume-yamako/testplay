@@ -535,16 +535,7 @@ const handleInput = (e) => {
 
         player.isJumping = true;
 
-        const speedRatio =
-            currentSpeed / initialBaseSpeed;
-
-        const gentleRatio =
-            1.0 +
-            (speedRatio - 1.0) * 0.4;
-
-        player.vy =
-            BASE_JUMP *
-            Math.sqrt(gentleRatio);
+        player.vy = BASE_JUMP;
     }
 };
 
