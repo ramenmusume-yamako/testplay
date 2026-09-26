@@ -15,12 +15,12 @@ startGame({
 
     // 速度変化
     speedMode: 'reset',
-    speedIncreasePC: 0.003,
+    speedIncreasePC: 0.006,
     speedIncreaseSP: 0.009,
 
     // 速度リセット
-    resetMinSeconds: 40,
-    resetMaxSeconds: 60,
+    resetMinSeconds: 30,
+    resetMaxSeconds: 50,
 
     // 障害物
     spawnMin: 450,
