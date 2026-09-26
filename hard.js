@@ -19,7 +19,7 @@ startGame({
     speedIncreaseSP: 0.009,
 
     // 速度リセット
-    resetMinSeconds: 30,
+    resetMinSeconds: 45,
     resetMaxSeconds: 50,
 
     // 障害物
