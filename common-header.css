@@ -1,66 +1,128 @@
-/* =========================
+/* =================================
    PC用ヘッダー
-========================= */
+================================= */
 
-.pc-header {
-    position: relative;
-    width: 100%;
-    height: 105px;
-    overflow: hidden;
+@media screen and (min-width: 960px) {
+
+    header {
+        position: relative;
+
+        width: 100%;
+        height: 105px;
+
+        overflow: hidden;
+
+        /* 元のheader.pngをそのまま使用 */
+        background-image: url("header.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% auto;
+    }
+
+
+    /* スマホ用ハンバーガーをPCでは隠す */
+    .hamburger-menu {
+        display: none;
+    }
+
+
+    /* PC用ナビゲーション */
+    .pc-header-nav {
+        position: absolute;
+
+        top: 0;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 620px;
+        height: 105px;
+
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+
+        z-index: 10;
+    }
+
+
+    /* 左側 */
+    .pc-nav-left {
+        position: absolute;
+
+        top: 38px;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+
+        gap: 20px;
+    }
+
+
+    /* 右側 */
+    .pc-nav-right {
+        position: absolute;
+
+        top: 38px;
+        right: 0;
+
+        display: flex;
+        align-items: center;
+
+        gap: 20px;
+    }
+
+
+    /* ナビゲーション文字 */
+    .pc-header-nav a {
+        color: white;
+
+        text-decoration: none;
+
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+
+    .pc-header-nav span {
+        color: white;
+
+        font-size: 18px;
+    }
+
+
+    /* 真ん中のロゴ */
+    .pc-header-logo {
+        position: absolute;
+
+        top: 15px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        z-index: 20;
+    }
+
+
+    .pc-header-logo img {
+        display: block;
+
+        width: 85px;
+        height: auto;
+    }
+
 }
 
-.pc-header-image {
-    position: absolute;
-    top: 0;
-    left: 0;
 
-    width: 100%;
-    height: 105px;
-
-    overflow: hidden;
-}
-
-.pc-header-image img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-/* PCのナビ */
-.pc-header-nav {
-    position: absolute;
-    top: 38px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    white-space: nowrap;
-    z-index: 2;
-}
-
-.pc-header-nav a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.pc-header-nav span {
-    color: white;
-    font-size: 18px;
-}
-
-
-/* =========================
+/* =================================
    スマホ
-========================= */
+================================= */
 
 @media screen and (max-width: 959px) {
 
-    .pc-header {
+    /* PC用ナビを消す */
+    .pc-header-nav {
         display: none;
     }
 
