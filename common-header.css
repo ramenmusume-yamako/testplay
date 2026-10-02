@@ -1,0 +1,67 @@
+/* =========================
+   PC用ヘッダー
+========================= */
+
+.pc-header {
+    position: relative;
+    width: 100%;
+    height: 105px;
+    overflow: hidden;
+}
+
+.pc-header-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 105px;
+
+    overflow: hidden;
+}
+
+.pc-header-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* PCのナビ */
+.pc-header-nav {
+    position: absolute;
+    top: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.pc-header-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pc-header-nav span {
+    color: white;
+    font-size: 18px;
+}
+
+
+/* =========================
+   スマホ
+========================= */
+
+@media screen and (max-width: 959px) {
+
+    .pc-header {
+        display: none;
+    }
+
+}
