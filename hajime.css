@@ -1,0 +1,810 @@
+/* ==========================================================================
+   1. 全体
+   ========================================================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f7f3e9;
+    font-family: "Hiragino Mincho ProN", serif;
+    min-height: 100vh;
+}
+
+
+/* ==========================================================================
+   2. のれん風「キャラ選択に戻る」ボタン
+   ========================================================================== */
+
+.home-btn {
+    position: fixed;
+    top: 0;
+    left: 40px;
+
+    background: #800000;
+    color: white !important;
+    text-decoration: none;
+
+    padding: 20px 10px;
+
+    writing-mode: vertical-rl;
+
+    border-radius: 0 0 5px 5px;
+    font-weight: bold;
+
+    border: 2px solid #2b2b2b;
+    border-top: none;
+
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
+
+    z-index: 100;
+
+    transition: all 0.2s;
+}
+
+.home-btn:hover {
+    background: #2b2b2b;
+}
+
+
+/* ==========================================================================
+   3. 背景文字
+   ========================================================================== */
+
+.deco-text {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    font-size: 30vw;
+    font-weight: 900;
+
+    color: rgba(180, 0, 0, 0.03);
+
+    z-index: -1;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================================================
+   4. メーナ＋プロフィールカード
+   ========================================================================== */
+
+.menu-container {
+    display: flex;
+
+    width: 90%;
+    max-width: 1000px;
+
+    margin: 80px auto 40px auto;
+
+    align-items: center;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+}
+
+
+/* ------------------------------
+   キャラクター画像
+   ------------------------------ */
+
+.menu-visual {
+    flex: 1;
+
+    min-width: 300px;
+
+    text-align: center;
+}
+
+.chara-img {
+    max-width: 100%;
+    max-height: 70vh;
+
+    object-fit: contain;
+
+    filter: drop-shadow(
+        10px 10px 20px rgba(0, 0, 0, 0.15)
+    );
+}
+
+
+/* ------------------------------
+   プロフィールカード
+   ------------------------------ */
+
+.menu-card {
+    flex: 1;
+
+    min-width: 300px;
+
+    background: #fff;
+
+    padding: 40px;
+
+    border: 3px solid #2b2b2b;
+
+    box-shadow: 15px 15px 0px #d6b615;
+
+    position: relative;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------
+   NO.1
+   ------------------------------ */
+
+.sub-title {
+    font-size: 0.9rem;
+
+    color: #666;
+
+    letter-spacing: 0.1em;
+}
+
+
+/* ------------------------------
+   キャラクター名
+   ------------------------------ */
+
+.chara-name {
+    font-size: 3rem;
+
+    margin: 5px 0 20px 0;
+
+    color: #800000;
+
+    border-bottom: 2px solid #2b2b2b;
+
+    padding-bottom: 5px;
+}
+
+
+/* ------------------------------
+   プロフィール項目
+   ------------------------------ */
+
+.detail-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 12px 0;
+
+    border-bottom: 1px dashed #ccc;
+
+    font-size: 1.1rem;
+}
+
+.detail-item label {
+    font-weight: bold;
+
+    color: #e67e22;
+}
+
+
+/* ------------------------------
+   キャラクター説明
+   ------------------------------ */
+
+.menu-description {
+    margin-top: 25px;
+
+    line-height: 1.8;
+
+    font-size: 1rem;
+}
+
+
+/* ------------------------------
+   はんこ
+   ------------------------------ */
+
+.hanko {
+    position: absolute;
+
+    bottom: 20px;
+    right: 20px;
+
+    border: 3px double #d32f2f;
+
+    color: #d32f2f;
+
+    font-size: 1.2rem;
+
+    font-weight: bold;
+
+    padding: 2px 6px;
+
+    transform: rotate(-10deg);
+
+    border-radius: 4px;
+
+    opacity: 0.8;
+}
+
+
+/* ==========================================================================
+   5. 店舗情報
+   ========================================================================== */
+
+.shop-info-zone {
+    width: 90%;
+
+    max-width: 1000px;
+
+    margin: 70px auto 80px auto;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------
+   店舗情報全体の白いカード
+   ------------------------------ */
+
+.shop-info-card {
+    background: #ffffff;
+
+    border: 3px solid #2b2b2b;
+
+    box-shadow: 15px 15px 0px #d6b615;
+
+    padding: 40px;
+
+    box-sizing: border-box;
+
+    min-width: 300px;
+}
+
+
+/* ==========================================================================
+   6. 「店舗情報」タイトル
+   ========================================================================== */
+
+.shop-info-title {
+    margin: 0 0 35px 0;
+
+    color: #800000;
+
+    font-size: 1.8rem;
+
+    border-bottom: 2px solid #2b2b2b;
+
+    padding-bottom: 10px;
+
+    display: inline-block;
+}
+
+
+/* ==========================================================================
+   7. 店舗紹介
+   ========================================================================== */
+
+.shop-introduction {
+    display: flex;
+
+    gap: 45px;
+
+    align-items: flex-start;
+}
+
+
+/* ------------------------------
+   一番大きい店舗写真
+   ------------------------------ */
+
+.shop-main-photo {
+    width: 300px;
+
+    flex-shrink: 0;
+}
+
+.shop-main-photo img {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    display: block;
+
+    border: 2px solid #2b2b2b;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------
+   店舗紹介文
+   ------------------------------ */
+
+.shop-introduction-text {
+    flex: 1;
+}
+
+.shop-introduction-text h3 {
+    margin: 0 0 20px 0;
+
+    font-size: 1.5rem;
+
+    color: #2b2b2b;
+}
+
+.shop-introduction-text p {
+    line-height: 1.9;
+
+    margin: 0;
+}
+
+
+/* ==========================================================================
+   8. 画像ボタン
+   ========================================================================== */
+
+.shop-image-buttons {
+    display: flex;
+
+    gap: 50px;
+
+    margin-top: 30px;
+    margin-left: 45px;
+}
+
+
+/* ------------------------------
+   ボタンそのもの
+   ------------------------------ */
+
+.image-button {
+    display: block;
+
+    width: 70px;
+    height: 70px;
+
+    box-sizing: border-box;
+
+    transition: 0.2s;
+}
+
+
+/* ------------------------------
+   ボタン画像
+   ------------------------------ */
+
+.image-button img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+/* ------------------------------
+   マウスを乗せたとき
+   ------------------------------ */
+
+.image-button:hover {
+    transform: translateY(-3px);
+}
+
+
+/* ==========================================================================
+   9. 店舗写真3枚
+   ========================================================================== */
+
+/* ==========================================================================
+   9. 店舗写真3枚
+   ========================================================================== */
+
+.shop-photo-slider {
+    margin-top: 45px;
+}
+
+.shop-photo-track {
+    display: flex;
+    gap: 25px;
+}
+
+.shop-photo-slide {
+    flex: 1;
+    min-width: 0;
+}
+
+.shop-photo-slide img {
+    width: 100%;
+    aspect-ratio: 1.5 / 1;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #2b2b2b;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================================
+   10. おすすめメニュー
+   ========================================================================== */
+
+/* 画像と吹き出しを横並びにする */
+
+.recommend-area {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin: 55px 0;
+}
+
+
+/* ------------------------------
+   吹き出し左側の画像
+   ------------------------------ */
+
+.recommend-image {
+    width: 250px;
+
+    flex-shrink: 0;
+
+    text-align: center;
+}
+
+.recommend-image img {
+    width: 100%;
+
+    height: auto;
+
+    display: block;
+
+    object-fit: contain;
+}
+
+
+/* ==========================================================================
+   11. おすすめメニューの吹き出し
+   ========================================================================== */
+
+.recommend-bubble {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 2px solid #2b2b2b;
+
+    border-radius: 50px;
+
+    padding: 25px 55px;
+
+    text-align: center;
+
+    font-size: 1.2rem;
+    font-family: ta-kotodama-r, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.recommend-bubble strong {
+    font-weight: bold;
+}
+
+
+/* ------------------------------
+   吹き出しのしっぽ
+   ------------------------------ */
+
+.recommend-bubble::after {
+    content: "";
+
+    position: absolute;
+
+    bottom: -18px;
+
+    left: 45px;
+
+    width: 30px;
+    height: 25px;
+
+    background: #ffffff;
+
+    border-left: 2px solid #2b2b2b;
+    border-bottom: 2px solid #2b2b2b;
+
+    transform: skew(-25deg) rotate(-20deg);
+}
+
+
+/* ------------------------------
+   吹き出し内の文字
+   ------------------------------ */
+
+.recommend-bubble span {
+    display: block;
+}
+
+.recommend-bubble strong {
+    display: block;
+
+    font-size: 1.4rem;
+
+    margin-top: 5px;
+}
+
+
+/* ==========================================================================
+   12. Google Map
+   ========================================================================== */
+
+.map-area {
+    margin-top: 50px;
+}
+
+
+/* ------------------------------
+   「アクセス」タイトル
+   ------------------------------ */
+
+.map-title {
+    font-size: 1.3rem;
+
+    color: #800000;
+
+    margin-bottom: 15px;
+}
+
+
+/* ------------------------------
+   Google Mapの外枠
+   ------------------------------ */
+
+.map-iframe-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    padding-top: 50%;
+
+    border: 2px solid #2b2b2b;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+
+/* ------------------------------
+   Google Map本体
+   ------------------------------ */
+
+.map-iframe-wrapper iframe {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: 0;
+}
+
+
+/* ==========================================================================
+   13. スマホ・タブレット
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+   .map-iframe-wrapper {
+        width: 280px !important;
+        height: 320px !important;
+        padding-top: 0 !important;
+        margin-left: -15px !important;
+    }
+
+
+    .shop-info-card {
+    margin-left: -8px;
+}
+
+    /* ------------------------------
+       のれんボタン
+       ------------------------------ */
+
+    .home-btn {
+        left: 20px;
+
+        padding: 15px 8px;
+
+        font-size: 0.9rem;
+    }
+
+
+    /* ------------------------------
+       メインコンテナ
+       ------------------------------ */
+
+    .menu-container {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 0 16px 0 8px;
+
+        margin-top: 110px;
+
+        gap: 20px;
+    }
+
+
+    /* ------------------------------
+       キャラクター
+       ------------------------------ */
+
+    .menu-visual {
+        min-width: 100%;
+    }
+
+    .chara-img {
+        max-height: 50vh;
+    }
+
+
+    /* ------------------------------
+       プロフィールカード
+       ------------------------------ */
+
+    .menu-card {
+        min-width: 100%;
+
+        padding: 30px 20px;
+
+        box-shadow: 8px 8px 0px #d6b615;
+    }
+
+
+    /* ------------------------------
+       キャラクター名
+       ------------------------------ */
+
+    .chara-name {
+        font-size: 2.2rem;
+    }
+
+
+    /* ==========================================================================
+       店舗情報
+       ========================================================================== */
+
+    .shop-info-zone {
+        width: 100%;
+
+        padding: 0 16px 0 8px;
+
+        margin: 50px auto 60px auto;
+    }
+
+
+    /* ------------------------------
+       店舗情報カード
+       ------------------------------ */
+
+    .shop-info-card {
+        padding: 30px 20px;
+
+        box-shadow: 8px 8px 0px #d6b615;
+    }
+
+
+    /* ------------------------------
+       店舗紹介
+       ------------------------------ */
+
+    .shop-introduction {
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    /* ------------------------------
+       メイン写真
+       ------------------------------ */
+
+    .shop-main-photo {
+        width: 100%;
+    }
+
+
+    /* ------------------------------
+       画像ボタン
+       ------------------------------ */
+
+    .shop-image-buttons {
+        justify-content: flex-start;
+        margin-left: 0;
+    }
+
+
+    /* ------------------------------
+   店舗写真スライダー
+   ------------------------------ */
+
+.shop-photo-slider {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+}
+
+.shop-photo-track {
+    display: flex;
+    gap: 0;
+    transition: transform 0.5s ease;
+}
+
+.shop-photo-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+}
+
+.shop-photo-slide img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+
+    /* ==========================================================================
+       おすすめメニュー
+       ========================================================================== */
+
+    .recommend-area {
+        gap: 10px;
+    }
+
+
+    /* ------------------------------
+       おすすめ画像
+       ------------------------------ */
+
+    .recommend-image {
+        width: 90px;
+    }
+
+
+    /* ------------------------------
+       おすすめ吹き出し
+       ------------------------------ */
+
+    .recommend-bubble {
+        padding: 20px 25px;
+
+        font-size: 1rem;
+    }
+
+    .recommend-bubble strong {
+        font-size: 1.2rem;
+    }
+
+
+    /* ------------------------------
+       Google Map
+       ------------------------------ */
+
+    .map-area {
+        margin-top: 40px;
+    }
+
+
+}

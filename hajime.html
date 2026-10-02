@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お品書き｜ハジメ</title>
+    <link rel="stylesheet" href="meana.css">
+</head>
+<body class="shoyu-theme">
+
+    <div class="header-nav">
+        <a href="character.html" class="home-btn">キャラ選択<br>に戻る</a>
+    </div>
+
+    <div class="menu-container">
+        
+        <div class="menu-visual">
+            <img src="仮.png" alt="メーナ　立ち絵" class="chara-img">
+        </div>
+
+        <div class="menu-card">
+            <div class="menu-header">
+                <span class="sub-title">―― NO.0 ――</span>
+                <h1 class="chara-name">ハジメ</h1>
+            </div>
+
+            <div class="menu-details">
+                <div class="detail-item"><label>【好】</label><span>醤油　ちぢれ麺</span></div>
+                <div class="detail-item"><label>【質】</label><span>ツンデレリーダー</span></div>
+                <div class="detail-item"><label>【店】</label><span>山形工業高校</span></div>
+            </div>
+
+            <div class="menu-description">
+                <p>
+                    ラーメン娘を愛する少女。<br>
+                    ラーメン娘の話となると途端に饒舌になる。<br>
+                </p>
+            </div>
+
+            <div class="hanko">極</div>
+        </div>
+
+    <!-- 店舗情報 -->
+<div class="shop-info-zone">
+
+    <div class="shop-info-card">
+
+        <h2 class="shop-info-title">店舗情報</h2>
+
+        <!-- 店舗紹介 上段 -->
+        <div class="shop-introduction">
+
+            <!-- 店舗写真 -->
+            <div class="shop-main-photo">
+                <img src="hajime_TOP.jpg" alt="店舗写真">
+            </div>
+
+            <!-- 店舗紹介文 -->
+            <div class="shop-introduction-text">
+                <h3>店舗紹介</h3>
+
+                <p>
+                    ラーメン娘を運営している生徒の高校
+                </p>
+
+                <!-- 画像ボタン -->
+                <div class="shop-image-buttons">
+                    <a href="https://www.yamako.ed.jp/" class="image-button">
+                        <img src="home.png" alt="HP">
+                    </a>
+
+                    <a href="https://www.instagram.com/0605yamako/" class="image-button">
+                        <img src="instagram.png" alt="insta">
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- おすすめメニュー -->
+        <div class="recommend-area">
+
+    <!-- 吹き出し左側の画像 -->
+    <div class="recommend-image">
+        <img src="hajimer.png" alt="キャラクター">
+    </div>
+
+    <!-- 吹き出し -->
+    <div class="recommend-bubble">
+        <p>ラーメン娘を運営している科は</p>
+        <p><strong>情報技術科</strong></p>
+        <p>です。</p>
+    </div>
+
+</div>
+
+        <!-- Googleマップ -->
+        <div class="map-area">
+
+            <h3 class="map-title">アクセス</h3>
+
+            <div class="map-iframe-wrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2033.653635609655!2d140.31149941246326!3d38.2632279585344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5f8bb625bd3ab039%3A0xc417bf766437a7bd!2z44Kx44Oz44OB44Oj44Oz44Op44O844Oh44Oz5bGx5b2i!5e0!3m2!1sja!2sjp!4v1779682261027!5m2!1sja!2sjp"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- PVカウント用スクリプト (Firebase連動) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, doc, setDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
+    authDomain: "ramengirls-bd769.firebaseapp.com",
+    projectId: "ramengirls-bd769",
+    storageBucket: "ramengirls-bd769.firebasestorage.app",
+    messagingSenderId: "211447953783",
+    appId: "1:211447953783:web:3d3ee33f78e0d830f48972"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  (async function trackPV() {
+    // セッション（タブを開いてから閉じるまで）で1回だけカウント
+    if (!sessionStorage.getItem('visited_session')) {
+      const today = new Date().toISOString().split('T')[0];
+      const pvRef = doc(db, "pv", today);
+
+      try {
+        // 今日のドキュメントの count を +1（無ければ自動作成）
+        await setDoc(pvRef, { count: increment(1) }, { merge: true });
+        sessionStorage.setItem('visited_session', 'true');
+      } catch (e) {
+        console.error("PVカウントエラー:", e);
+      }
+    }
+  })();
+</script>
+
+<script>
+    if (window.innerWidth <= 768) {
+
+        const photoTrack = document.querySelector('.shop-photo-track');
+        const photoSlides = document.querySelectorAll('.shop-photo-slide');
+
+        let currentPhoto = 0;
+
+        // 自動スライド用タイマー
+        let autoSlideTimer;
+
+        // 写真を表示する
+        function showPhoto(index) {
+            currentPhoto = index;
+
+            photoTrack.style.transform =
+                `translateX(-${currentPhoto * 100}%)`;
+        }
+
+        // 3秒後に自動スライドを開始する
+        function startAutoSlide() {
+            clearTimeout(autoSlideTimer);
+
+            autoSlideTimer = setTimeout(function() {
+                nextPhoto();
+            }, 3000);
+        }
+
+        // 次の写真へ
+        function nextPhoto() {
+            currentPhoto++;
+
+            if (currentPhoto >= photoSlides.length) {
+                currentPhoto = 0;
+            }
+
+            showPhoto(currentPhoto);
+
+            // 自動スライド後も3秒待つ
+            startAutoSlide();
+        }
+
+        // 最初の自動スライド
+        startAutoSlide();
+
+
+        // =========================
+        // スワイプ操作
+        // =========================
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        photoTrack.addEventListener('touchstart', function(event) {
+            touchStartX = event.touches[0].clientX;
+
+            // スワイプした瞬間に自動スライドのタイマーをリセット
+            clearTimeout(autoSlideTimer);
+        });
+
+        photoTrack.addEventListener('touchend', function(event) {
+
+            touchEndX = event.changedTouches[0].clientX;
+
+            const difference = touchStartX - touchEndX;
+
+            // 左スワイプ
+            if (difference > 50) {
+
+                currentPhoto++;
+
+                if (currentPhoto >= photoSlides.length) {
+                    currentPhoto = 0;
+                }
+
+                showPhoto(currentPhoto);
+            }
+
+            // 右スワイプ
+            else if (difference < -50) {
+
+                currentPhoto--;
+
+                if (currentPhoto < 0) {
+                    currentPhoto = photoSlides.length - 1;
+                }
+
+                showPhoto(currentPhoto);
+            }
+
+            // スワイプ後は3秒待ってから自動スライド
+            startAutoSlide();
+        });
+    }
+</script>
+
+</body>
+</html>
