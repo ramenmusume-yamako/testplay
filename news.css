@@ -5,9 +5,13 @@
 body {
     margin: 0;
     padding: 0;
+
     background-color: #f7f3e9;
+
     font-family: "Hiragino Mincho ProN", serif;
+
     color: #2b2b2b;
+
     min-height: 100vh;
 }
 
@@ -28,24 +32,37 @@ body {
 
 .common-pc-header {
     position: relative;
+
     width: 100%;
     height: 100px;
+
+    margin: 0;
+    padding: 0;
+
     overflow: hidden;
+
     background-color: #800000;
 }
 
 
-/* ヘッダー背景 */
+/* --------------------------------------------------------------------------
+   ヘッダー背景
+   -------------------------------------------------------------------------- */
 
 .common-pc-header-bg {
     position: absolute;
+
     top: 0;
     left: 0;
 
     width: 100%;
     height: 100%;
 
+    margin: 0;
+    padding: 0;
+
     background-image: url("header.png");
+
     background-size: cover;
     background-position: center;
 
@@ -55,13 +72,14 @@ body {
 }
 
 
-/* PCナビゲーション */
+/* --------------------------------------------------------------------------
+   PCナビゲーション
+   -------------------------------------------------------------------------- */
 
-.pc-header-nav {
+.common-pc-header .pc-header-nav {
     display: grid;
 
-    grid-template-columns:
-        1fr auto 1fr;
+    grid-template-columns: 1fr auto 1fr;
 
     position: absolute;
 
@@ -79,9 +97,11 @@ body {
 }
 
 
-/* 中央ロゴ */
+/* --------------------------------------------------------------------------
+   中央ロゴ
+   -------------------------------------------------------------------------- */
 
-.pc-header-logo {
+.common-pc-header .pc-header-logo {
     display: flex;
 
     align-items: center;
@@ -91,7 +111,7 @@ body {
 }
 
 
-.pc-header-logo img {
+.common-pc-header .pc-header-logo img {
     display: block;
 
     width: 100px;
@@ -99,10 +119,12 @@ body {
 }
 
 
-/* 左右のナビ */
+/* --------------------------------------------------------------------------
+   左右のナビ
+   -------------------------------------------------------------------------- */
 
-.pc-nav-left,
-.pc-nav-right {
+.common-pc-header .pc-nav-left,
+.common-pc-header .pc-nav-right {
     display: flex;
 
     align-items: center;
@@ -111,20 +133,22 @@ body {
 }
 
 
-.pc-nav-left {
+.common-pc-header .pc-nav-left {
     justify-content: flex-end;
 }
 
 
-.pc-nav-right {
+.common-pc-header .pc-nav-right {
     justify-content: flex-start;
 }
 
 
-/* ナビ文字 */
+/* --------------------------------------------------------------------------
+   ナビ文字
+   -------------------------------------------------------------------------- */
 
-.pc-nav-left a,
-.pc-nav-right a {
+.common-pc-header .pc-nav-left a,
+.common-pc-header .pc-nav-right a {
     color: #ffffff;
 
     text-decoration: none;
@@ -142,19 +166,30 @@ body {
 
 /* マウスを乗せたとき */
 
-.pc-nav-left a:hover,
-.pc-nav-right a:hover {
+.common-pc-header .pc-nav-left a:hover,
+.common-pc-header .pc-nav-right a:hover {
     color: #f1c40f;
 }
 
 
-/* 区切り線 */
+/* --------------------------------------------------------------------------
+   区切り線
+   -------------------------------------------------------------------------- */
 
-.pc-nav-left span,
-.pc-nav-right span {
+.common-pc-header .pc-nav-left span,
+.common-pc-header .pc-nav-right span {
     color: #ffffff;
 
     font-size: 1rem;
+}
+
+
+/* --------------------------------------------------------------------------
+   PCではハンバーガーメニューを表示しない
+   -------------------------------------------------------------------------- */
+
+.common-pc-header .hamburger-menu {
+    display: none;
 }
 
 
@@ -224,7 +259,9 @@ body {
 }
 
 
-/* ハンバーガー → × */
+/* --------------------------------------------------------------------------
+   ハンバーガー → ×
+   -------------------------------------------------------------------------- */
 
 #menu-btn-check:checked ~ .menu-btn span {
     background-color:
@@ -248,7 +285,9 @@ body {
 }
 
 
-/* メニュー本体 */
+/* --------------------------------------------------------------------------
+   メニュー本体
+   -------------------------------------------------------------------------- */
 
 .menu-content {
 
@@ -386,7 +425,7 @@ body {
     max-width: 850px;
 
     /*
-        PCヘッダーの下から少し空ける
+        PCヘッダーのすぐ下から少し空ける
     */
     margin: 30px auto 40px auto;
 
@@ -479,7 +518,9 @@ body {
 }
 
 
-/* 日付とカテゴリー */
+/* --------------------------------------------------------------------------
+   日付とカテゴリー
+   -------------------------------------------------------------------------- */
 
 .news-meta {
 
@@ -705,6 +746,9 @@ body {
 
         height: 0;
 
+        margin: 0;
+        padding: 0;
+
         overflow: visible;
 
         background: none;
@@ -717,15 +761,15 @@ body {
     }
 
 
-    .pc-header-nav {
+    .common-pc-header .pc-header-nav {
 
         display: none;
     }
 
 
-    /* ハンバーガーは表示 */
+    /* スマホではハンバーガーを表示 */
 
-    .hamburger-menu {
+    .common-pc-header .hamburger-menu {
 
         display: block;
     }
