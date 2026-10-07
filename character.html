@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="character.css">
     <link rel="stylesheet" href="debug-button.css">
-    <link rel="stylesheet" href="common-header.css">
 </head>
 
 <body class="chara-page-theme">
@@ -17,17 +16,48 @@
     </div>
 
     <nav class="pc-header-nav">
-        <a href="index.html">ホーム</a>
-        <span>|</span>
+        <header class="common-pc-header">
 
-        <a href="character.html">キャラ紹介</a>
-        <span>|</span>
+    <!-- PC用：ホームの看板上部 -->
+    <div class="common-pc-header-bg"></div>
 
-        <a href="game.html">ミニゲーム</a>
-        <span>|</span>
+    <!-- スマホ用ハンバーガー -->
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
 
-        <a href="news.html">お知らせ</a>
+        <label for="menu-btn-check" class="menu-btn">
+            <img src="rogo.png" alt="メニュー">
+        </label>
+
+        <div class="menu-content">
+            <ul>
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="character.html">キャラ紹介</a></li>
+                <li><a href="game.html">ミニゲーム</a></li>
+                <li><a href="news.html">お知らせ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PC用ナビゲーション -->
+    <nav class="pc-header-nav">
+        <div class="pc-nav-left">
+            <a href="index.html">ホーム</a>
+            <span>|</span>
+            <a href="character.html">キャラ紹介</a>
+        </div>
+
+        <a href="index.html" class="pc-header-logo">
+            <img src="rogo.png" alt="ラーメン娘">
+        </a>
+
+        <div class="pc-nav-right">
+            <a href="game.html">ミニゲーム</a>
+            <span>|</span>
+            <a href="news.html">お知らせ</a>
+        </div>
     </nav>
+
 </header>
 
 <header>

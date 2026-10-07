@@ -445,3 +445,63 @@ body {
     }
 
 }
+
+/* =========================================================
+   PC用共通ヘッダー
+   ホームの看板と同じ header.png を使用
+   ========================================================= */
+
+.common-pc-header {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    background-color: #800000;
+}
+
+/* header.png の背景部分 */
+.common-pc-header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-image: url("header.png");
+    background-size: cover;
+    background-position: center;
+
+    opacity: 0.35;
+    z-index: 1;
+}
+
+/* PC用ナビを背景より前に出す */
+.common-pc-header .pc-header-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100px;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   スマホでは今まで通り
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .common-pc-header {
+        height: 0;
+        overflow: visible;
+        background: none;
+    }
+
+    .common-pc-header-bg {
+        display: none;
+    }
+
+}
