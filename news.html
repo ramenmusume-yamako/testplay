@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>かわら版（お知らせ） | ラーメン娘</title>
+
     <link rel="stylesheet" href="news.css">
     <link rel="stylesheet" href="debug-button.css">
-    
+
     <!-- Cropper.js (画像トリミング用ライブラリ) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    
+
     <style>
         /* トリミングモーダル用スタイル */
         .crop-container {
@@ -19,34 +20,41 @@
             margin-bottom: 15px;
             background-color: #333;
         }
+
         .crop-container img {
             max-width: 100%;
             display: block;
         }
+
         .crop-btn-group {
             display: flex;
             gap: 10px;
             justify-content: flex-end;
         }
+
         .crop-btn {
             padding: 8px 16px;
             border: 2px solid #2b2b2b;
             font-weight: bold;
             cursor: pointer;
         }
+
         .crop-btn-submit {
             background-color: #800000;
             color: #fff;
         }
+
         .crop-btn-cancel {
             background-color: #ccc;
         }
+
         /* トリミング完了後のプレビュー表示エリア */
         .preview-wrapper {
             margin-top: 10px;
             position: relative;
             display: inline-block;
         }
+
         .cropped-preview {
             max-width: 100%;
             height: 100px;
@@ -54,6 +62,7 @@
             border: 2px dashed #800000;
             display: none;
         }
+
         .remove-img-btn {
             display: none;
             margin-top: 5px;
@@ -66,13 +75,14 @@
             cursor: pointer;
         }
 
-        /* ★ 追加：詳細画像の個別プレビュー管理用スタイル */
+        /* 詳細画像の個別プレビュー管理用 */
         .detail-preview-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 10px;
         }
+
         .detail-preview-item {
             position: relative;
             width: 80px;
@@ -81,11 +91,13 @@
             border-radius: 4px;
             overflow: hidden;
         }
+
         .detail-preview-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
+
         .detail-preview-remove {
             position: absolute;
             top: 2px;
@@ -102,40 +114,98 @@
             cursor: pointer;
             padding: 0;
         }
+
         .detail-preview-remove:hover {
             background-color: #d9534f;
         }
     </style>
 </head>
-<body class="news-page-theme">
-    <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
-    <img src="spana.png" alt="">
-</a>
 
-    <header class="hamburger-menu">
-        <input type="checkbox" id="menu-btn-check">
-        <label for="menu-btn-check" class="menu-btn"><span></span></label>
-        <div class="menu-content">
-            <ul>
-                <li><a href="index.html">ホーム</a></li>
-                <li><a href="character.html">キャラ紹介</a></li>
-                <li><a href="game.html">ミニゲーム</a></li>
-                <li><a href="news.html">お知らせ</a></li>
-            </ul>
+<body class="news-page-theme">
+
+    <!-- デバッグ用スペナボタン -->
+    <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
+        <img src="spana.png" alt="">
+    </a>
+
+
+    <!-- =========================================================
+         共通ヘッダー
+         PC：赤いヘッダー＋ロゴ＋横並びナビ
+         スマホ：今までのハンバーガーメニュー
+         ========================================================= -->
+    <header class="common-pc-header">
+
+        <!-- PC用ヘッダー背景 -->
+        <div class="common-pc-header-bg"></div>
+
+
+        <!-- PC用ナビゲーション -->
+        <nav class="pc-header-nav">
+
+            <div class="pc-nav-left">
+                <a href="index.html">ホーム</a>
+                <span>|</span>
+                <a href="character.html">キャラ紹介</a>
+            </div>
+
+            <a href="index.html" class="pc-header-logo">
+                <img src="rogo.png" alt="ラーメン娘">
+            </a>
+
+            <div class="pc-nav-right">
+                <a href="game.html">ミニゲーム</a>
+                <span>|</span>
+                <a href="news.html">お知らせ</a>
+            </div>
+
+        </nav>
+
+
+        <!-- スマホ用ハンバーガーメニュー -->
+        <div class="hamburger-menu">
+
+            <input type="checkbox" id="menu-btn-check">
+
+            <label for="menu-btn-check" class="menu-btn">
+                <span></span>
+            </label>
+
+            <div class="menu-content">
+                <ul>
+                    <li><a href="index.html">ホーム</a></li>
+                    <li><a href="character.html">キャラ紹介</a></li>
+                    <li><a href="game.html">ミニゲーム</a></li>
+                    <li><a href="news.html">お知らせ</a></li>
+                </ul>
+            </div>
+
         </div>
+
     </header>
 
+
+    <!-- 背景の「瓦版」 -->
     <div class="deco-text">瓦版</div>
 
+
+    <!-- =========================================================
+         メイン
+         ========================================================= -->
     <main class="news-container">
+
         <div class="news-card-box">
+
             <div class="news-header">
                 <span class="sub-title">―― 最新情報 ――</span>
                 <h1 class="page-title">かわら版（お知らせ）</h1>
             </div>
 
+
+            <!-- カテゴリー絞り込み -->
             <div class="news-filter">
                 <label for="category-filter">カテゴリー</label>
+
                 <select id="category-filter">
                     <option value="all">すべて</option>
                     <option value="label-menu">新メニュー</option>
@@ -145,621 +215,1937 @@
                 </select>
             </div>
 
-            <!-- 動的にお知らせが入るリスト容器 -->
+
+            <!-- 動的にお知らせが入るリスト -->
             <ul class="news-list" id="news-list"></ul>
 
+
             <div class="hanko">通</div>
+
         </div>
+
     </main>
 
-    <!-- デバッグ用：右下の(+)ボタン -->
-    <button id="add-news-fab" class="add-news-fab" style="display: none;">＋</button>
 
-    <!-- 1. お知らせ詳細表示用ポップアップ（大きく表示） -->
+    <!-- =========================================================
+         デバッグ用：右下の＋ボタン
+         ========================================================= -->
+    <button id="add-news-fab" class="add-news-fab" style="display: none;">
+        ＋
+    </button>
+
+
+    <!-- =========================================================
+         1. お知らせ詳細表示用ポップアップ
+         ========================================================= -->
     <div id="detail-modal" class="news-modal" style="display: none;">
+
         <div class="modal-content detail-modal-content">
+
             <div class="modal-header">
+
                 <div class="detail-meta-header">
                     <span id="detail-date" class="news-date"></span>
                     <span id="detail-category" class="news-label"></span>
                 </div>
-                <div class="detail-header-actions"><button id="edit-detail-btn" class="edit-news-btn" style="display: none;">編集</button><button id="close-detail-btn" class="close-btn">&times;</button></div>
+
+                <div class="detail-header-actions">
+
+                    <button
+                        id="edit-detail-btn"
+                        class="edit-news-btn"
+                        style="display: none;"
+                    >
+                        編集
+                    </button>
+
+                    <button
+                        id="close-detail-btn"
+                        class="close-btn"
+                    >
+                        &times;
+                    </button>
+
+                </div>
+
             </div>
-            
+
+
             <h2 id="detail-title" class="detail-modal-title"></h2>
-            
+
+
             <!-- タイトル画像 -->
             <div id="detail-title-img-container"></div>
-            
-            <!-- 本文エリア -->
-            <div id="detail-text" class="news-item-text detail-body-text"></div>
-            
+
+
+            <!-- 本文 -->
+            <div
+                id="detail-text"
+                class="news-item-text detail-body-text"
+            ></div>
+
+
             <!-- 詳細画像ギャラリー -->
-            <div id="detail-gallery" class="news-detail-gallery"></div>
+            <div
+                id="detail-gallery"
+                class="news-detail-gallery"
+            ></div>
+
         </div>
+
     </div>
 
-    <!-- 2. お知らせ投稿用モーダルダイアログ (デバッグモードのみ使用) -->
+
+    <!-- =========================================================
+         2. お知らせ投稿用モーダル
+         ========================================================= -->
     <div id="news-modal" class="news-modal" style="display: none;">
+
         <div class="modal-content">
+
             <div class="modal-header">
-                <h2 id="news-modal-title">瓦版 新規投稿</h2>
-                <button id="close-modal-btn" class="close-btn">&times;</button>
+
+                <h2 id="news-modal-title">
+                    瓦版 新規投稿
+                </h2>
+
+                <button
+                    id="close-modal-btn"
+                    class="close-btn"
+                >
+                    &times;
+                </button>
+
             </div>
+
+
             <form id="news-form">
-                <input type="hidden" id="editing-news-id" value="">
+
+                <input
+                    type="hidden"
+                    id="editing-news-id"
+                    value=""
+                >
+
+
+                <!-- カテゴリ -->
                 <div class="form-group">
+
                     <label>カテゴリ</label>
+
                     <select id="news-category" required>
                         <option value="label-menu">新メニュー</option>
                         <option value="label-shop">お店情報</option>
                         <option value="label-girls">ラーメン娘</option>
                         <option value="label-sonota">その他</option>
                     </select>
+
                 </div>
 
+
+                <!-- タイトル -->
                 <div class="form-group">
+
                     <label>タイトル</label>
-                    <input type="text" id="news-title" placeholder="タイトルを入力" required>
+
+                    <input
+                        type="text"
+                        id="news-title"
+                        placeholder="タイトルを入力"
+                        required
+                    >
+
                 </div>
 
+
+                <!-- アイキャッチ画像 -->
                 <div class="form-group">
-                    <label>アイキャッチ画像 (ヘッダー用に範囲指定)</label>
-                    <input type="file" id="news-title-img" accept="image/*">
-                    
-                    <!-- 切り抜いた結果の切り抜きプレビュー表示と削除ボタン -->
+
+                    <label>
+                        アイキャッチ画像 (ヘッダー用に範囲指定)
+                    </label>
+
+                    <input
+                        type="file"
+                        id="news-title-img"
+                        accept="image/*"
+                    >
+
+
+                    <!-- 切り抜きプレビュー -->
                     <div class="preview-wrapper">
-                        <img id="title-cropped-preview" class="cropped-preview" alt="調整済み画像">
-                        <button type="button" id="remove-title-img-btn" class="remove-img-btn">画像を削除 ✖</button>
+
+                        <img
+                            id="title-cropped-preview"
+                            class="cropped-preview"
+                            alt="調整済み画像"
+                        >
+
+                        <button
+                            type="button"
+                            id="remove-title-img-btn"
+                            class="remove-img-btn"
+                        >
+                            画像を削除 ✖
+                        </button>
+
                     </div>
+
                 </div>
 
+
+                <!-- 詳細本文 -->
                 <div class="form-group">
-                    <label>詳細本文 (URLは自動でリンク化されます)</label>
-                    <textarea id="news-detail-text" rows="5" placeholder="詳細を入力してください"></textarea>
+
+                    <label>
+                        詳細本文 (URLは自動でリンク化されます)
+                    </label>
+
+                    <textarea
+                        id="news-detail-text"
+                        rows="5"
+                        placeholder="詳細を入力してください"
+                    ></textarea>
+
                 </div>
 
+
+                <!-- 詳細画像 -->
                 <div class="form-group">
-                    <label>詳細用追加画像 (複数可)</label>
-                    <input type="file" id="news-detail-imgs" accept="image/*" multiple>
-                    <!-- ★ 1枚ずつプレビュー・削除を行うコンテナ -->
-                    <div id="existing-detail-preview-list" class="detail-preview-list"></div>
-                    <div id="detail-preview-list" class="detail-preview-list"></div>
+
+                    <label>
+                        詳細用追加画像 (複数可)
+                    </label>
+
+                    <input
+                        type="file"
+                        id="news-detail-imgs"
+                        accept="image/*"
+                        multiple
+                    >
+
+
+                    <div
+                        id="existing-detail-preview-list"
+                        class="detail-preview-list"
+                    ></div>
+
+                    <div
+                        id="detail-preview-list"
+                        class="detail-preview-list"
+                    ></div>
+
                 </div>
 
-                <button type="submit" class="submit-btn" id="news-submit-btn">投稿する</button>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    id="news-submit-btn"
+                >
+                    投稿する
+                </button>
+
             </form>
+
         </div>
+
     </div>
 
-    <!-- 3. 画像位置・拡大調整（トリミング）専用モーダル -->
-    <div id="crop-modal" class="news-modal" style="display: none; z-index: 300;">
+
+    <!-- =========================================================
+         3. 画像位置・拡大調整モーダル
+         ========================================================= -->
+    <div
+        id="crop-modal"
+        class="news-modal"
+        style="display: none; z-index: 300;"
+    >
+
         <div class="modal-content">
+
             <div class="modal-header">
                 <h2>画像の範囲調整</h2>
             </div>
-            <p style="font-size: 0.85rem; color: #666; margin: 5px 0 10px;">
+
+
+            <p
+                style="
+                    font-size: 0.85rem;
+                    color: #666;
+                    margin: 5px 0 10px;
+                "
+            >
                 枠をドラッグ・拡大縮小してヘッダーに合わせる位置を決めてください。
             </p>
+
+
             <div class="crop-container">
-                <img id="crop-image" src="" alt="調整用画像">
+
+                <img
+                    id="crop-image"
+                    src=""
+                    alt="調整用画像"
+                >
+
             </div>
+
+
             <div class="crop-btn-group">
-                <button type="button" id="crop-cancel-btn" class="crop-btn crop-btn-cancel">キャンセル</button>
-                <button type="button" id="crop-submit-btn" class="crop-btn crop-btn-submit">決定</button>
+
+                <button
+                    type="button"
+                    id="crop-cancel-btn"
+                    class="crop-btn crop-btn-cancel"
+                >
+                    キャンセル
+                </button>
+
+                <button
+                    type="button"
+                    id="crop-submit-btn"
+                    class="crop-btn crop-btn-submit"
+                >
+                    決定
+                </button>
+
             </div>
+
         </div>
+
     </div>
 
+
+    <!-- =========================================================
+         フッター
+         ========================================================= -->
     <footer class="shop-footer">
         <p>&copy; 2026 ramengirls</p>
     </footer>
 
-    <!-- ★ メイン処理スクリプト ★ -->
+
+    <!-- =========================================================
+         Firebase・お知らせ処理
+         ========================================================= -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { 
-            getFirestore, 
-            collection, 
-            addDoc, 
-            deleteDoc, 
-            doc, 
+
+        import { initializeApp }
+            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            deleteDoc,
+            doc,
             setDoc,
             increment,
-            onSnapshot, 
-            query, 
-            orderBy 
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+            onSnapshot,
+            query,
+            orderBy
+        }
+        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        // Firebase初期化
+
+        /* Firebase初期化 */
+
         const firebaseConfig = {
+
             apiKey: "AIzaSyD5HT-oNq3hFOLSpBqG19Vw7ZmmaEHPzSY",
-            authDomain: "ramengirls-bd769.firebaseapp.com",
-            projectId: "ramengirls-bd769",
-            storageBucket: "ramengirls-bd769.firebasestorage.app",
-            messagingSenderId: "211447953783",
-            appId: "1:211447953783:web:3d3ee33f78e0d830f48972",
-            measurementId: "G-T9LL8LCH8K"
+
+            authDomain:
+                "ramengirls-bd769.firebaseapp.com",
+
+            projectId:
+                "ramengirls-bd769",
+
+            storageBucket:
+                "ramengirls-bd769.firebasestorage.app",
+
+            messagingSenderId:
+                "211447953783",
+
+            appId:
+                "1:211447953783:web:3d3ee33f78e0d830f48972",
+
+            measurementId:
+                "G-T9LL8LCH8K"
         };
+
 
         const app = initializeApp(firebaseConfig);
+
         const db = getFirestore(app);
 
-        // PV カウント処理
+
+        /* PVカウント */
+
         (async function trackPV() {
+
             if (!sessionStorage.getItem('visited_session')) {
-                const today = new Date().toISOString().split('T')[0];
-                const pvRef = doc(db, "pv", today);
+
+                const today =
+                    new Date().toISOString().split('T')[0];
+
+                const pvRef =
+                    doc(db, "pv", today);
+
                 try {
-                    await setDoc(pvRef, { count: increment(1) }, { merge: true });
-                    sessionStorage.setItem('visited_session', 'true');
+
+                    await setDoc(
+                        pvRef,
+                        {
+                            count: increment(1)
+                        },
+                        {
+                            merge: true
+                        }
+                    );
+
+                    sessionStorage.setItem(
+                        'visited_session',
+                        'true'
+                    );
+
                 } catch (e) {
-                    console.error("PVカウントエラー:", e);
+
+                    console.error(
+                        "PVカウントエラー:",
+                        e
+                    );
+
                 }
+
             }
+
         })();
 
-        // グローバル変数
+
+        /* グローバル変数 */
+
         const categoryLabels = {
+
             'label-menu': '新メニュー',
+
             'label-shop': 'お店情報',
+
             'label-girls': 'ラーメン娘',
+
             'label-sonota': 'その他'
+
         };
 
+
         let isDebug = false;
+
         let newsDataList = [];
-        let cropper = null; 
-        let croppedBase64Result = ''; 
-        let detailImgFilesList = []; // ★ 詳細画像ファイルを保持する配列
+
+        let cropper = null;
+
+        let croppedBase64Result = '';
+
+        let detailImgFilesList = [];
+
         let existingDetailImgsList = [];
+
         let editingNewsId = '';
 
-        // ユーティリティ関数
+
+        /* ファイルをBase64に変換 */
+
         function fileToBase64(file) {
+
             return new Promise((resolve, reject) => {
+
                 const reader = new FileReader();
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
+
+                reader.onload = () =>
+                    resolve(reader.result);
+
+                reader.onerror = error =>
+                    reject(error);
+
                 reader.readAsDataURL(file);
+
             });
+
         }
+
+
+        /* URLをリンク化 */
 
         function linkify(text) {
+
             if (!text) return '';
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-            return text.replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`);
+
+            const urlRegex =
+                /(https?:\/\/[^\s]+)/g;
+
+            return text.replace(
+                urlRegex,
+                url =>
+                    `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+            );
+
         }
 
-        // アイキャッチ画像をクリアする関数
+
+        /* アイキャッチ画像をクリア */
+
         function clearTitleImage() {
-            const titleImgInput = document.getElementById('news-title-img');
-            const titleCroppedPreview = document.getElementById('title-cropped-preview');
-            const removeTitleImgBtn = document.getElementById('remove-title-img-btn');
 
-            if (titleImgInput) titleImgInput.value = '';
-            croppedBase64Result = '';
-            if (titleCroppedPreview) {
-                titleCroppedPreview.src = '';
-                titleCroppedPreview.style.display = 'none';
+            const titleImgInput =
+                document.getElementById('news-title-img');
+
+            const titleCroppedPreview =
+                document.getElementById('title-cropped-preview');
+
+            const removeTitleImgBtn =
+                document.getElementById('remove-title-img-btn');
+
+
+            if (titleImgInput) {
+
+                titleImgInput.value = '';
+
             }
-            if (removeTitleImgBtn) removeTitleImgBtn.style.display = 'none';
+
+
+            croppedBase64Result = '';
+
+
+            if (titleCroppedPreview) {
+
+                titleCroppedPreview.src = '';
+
+                titleCroppedPreview.style.display =
+                    'none';
+
+            }
+
+
+            if (removeTitleImgBtn) {
+
+                removeTitleImgBtn.style.display =
+                    'none';
+
+            }
+
         }
 
-        // ★ 詳細画像プレビューの再描画処理
+
+        /* 詳細画像プレビュー */
+
         function renderDetailImagePreviews() {
-            const container = document.getElementById('detail-preview-list');
+
+            const container =
+                document.getElementById(
+                    'detail-preview-list'
+                );
+
             if (!container) return;
 
+
             container.innerHTML = '';
-            detailImgFilesList.forEach((file, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'detail-preview-item';
 
-                const img = document.createElement('img');
-                img.src = URL.createObjectURL(file);
 
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.className = 'detail-preview-remove';
-                removeBtn.innerHTML = '✕';
-                removeBtn.title = '画像を削除';
-                removeBtn.addEventListener('click', () => {
-                    detailImgFilesList.splice(index, 1);
-                    renderDetailImagePreviews();
+            detailImgFilesList.forEach(
+                (file, index) => {
+
+                    const itemDiv =
+                        document.createElement('div');
+
+                    itemDiv.className =
+                        'detail-preview-item';
+
+
+                    const img =
+                        document.createElement('img');
+
+                    img.src =
+                        URL.createObjectURL(file);
+
+
+                    const removeBtn =
+                        document.createElement('button');
+
+                    removeBtn.type = 'button';
+
+                    removeBtn.className =
+                        'detail-preview-remove';
+
+                    removeBtn.innerHTML = '✕';
+
+                    removeBtn.title =
+                        '画像を削除';
+
+
+                    removeBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            detailImgFilesList.splice(
+                                index,
+                                1
+                            );
+
+                            renderDetailImagePreviews();
+
+                        }
+                    );
+
+
+                    itemDiv.appendChild(img);
+
+                    itemDiv.appendChild(removeBtn);
+
+                    container.appendChild(itemDiv);
+
+                }
+            );
+
+        }
+
+
+        /* 投稿フォームリセット */
+
+        function resetNewsForm() {
+
+            const newsForm =
+                document.getElementById('news-form');
+
+
+            if (newsForm) {
+
+                newsForm.reset();
+
+            }
+
+
+            clearTitleImage();
+
+
+            detailImgFilesList = [];
+
+            existingDetailImgsList = [];
+
+            editingNewsId = '';
+
+
+            document.getElementById(
+                'editing-news-id'
+            ).value = '';
+
+
+            document.getElementById(
+                'news-modal-title'
+            ).textContent =
+                '瓦版 新規投稿';
+
+
+            document.getElementById(
+                'news-submit-btn'
+            ).textContent =
+                '投稿する';
+
+
+            renderExistingDetailImagePreviews();
+
+            renderDetailImagePreviews();
+
+        }
+
+
+        /* お知らせ描画 */
+
+        function renderNews(
+            selectedCategory = 'all'
+        ) {
+
+            const newsListEl =
+                document.getElementById(
+                    'news-list'
+                );
+
+
+            if (!newsListEl) return;
+
+
+            const filteredNews =
+                selectedCategory === 'all'
+
+                    ? newsDataList
+
+                    : newsDataList.filter(
+                        item =>
+                            item.category ===
+                            selectedCategory
+                    );
+
+
+            if (filteredNews.length === 0) {
+
+                newsListEl.innerHTML =
+                    '<li class="news-empty">該当するお知らせはありません。</li>';
+
+                return;
+
+            }
+
+
+            newsListEl.innerHTML =
+                filteredNews.map(item => `
+
+                    <li
+                        class="news-item"
+                        id="news-${item.id}"
+                    >
+
+                        <div class="news-meta">
+
+                            <span class="news-date">
+                                ${item.date || ''}
+                            </span>
+
+                            <span
+                                class="news-label ${item.category}"
+                            >
+                                ${
+                                    item.categoryName ||
+                                    categoryLabels[item.category] ||
+                                    'お知らせ'
+                                }
+                            </span>
+
+                        </div>
+
+
+                        <div class="news-content">
+
+                            <div
+                                class="news-title-area"
+                                data-id="${item.id}"
+                            >
+
+                                <h3 class="news-item-title">
+                                    ${item.title}
+                                </h3>
+
+                                ${
+                                    item.titleImg
+
+                                        ? `
+                                            <div class="news-title-img-wrap">
+
+                                                <img
+                                                    src="${item.titleImg}"
+                                                    alt="タイトル画像"
+                                                    class="news-title-img"
+                                                >
+
+                                            </div>
+                                          `
+
+                                        : ''
+                                }
+
+                                <span class="toggle-icon">
+                                    クリックで詳細を表示 🔍
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        ${
+                            isDebug
+
+                                ? `
+                                    <div class="news-admin-buttons">
+
+                                        <button
+                                            class="edit-news-list-btn"
+                                            data-id="${item.id}"
+                                        >
+                                            編集
+                                        </button>
+
+                                        <button
+                                            class="delete-news-btn"
+                                            data-id="${item.id}"
+                                        >
+                                            削除
+                                        </button>
+
+                                    </div>
+                                  `
+
+                                : ''
+                        }
+
+                    </li>
+
+                `).join('');
+
+
+            document
+                .querySelectorAll('.news-title-area')
+                .forEach(el => {
+
+                    el.addEventListener(
+                        'click',
+                        () => {
+
+                            const id =
+                                el.getAttribute(
+                                    'data-id'
+                                );
+
+                            openDetail(id);
+
+                        }
+                    );
+
                 });
 
-                itemDiv.appendChild(img);
-                itemDiv.appendChild(removeBtn);
-                container.appendChild(itemDiv);
-            });
+
+            if (isDebug) {
+
+                document
+                    .querySelectorAll(
+                        '.edit-news-list-btn'
+                    )
+                    .forEach(btn => {
+
+                        btn.addEventListener(
+                            'click',
+                            (e) => {
+
+                                e.stopPropagation();
+
+                                const id =
+                                    btn.getAttribute(
+                                        'data-id'
+                                    );
+
+                                openEditNews(id);
+
+                            }
+                        );
+
+                    });
+
+
+                document
+                    .querySelectorAll(
+                        '.delete-news-btn'
+                    )
+                    .forEach(btn => {
+
+                        btn.addEventListener(
+                            'click',
+                            (e) => {
+
+                                e.stopPropagation();
+
+                                const id =
+                                    btn.getAttribute(
+                                        'data-id'
+                                    );
+
+                                deleteNews(id);
+
+                            }
+                        );
+
+                    });
+
+            }
+
         }
 
-        // 投稿フォームを完全にリセット（下書きを破棄）する関数
-        function resetNewsForm() {
-            const newsForm = document.getElementById('news-form');
-            if (newsForm) newsForm.reset();
-            clearTitleImage();
-            
-            // ★ 詳細画像配列およびプレビュー表示をクリア
-            detailImgFilesList = [];
-            existingDetailImgsList = [];
-            editingNewsId = '';
-            document.getElementById('editing-news-id').value = '';
-            document.getElementById('news-modal-title').textContent = '瓦版 新規投稿';
-            document.getElementById('news-submit-btn').textContent = '投稿する';
-            renderExistingDetailImagePreviews();
-            renderDetailImagePreviews();
-        }
 
-        // お知らせ描画
-        function renderNews(selectedCategory = 'all') {
-    const newsListEl = document.getElementById('news-list');
-    if (!newsListEl) return;
+        /* 詳細表示 */
 
-    const filteredNews = selectedCategory === 'all'
-        ? newsDataList
-        : newsDataList.filter(item => item.category === selectedCategory);
-
-    if (filteredNews.length === 0) {
-        newsListEl.innerHTML = '<li class="news-empty">該当するお知らせはありません。</li>';
-        return;
-    }
-
-    newsListEl.innerHTML = filteredNews.map(item => `
-        <li class="news-item" id="news-${item.id}">
-            <div class="news-meta">
-                <span class="news-date">${item.date || ''}</span>
-                <span class="news-label ${item.category}">${item.categoryName || categoryLabels[item.category] || 'お知らせ'}</span>
-            </div>
-            <div class="news-content">
-                <div class="news-title-area" data-id="${item.id}">
-                    <h3 class="news-item-title">${item.title}</h3>
-                    ${item.titleImg ? `<div class="news-title-img-wrap"><img src="${item.titleImg}" alt="タイトル画像" class="news-title-img"></div>` : ''}
-                    <span class="toggle-icon">クリックで詳細を表示 🔍</span>
-                </div>
-            </div>
-            ${isDebug ? `<div class="news-admin-buttons"><button class="edit-news-list-btn" data-id="${item.id}">編集</button><button class="delete-news-btn" data-id="${item.id}">削除</button></div>` : ''}
-        </li>
-    `).join('');
-
-    document.querySelectorAll('.news-title-area').forEach(el => {
-        el.addEventListener('click', () => {
-            const id = el.getAttribute('data-id');
-            openDetail(id);
-        });
-    });
-
-    if (isDebug) {
-        document.querySelectorAll('.edit-news-list-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = btn.getAttribute('data-id');
-                openEditNews(id);
-            });
-        });
-
-        document.querySelectorAll('.delete-news-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const id = btn.getAttribute('data-id');
-                deleteNews(id);
-            });
-        });
-    }
-}
-
-        // 詳細表示
         function openDetail(id) {
-            const item = newsDataList.find(n => n.id === id);
+
+            const item =
+                newsDataList.find(
+                    n => n.id === id
+                );
+
+
             if (!item) return;
 
-            document.getElementById('detail-date').textContent = item.date || '';
-            
-            const catEl = document.getElementById('detail-category');
-            catEl.textContent = item.categoryName || categoryLabels[item.category] || 'お知らせ';
-            catEl.className = `news-label ${item.category}`;
 
-            document.getElementById('detail-title').textContent = item.title || '';
+            document.getElementById(
+                'detail-date'
+            ).textContent =
+                item.date || '';
 
-            const titleImgContainer = document.getElementById('detail-title-img-container');
+
+            const catEl =
+                document.getElementById(
+                    'detail-category'
+                );
+
+
+            catEl.textContent =
+                item.categoryName ||
+                categoryLabels[item.category] ||
+                'お知らせ';
+
+
+            catEl.className =
+                `news-label ${item.category}`;
+
+
+            document.getElementById(
+                'detail-title'
+            ).textContent =
+                item.title || '';
+
+
+            const titleImgContainer =
+                document.getElementById(
+                    'detail-title-img-container'
+                );
+
+
             if (item.titleImg) {
-                titleImgContainer.innerHTML = `<img src="${item.titleImg}" class="detail-hero-img" alt="タイトル画像">`;
+
+                titleImgContainer.innerHTML =
+                    `
+                        <img
+                            src="${item.titleImg}"
+                            class="detail-hero-img"
+                            alt="タイトル画像"
+                        >
+                    `;
+
             } else {
-                titleImgContainer.innerHTML = '';
+
+                titleImgContainer.innerHTML =
+                    '';
+
             }
 
-            document.getElementById('detail-text').innerHTML = linkify(item.text);
 
-            const galleryEl = document.getElementById('detail-gallery');
-            if (item.detailImgs && item.detailImgs.length > 0) {
-                galleryEl.innerHTML = item.detailImgs.map(img => `<img src="${img}" class="news-detail-img" alt="詳細画像">`).join('');
+            document.getElementById(
+                'detail-text'
+            ).innerHTML =
+                linkify(item.text);
+
+
+            const galleryEl =
+                document.getElementById(
+                    'detail-gallery'
+                );
+
+
+            if (
+                item.detailImgs &&
+                item.detailImgs.length > 0
+            ) {
+
+                galleryEl.innerHTML =
+                    item.detailImgs
+                        .map(
+                            img =>
+                                `
+                                    <img
+                                        src="${img}"
+                                        class="news-detail-img"
+                                        alt="詳細画像"
+                                    >
+                                `
+                        )
+                        .join('');
+
             } else {
-                galleryEl.innerHTML = '';
+
+                galleryEl.innerHTML =
+                    '';
+
             }
 
-            const editDetailBtn = document.getElementById('edit-detail-btn');
+
+            const editDetailBtn =
+                document.getElementById(
+                    'edit-detail-btn'
+                );
+
+
             if (editDetailBtn) {
-                editDetailBtn.style.display = isDebug ? 'inline-block' : 'none';
-                editDetailBtn.dataset.id = id;
+
+                editDetailBtn.style.display =
+                    isDebug
+                        ? 'inline-block'
+                        : 'none';
+
+                editDetailBtn.dataset.id =
+                    id;
+
             }
-            document.getElementById('detail-modal').style.display = 'flex';
+
+
+            document.getElementById(
+                'detail-modal'
+            ).style.display =
+                'flex';
+
         }
+
+
+        /* 既存詳細画像プレビュー */
 
         function renderExistingDetailImagePreviews() {
-            const container = document.getElementById('existing-detail-preview-list');
+
+            const container =
+                document.getElementById(
+                    'existing-detail-preview-list'
+                );
+
+
             if (!container) return;
+
+
             container.innerHTML = '';
-            if (existingDetailImgsList.length === 0) return;
-            const label = document.createElement('div');
-            label.className = 'detail-preview-label';
-            label.textContent = '現在の詳細画像（✕で削除）';
+
+
+            if (
+                existingDetailImgsList.length === 0
+            ) {
+
+                return;
+
+            }
+
+
+            const label =
+                document.createElement('div');
+
+
+            label.className =
+                'detail-preview-label';
+
+
+            label.textContent =
+                '現在の詳細画像（✕で削除）';
+
+
             container.appendChild(label);
-            existingDetailImgsList.forEach((imgSrc, index) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'detail-preview-item';
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                const removeBtn = document.createElement('button');
-                removeBtn.type = 'button';
-                removeBtn.className = 'detail-preview-remove';
-                removeBtn.innerHTML = '✕';
-                removeBtn.title = '画像を削除';
-                removeBtn.addEventListener('click', () => {
-                    existingDetailImgsList.splice(index, 1);
-                    renderExistingDetailImagePreviews();
-                });
-                itemDiv.appendChild(img);
-                itemDiv.appendChild(removeBtn);
-                container.appendChild(itemDiv);
-            });
+
+
+            existingDetailImgsList.forEach(
+                (imgSrc, index) => {
+
+                    const itemDiv =
+                        document.createElement('div');
+
+                    itemDiv.className =
+                        'detail-preview-item';
+
+
+                    const img =
+                        document.createElement('img');
+
+                    img.src =
+                        imgSrc;
+
+
+                    const removeBtn =
+                        document.createElement('button');
+
+                    removeBtn.type =
+                        'button';
+
+                    removeBtn.className =
+                        'detail-preview-remove';
+
+                    removeBtn.innerHTML =
+                        '✕';
+
+                    removeBtn.title =
+                        '画像を削除';
+
+
+                    removeBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            existingDetailImgsList.splice(
+                                index,
+                                1
+                            );
+
+                            renderExistingDetailImagePreviews();
+
+                        }
+                    );
+
+
+                    itemDiv.appendChild(img);
+
+                    itemDiv.appendChild(removeBtn);
+
+                    container.appendChild(itemDiv);
+
+                }
+            );
+
         }
+
+
+        /* お知らせ編集 */
+
         function openEditNews(id) {
-            const item = newsDataList.find(n => n.id === id);
+
+            const item =
+                newsDataList.find(
+                    n => n.id === id
+                );
+
+
             if (!item || !isDebug) return;
-            editingNewsId = id;
-            existingDetailImgsList = Array.isArray(item.detailImgs) ? [...item.detailImgs] : [];
-            detailImgFilesList = [];
-            document.getElementById('news-category').value = item.category || 'label-sonota';
-            document.getElementById('news-title').value = item.title || '';
-            document.getElementById('news-detail-text').value = item.text || '';
-            croppedBase64Result = item.titleImg || '';
-            const preview = document.getElementById('title-cropped-preview');
-            const removeBtn = document.getElementById('remove-title-img-btn');
+
+
+            editingNewsId =
+                id;
+
+
+            existingDetailImgsList =
+                Array.isArray(item.detailImgs)
+                    ? [...item.detailImgs]
+                    : [];
+
+
+            detailImgFilesList =
+                [];
+
+
+            document.getElementById(
+                'news-category'
+            ).value =
+                item.category ||
+                'label-sonota';
+
+
+            document.getElementById(
+                'news-title'
+            ).value =
+                item.title || '';
+
+
+            document.getElementById(
+                'news-detail-text'
+            ).value =
+                item.text || '';
+
+
+            croppedBase64Result =
+                item.titleImg || '';
+
+
+            const preview =
+                document.getElementById(
+                    'title-cropped-preview'
+                );
+
+
+            const removeBtn =
+                document.getElementById(
+                    'remove-title-img-btn'
+                );
+
+
             if (croppedBase64Result) {
-                preview.src = croppedBase64Result;
-                preview.style.display = 'block';
-                if (removeBtn) removeBtn.style.display = 'inline-block';
+
+                preview.src =
+                    croppedBase64Result;
+
+                preview.style.display =
+                    'block';
+
+                if (removeBtn) {
+
+                    removeBtn.style.display =
+                        'inline-block';
+
+                }
+
             } else {
+
                 clearTitleImage();
+
             }
-            document.getElementById('editing-news-id').value = id;
-            document.getElementById('news-modal-title').textContent = '瓦版 お知らせ編集';
-            document.getElementById('news-submit-btn').textContent = '変更を保存';
+
+
+            document.getElementById(
+                'editing-news-id'
+            ).value =
+                id;
+
+
+            document.getElementById(
+                'news-modal-title'
+            ).textContent =
+                '瓦版 お知らせ編集';
+
+
+            document.getElementById(
+                'news-submit-btn'
+            ).textContent =
+                '変更を保存';
+
+
             renderExistingDetailImagePreviews();
+
             renderDetailImagePreviews();
-            document.getElementById('detail-modal').style.display = 'none';
-            document.getElementById('news-modal').style.display = 'flex';
+
+
+            document.getElementById(
+                'detail-modal'
+            ).style.display =
+                'none';
+
+
+            document.getElementById(
+                'news-modal'
+            ).style.display =
+                'flex';
+
         }
 
-        // 削除処理
+
+        /* 削除処理 */
+
         async function deleteNews(id) {
-            if (!confirm('このお知らせを削除してもよろしいですか？（全端末から消去されます）')) return;
-            try {
-                await deleteDoc(doc(db, "news", id));
-            } catch (error) {
-                console.error("削除エラー:", error);
-                alert('削除に失敗しました: ' + error.message);
+
+            if (
+                !confirm(
+                    'このお知らせを削除してもよろしいですか？（全端末から消去されます）'
+                )
+            ) {
+
+                return;
+
             }
+
+
+            try {
+
+                await deleteDoc(
+                    doc(db, "news", id)
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "削除エラー:",
+                    error
+                );
+
+                alert(
+                    '削除に失敗しました: ' +
+                    error.message
+                );
+
+            }
+
         }
 
-        // ★ 初期化メインルーチン ★
-        function initApp() {
-            // 1. デバッグモード判定
-            isDebug = localStorage.getItem('debug_mode') === 'true';
 
-            const fabBtn = document.getElementById('add-news-fab');
-            const modal = document.getElementById('news-modal');
-            const closeModalBtn = document.getElementById('close-modal-btn');
-            const newsForm = document.getElementById('news-form');
-                const categoryFilter = document.getElementById('category-filter');
+        /* =========================================================
+           初期化
+           ========================================================= */
+
+        function initApp() {
+
+            /* デバッグモード判定 */
+
+            isDebug =
+                localStorage.getItem(
+                    'debug_mode'
+                ) === 'true';
+
+
+            const fabBtn =
+                document.getElementById(
+                    'add-news-fab'
+                );
+
+
+            const modal =
+                document.getElementById(
+                    'news-modal'
+                );
+
+
+            const closeModalBtn =
+                document.getElementById(
+                    'close-modal-btn'
+                );
+
+
+            const newsForm =
+                document.getElementById(
+                    'news-form'
+                );
+
+
+            const categoryFilter =
+                document.getElementById(
+                    'category-filter'
+                );
+
+
+            /* カテゴリ変更 */
 
             if (categoryFilter) {
-                categoryFilter.addEventListener('change', () => {
-                    renderNews(categoryFilter.value);
-                 });
+
+                categoryFilter.addEventListener(
+                    'change',
+                    () => {
+
+                        renderNews(
+                            categoryFilter.value
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* Firestoreリアルタイム監視 */
+
+            const q =
+                query(
+                    collection(db, "news"),
+                    orderBy(
+                        "createdAt",
+                        "desc"
+                    )
+                );
+
+
+            onSnapshot(
+                q,
+                (snapshot) => {
+
+                    newsDataList = [];
+
+
+                    snapshot.forEach(
+                        (docSnapshot) => {
+
+                            newsDataList.push({
+
+                                id:
+                                    docSnapshot.id,
+
+                                ...docSnapshot.data()
+
+                            });
+
+                        }
+                    );
+
+
+                    renderNews(
+                        categoryFilter
+                            ? categoryFilter.value
+                            : 'all'
+                    );
+
+                },
+                (error) => {
+
+                    console.error(
+                        "Firebase取得エラー:",
+                        error
+                    );
+
                 }
+            );
 
-            // 2. リアルタイム監視 (Firestore)
-            const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
-            onSnapshot(q, (snapshot) => {
-                newsDataList = [];
-                snapshot.forEach((docSnapshot) => {
-                    newsDataList.push({
-                        id: docSnapshot.id,
-                        ...docSnapshot.data()
-                    });
-                });
-                renderNews(categoryFilter ? categoryFilter.value : 'all');
-            }, (error) => {
-                console.error("Firebase取得エラー:", error);
-            });
 
-            // 3. デバッグ機能（投稿・切り抜き等）のセットアップ
+            /* =====================================================
+               デバッグ機能
+               ===================================================== */
+
             if (isDebug) {
-                if (fabBtn) fabBtn.style.display = 'flex';
-                
-                // 新規投稿モーダルを開くとき
+
                 if (fabBtn) {
-                    fabBtn.addEventListener('click', () => {
-                        resetNewsForm(); // 常にフレッシュな状態にする
-                        modal.style.display = 'flex';
-                    });
+
+                    fabBtn.style.display =
+                        'flex';
+
                 }
 
-                // モーダルを閉じるとき（下書きをクリア）
+
+                /* 新規投稿 */
+
+                if (fabBtn) {
+
+                    fabBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            resetNewsForm();
+
+                            modal.style.display =
+                                'flex';
+
+                        }
+                    );
+
+                }
+
+
+                /* モーダルを閉じる */
+
                 if (closeModalBtn) {
-                    closeModalBtn.addEventListener('click', () => {
-                        resetNewsForm();
-                        modal.style.display = 'none';
-                    });
+
+                    closeModalBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            resetNewsForm();
+
+                            modal.style.display =
+                                'none';
+
+                        }
+                    );
+
                 }
 
-                const titleImgInput = document.getElementById('news-title-img');
-                const cropModal = document.getElementById('crop-modal');
-                const cropImage = document.getElementById('crop-image');
-                const cropSubmitBtn = document.getElementById('crop-submit-btn');
-                const cropCancelBtn = document.getElementById('crop-cancel-btn');
-                const titleCroppedPreview = document.getElementById('title-cropped-preview');
-                const removeTitleImgBtn = document.getElementById('remove-title-img-btn');
 
-                // 選択した画像の削除ボタンイベント
+                const titleImgInput =
+                    document.getElementById(
+                        'news-title-img'
+                    );
+
+
+                const cropModal =
+                    document.getElementById(
+                        'crop-modal'
+                    );
+
+
+                const cropImage =
+                    document.getElementById(
+                        'crop-image'
+                    );
+
+
+                const cropSubmitBtn =
+                    document.getElementById(
+                        'crop-submit-btn'
+                    );
+
+
+                const cropCancelBtn =
+                    document.getElementById(
+                        'crop-cancel-btn'
+                    );
+
+
+                const titleCroppedPreview =
+                    document.getElementById(
+                        'title-cropped-preview'
+                    );
+
+
+                const removeTitleImgBtn =
+                    document.getElementById(
+                        'remove-title-img-btn'
+                    );
+
+
+                /* タイトル画像削除 */
+
                 if (removeTitleImgBtn) {
-                    removeTitleImgBtn.addEventListener('click', () => {
-                        clearTitleImage();
-                    });
+
+                    removeTitleImgBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            clearTitleImage();
+
+                        }
+                    );
+
                 }
+
+
+                /* タイトル画像選択 */
 
                 if (titleImgInput) {
-                    titleImgInput.addEventListener('change', (e) => {
-                        const file = e.target.files[0];
-                        if (!file) return;
 
-                        const reader = new FileReader();
-                        reader.onload = (event) => {
-                            cropImage.src = event.target.result;
-                            cropModal.style.display = 'flex';
+                    titleImgInput.addEventListener(
+                        'change',
+                        (e) => {
 
-                            if (cropper) cropper.destroy();
+                            const file =
+                                e.target.files[0];
 
-                            cropper = new Cropper(cropImage, {
-                                aspectRatio: 3.5 / 1,
-                                viewMode: 1,
-                                autoCropArea: 1
-                            });
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                }
 
-                // ★ 詳細用追加画像の選択イベント（追加で選んだ画像も順次追加されるように保持）
-                const detailImgsInput = document.getElementById('news-detail-imgs');
-                if (detailImgsInput) {
-                    detailImgsInput.addEventListener('change', (e) => {
-                        const files = Array.from(e.target.files);
-                        if (files.length > 0) {
-                            detailImgFilesList.push(...files);
-                            renderDetailImagePreviews();
+                            if (!file) return;
+
+
+                            const reader =
+                                new FileReader();
+
+
+                            reader.onload =
+                                (event) => {
+
+                                    cropImage.src =
+                                        event.target.result;
+
+
+                                    cropModal.style.display =
+                                        'flex';
+
+
+                                    if (cropper) {
+
+                                        cropper.destroy();
+
+                                    }
+
+
+                                    cropper =
+                                        new Cropper(
+                                            cropImage,
+                                            {
+                                                aspectRatio:
+                                                    3.5 / 1,
+
+                                                viewMode:
+                                                    1,
+
+                                                autoCropArea:
+                                                    1
+                                            }
+                                        );
+
+                                };
+
+
+                            reader.readAsDataURL(
+                                file
+                            );
+
                         }
-                        // 追加選択を繰り返し行えるようにinputの値を一度クリア
-                        e.target.value = '';
-                    });
+                    );
+
                 }
+
+
+                /* 詳細画像選択 */
+
+                const detailImgsInput =
+                    document.getElementById(
+                        'news-detail-imgs'
+                    );
+
+
+                if (detailImgsInput) {
+
+                    detailImgsInput.addEventListener(
+                        'change',
+                        (e) => {
+
+                            const files =
+                                Array.from(
+                                    e.target.files
+                                );
+
+
+                            if (files.length > 0) {
+
+                                detailImgFilesList.push(
+                                    ...files
+                                );
+
+                                renderDetailImagePreviews();
+
+                            }
+
+
+                            e.target.value =
+                                '';
+
+                        }
+                    );
+
+                }
+
+
+                /* トリミング決定 */
 
                 if (cropSubmitBtn) {
-                    cropSubmitBtn.addEventListener('click', () => {
-                        if (!cropper) return;
-                        const canvas = cropper.getCroppedCanvas({
-                            width: 800,
-                            height: 230
-                        });
-                        croppedBase64Result = canvas.toDataURL('image/jpeg');
 
-                        titleCroppedPreview.src = croppedBase64Result;
-                        titleCroppedPreview.style.display = 'block';
-                        if (removeTitleImgBtn) removeTitleImgBtn.style.display = 'inline-block';
-                        cropModal.style.display = 'none';
-                    });
+                    cropSubmitBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            if (!cropper) return;
+
+
+                            const canvas =
+                                cropper.getCroppedCanvas(
+                                    {
+                                        width: 800,
+                                        height: 230
+                                    }
+                                );
+
+
+                            croppedBase64Result =
+                                canvas.toDataURL(
+                                    'image/jpeg'
+                                );
+
+
+                            titleCroppedPreview.src =
+                                croppedBase64Result;
+
+
+                            titleCroppedPreview.style.display =
+                                'block';
+
+
+                            if (removeTitleImgBtn) {
+
+                                removeTitleImgBtn.style.display =
+                                    'inline-block';
+
+                            }
+
+
+                            cropModal.style.display =
+                                'none';
+
+                        }
+                    );
+
                 }
+
+
+                /* トリミングキャンセル */
 
                 if (cropCancelBtn) {
-                    cropCancelBtn.addEventListener('click', () => {
-                        clearTitleImage();
-                        cropModal.style.display = 'none';
-                    });
+
+                    cropCancelBtn.addEventListener(
+                        'click',
+                        () => {
+
+                            clearTitleImage();
+
+                            cropModal.style.display =
+                                'none';
+
+                        }
+                    );
+
                 }
+
+
+                /* 投稿フォーム */
 
                 if (newsForm) {
-                    newsForm.addEventListener('submit', async (e) => {
-                        e.preventDefault();
 
-                        const category = document.getElementById('news-category').value;
-                        const title = document.getElementById('news-title').value;
-                        const text = document.getElementById('news-detail-text').value;
+                    newsForm.addEventListener(
+                        'submit',
+                        async (e) => {
 
-                        // ★ 個別削除後に残った画像配列（detailImgFilesList）をBase64変換
-                        const detailImgsBase64 = [];
-                        for (const file of detailImgFilesList) {
-                            const b64 = await fileToBase64(file);
-                            detailImgsBase64.push(b64);
-                        }
+                            e.preventDefault();
 
-                        const now = new Date();
-                        const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
 
-                        const newNewsItem = {
-                            date: dateStr,
-                            category: category,
-                            categoryName: categoryLabels[category],
-                            title: title,
-                            titleImg: croppedBase64Result,
-                            text: text,
-                            detailImgs: detailImgsBase64,
-                            createdAt: new Date()
-                        };
+                            const category =
+                                document.getElementById(
+                                    'news-category'
+                                ).value;
 
-                        try {
-                            if (editingNewsId) {
-                                await setDoc(
-                                    doc(db, "news", editingNewsId),
-                                    {
-                                        category: category,
-                                        categoryName: categoryLabels[category],
-                                        title: title,
-                                        titleImg: croppedBase64Result,
-                                        text: text,
-                                        detailImgs: [...existingDetailImgsList, ...detailImgsBase64],
-                                        updatedAt: new Date()
-                                    },
-                                    { merge: true }
+
+                            const title =
+                                document.getElementById(
+                                    'news-title'
+                                ).value;
+
+
+                            const text =
+                                document.getElementById(
+                                    'news-detail-text'
+                                ).value;
+
+
+                            /* 詳細画像をBase64化 */
+
+                            const detailImgsBase64 =
+                                [];
+
+
+                            for (
+                                const file
+                                of detailImgFilesList
+                            ) {
+
+                                const b64 =
+                                    await fileToBase64(
+                                        file
+                                    );
+
+                                detailImgsBase64.push(
+                                    b64
                                 );
-                                resetNewsForm();
-                                modal.style.display = 'none';
-                                alert('お知らせを編集しました！');
-                            } else {
-                                await addDoc(collection(db, "news"), newNewsItem);
-                                resetNewsForm();
-                                modal.style.display = 'none';
-                                alert('全体へお知らせを配信しました！');
+
                             }
-                        } catch (error) {
-                            console.error("投稿・編集エラー:", error);
-                            alert((editingNewsId ? '編集' : '投稿') + 'に失敗しました: ' + error.message);
+
+
+                            const now =
+                                new Date();
+
+
+                            const dateStr =
+                                `${now.getFullYear()}.${String(
+                                    now.getMonth() + 1
+                                ).padStart(
+                                    2,
+                                    '0'
+                                )}.${String(
+                                    now.getDate()
+                                ).padStart(
+                                    2,
+                                    '0'
+                                )}`;
+
+
+                            const newNewsItem = {
+
+                                date:
+                                    dateStr,
+
+                                category:
+                                    category,
+
+                                categoryName:
+                                    categoryLabels[
+                                        category
+                                    ],
+
+                                title:
+                                    title,
+
+                                titleImg:
+                                    croppedBase64Result,
+
+                                text:
+                                    text,
+
+                                detailImgs:
+                                    detailImgsBase64,
+
+                                createdAt:
+                                    new Date()
+
+                            };
+
+
+                            try {
+
+                                if (editingNewsId) {
+
+                                    await setDoc(
+
+                                        doc(
+                                            db,
+                                            "news",
+                                            editingNewsId
+                                        ),
+
+                                        {
+
+                                            category:
+                                                category,
+
+                                            categoryName:
+                                                categoryLabels[
+                                                    category
+                                                ],
+
+                                            title:
+                                                title,
+
+                                            titleImg:
+                                                croppedBase64Result,
+
+                                            text:
+                                                text,
+
+                                            detailImgs:
+                                                [
+                                                    ...existingDetailImgsList,
+                                                    ...detailImgsBase64
+                                                ],
+
+                                            updatedAt:
+                                                new Date()
+
+                                        },
+
+                                        {
+                                            merge:
+                                                true
+                                        }
+
+                                    );
+
+
+                                    resetNewsForm();
+
+                                    modal.style.display =
+                                        'none';
+
+
+                                    alert(
+                                        'お知らせを編集しました！'
+                                    );
+
+
+                                } else {
+
+                                    await addDoc(
+
+                                        collection(
+                                            db,
+                                            "news"
+                                        ),
+
+                                        newNewsItem
+
+                                    );
+
+
+                                    resetNewsForm();
+
+                                    modal.style.display =
+                                        'none';
+
+
+                                    alert(
+                                        '全体へお知らせを配信しました！'
+                                    );
+
+                                }
+
+                            } catch (error) {
+
+                                console.error(
+                                    "投稿・編集エラー:",
+                                    error
+                                );
+
+
+                                alert(
+
+                                    (
+                                        editingNewsId
+                                            ? '編集'
+                                            : '投稿'
+                                    ) +
+
+                                    'に失敗しました: ' +
+
+                                    error.message
+
+                                );
+
+                            }
+
                         }
-                    });
+                    );
+
                 }
+
             }
 
-            const editDetailBtn = document.getElementById('edit-detail-btn');
+
+            /* 詳細画面から編集 */
+
+            const editDetailBtn =
+                document.getElementById(
+                    'edit-detail-btn'
+                );
+
+
             if (editDetailBtn) {
-                editDetailBtn.addEventListener('click', () => {
-                    const id = editDetailBtn.dataset.id;
-                    if (isDebug && id) openEditNews(id);
-                });
+
+                editDetailBtn.addEventListener(
+                    'click',
+                    () => {
+
+                        const id =
+                            editDetailBtn.dataset.id;
+
+
+                        if (
+                            isDebug &&
+                            id
+                        ) {
+
+                            openEditNews(id);
+
+                        }
+
+                    }
+                );
+
             }
 
-            // 4. 共通イベント（詳細モーダルの閉じるボタン）
-            const closeDetailBtn = document.getElementById('close-detail-btn');
+
+            /* 詳細モーダルを閉じる */
+
+            const closeDetailBtn =
+                document.getElementById(
+                    'close-detail-btn'
+                );
+
+
             if (closeDetailBtn) {
-                closeDetailBtn.addEventListener('click', () => {
-                    document.getElementById('detail-modal').style.display = 'none';
-                });
+
+                closeDetailBtn.addEventListener(
+                    'click',
+                    () => {
+
+                        document.getElementById(
+                            'detail-modal'
+                        ).style.display =
+                            'none';
+
+                    }
+                );
+
             }
+
         }
 
-        // アプリ起動
+
+        /* アプリ起動 */
+
         initApp();
+
     </script>
+
+
+    <!-- デバッグボタン制御 -->
     <script src="debug-button.js"></script>
+
 </body>
 </html>

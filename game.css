@@ -146,7 +146,7 @@ body {
     border: 3px solid #000000 !important;
     border-radius: 8px !important;
     padding: 15px 10px 10px 10px !important;
-    box-shadow: 4px 4px 0px #9c1c11 !important;
+    box-shadow: 4px 4px 0px #db9200 !important;
 
     /* ボタン全体の大きさ */
     width: 170px !important;  
@@ -199,7 +199,7 @@ body {
 .game-title-kanban {
     flex: 1; /* 残りの横幅をすべて使う */
     min-width: 300px;
-    background: #800000; /* 豪華な赤看板 */
+    background: #db9200; /* 豪華な赤看板 */
     border: 3px solid #2b2b2b;
     box-shadow: 12px 12px 0px #2b2b2b; /* 黒い太影 */
     padding: 25px 30px;
@@ -211,7 +211,7 @@ body {
 }
 
 .kanban-sub {
-    color: #f1c40f; /* ゴールド */
+    color: #0035ac; /* ゴールド */
     font-size: 0.9rem;
     font-weight: bold;
     letter-spacing: 0.1em;
@@ -238,7 +238,7 @@ body {
 .difficulty-section {
     background: #fff;
     border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #800000; /* 全体を包む大きな赤影カード */
+    box-shadow: 12px 12px 0px #db9200; /* 全体を包む大きな赤影カード */
     padding: 35px 25px;
     box-sizing: border-box;
 }
@@ -304,7 +304,7 @@ body {
 .game-chara-section {
     background: #fff;
     border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #800000; /* 全体を包む大きな赤影カード */
+    box-shadow: 12px 12px 0px #db9200; /* 全体を包む大きな赤影カード */
     padding: 35px 25px;
     box-sizing: border-box;
 }
@@ -322,7 +322,7 @@ body {
     min-width: 160px; /* スマホで2列を維持しやすいサイズ */
     background: #ffffff;
     border: 2px solid #2b2b2b;
-    box-shadow: 5px 5px 0px #e67e22; /* ラーメンオレンジの影（レイヤー下） */
+    box-shadow: 5px 5px 0px #800000; /* ラーメンオレンジの影（レイヤー下） */
     padding: 20px 10px;
     text-align: center;
     box-sizing: border-box;
@@ -399,7 +399,7 @@ body {
     background: #ffffff !important;
     border: 5px solid #000000 !important;
     border-radius: 8px !important;
-    box-shadow: 6px 6px 0px #800000 !important; 
+    box-shadow: 6px 6px 0px #db9200 !important; 
     height: 200px !important; /* ボタンの高さと完全同期 */
     display: flex !important;
     box-sizing: border-box !important;
@@ -503,7 +503,7 @@ body {
     /* 障害物（具材）紹介エリアの調整 */
     .game-chara-section {
         padding: 25px 15px;
-        box-shadow: 8px 8px 0px #800000;
+        box-shadow: 8px 8px 0px #db9200;
     }
 
     .game-chara-grid {
