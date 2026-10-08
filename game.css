@@ -4,7 +4,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #f7f3e9; /* メーナのページと同じ和紙の色 */
+    background-color: #f7f3e9;
     color: #2b2b2b;
     font-family: "Hiragino Mincho ProN", serif;
     min-height: 100vh;
@@ -23,8 +23,8 @@ body {
     width: 60px;
     justify-content: center;
     align-items: center;
-    z-index: 100; /* メニューボタンは一番手前 */
-    background-color: #2b2b2b; 
+    z-index: 100;
+    background-color: #2b2b2b;
     border: 2px solid #800000;
     border-radius: 5px;
     cursor: pointer;
@@ -43,16 +43,23 @@ body {
     transition: all 0.3s;
 }
 
-.menu-btn span:before { bottom: 8px; }
-.menu-btn span:after { top: 8px; }
+.menu-btn span:before {
+    bottom: 8px;
+}
+
+.menu-btn span:after {
+    top: 8px;
+}
 
 #menu-btn-check:checked ~ .menu-btn span {
     background-color: rgba(255, 255, 255, 0);
 }
+
 #menu-btn-check:checked ~ .menu-btn span::before {
     bottom: 0;
     transform: rotate(45deg);
 }
+
 #menu-btn-check:checked ~ .menu-btn span::after {
     top: 0;
     transform: rotate(-45deg);
@@ -65,9 +72,9 @@ body {
     top: 0;
     right: 0;
     z-index: 95;
-    background-color: #2b2b2b; 
+    background-color: #2b2b2b;
     border-left: 3px solid #800000;
-    transform: translateX(100%); 
+    transform: translateX(100%);
     transition: transform 0.4s;
 }
 
@@ -101,7 +108,7 @@ body {
     content: "";
     width: 7px;
     height: 7px;
-    border-top: solid 2px #f1c40f; 
+    border-top: solid 2px #f1c40f;
     border-right: solid 2px #f1c40f;
     transform: rotate(45deg);
     position: absolute;
@@ -110,13 +117,15 @@ body {
 }
 
 .menu-content ul li a:hover {
-    background-color: rgba(128, 0, 0, 0.3); 
+    background-color: rgba(128, 0, 0, 0.3);
     color: #f1c40f;
 }
+
 
 /* ==========================================================================
    2. レイアウト構造（ラフ案の再現）
    ========================================================================== */
+
 .game-container {
     max-width: 900px;
     margin: 20px auto 60px auto;
@@ -127,7 +136,9 @@ body {
     box-sizing: border-box;
 }
 
+
 /* --- 上段エリア --- */
+
 .game-top-row {
     display: flex;
     gap: 25px;
@@ -135,7 +146,9 @@ body {
     flex-wrap: wrap;
 }
 
+
 /* ★ キャラ選択ボタン */
+
 .char-select-btn {
     display: flex !important;
     flex-direction: column !important;
@@ -149,9 +162,9 @@ body {
     box-shadow: 4px 4px 0px #db9200 !important;
 
     /* ボタン全体の大きさ */
-    width: 170px !important;  
-    height: 200px !important; 
-    
+    width: 170px !important;
+    height: 200px !important;
+
     box-sizing: border-box !important;
     transition: transform 0.1s !important;
 }
@@ -161,25 +174,29 @@ body {
     box-shadow: 2px 2px 0px #9c1c11 !important;
 }
 
+
 /* 中のキャラ画像の大きさ調整 */
+
 .btn-char-container {
     width: 100% !important;
-    height: 140px !important; 
+    height: 140px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    z-index: 100 !important; /* ドット絵が他の要素に隠れないよう前面に */
+    z-index: 100 !important;
 }
 
 #btnCharImg {
     width: auto !important;
-    height: 100% !important; 
+    height: 100% !important;
     max-width: 100% !important;
     object-fit: contain !important;
-    image-rendering: pixelated !important; 
+    image-rendering: pixelated !important;
 }
 
+
 /* 下側の文字エリア */
+
 .btn-text-wrapper {
     width: 100% !important;
     text-align: center !important;
@@ -189,19 +206,21 @@ body {
 
 .btn-main-text {
     display: block !important;
-    font-size: 16px !important; 
+    font-size: 16px !important;
     color: #000000 !important;
     font-weight: bold !important;
     white-space: nowrap !important;
 }
 
+
 /* 横長のゲーム名看板 */
+
 .game-title-kanban {
-    flex: 1; /* 残りの横幅をすべて使う */
+    flex: 1;
     min-width: 300px;
-    background: #db9200; /* 豪華な赤看板 */
+    background: #db9200;
     border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #2b2b2b; /* 黒い太影 */
+    box-shadow: 12px 12px 0px #2b2b2b;
     padding: 25px 30px;
     color: #fff;
     display: flex;
@@ -211,7 +230,7 @@ body {
 }
 
 .kanban-sub {
-    color: #0035ac; /* ゴールド */
+    color: #0035ac;
     font-size: 0.9rem;
     font-weight: bold;
     letter-spacing: 0.1em;
@@ -232,13 +251,18 @@ body {
     line-height: 1.4;
 }
 
+
 /* ==========================================================================
    3. 下段エリア：難易度選択（3つのカード並び）
    ========================================================================== */
+
 .difficulty-section {
     background: #fff;
     border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #db9200; /* 全体を包む大きな赤影カード */
+
+    /* PCと同じ影色 */
+    box-shadow: 12px 12px 0px #db9200;
+
     padding: 35px 25px;
     box-sizing: border-box;
 }
@@ -253,14 +277,18 @@ body {
     display: inline-block;
 }
 
+
 /* 3つ並べるグリッド */
+
 .difficulty-grid {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
 }
 
+
 /* 木札ボタンの共通の型 */
+
 .diff-card {
     flex: 1;
     min-width: 180px;
@@ -298,31 +326,43 @@ body {
     line-height: 1.4;
 }
 
+
 /* ==========================================================================
    参戦キャラクター紹介用のデザイン（木札風）
    ========================================================================== */
+
 .game-chara-section {
     background: #fff;
     border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #db9200; /* 全体を包む大きな赤影カード */
+
+    /* PCと同じ影色 */
+    box-shadow: 12px 12px 0px #db9200;
+
     padding: 35px 25px;
     box-sizing: border-box;
 }
 
+
 /* 4人を横並びにするグリッド */
+
 .game-chara-grid {
     display: flex;
     gap: 20px;
-    flex-wrap: wrap; /* スマホで自動折り返し */
+    flex-wrap: wrap;
 }
 
+
 /* 小さな木札風キャラクターカード */
+
 .game-chara-card {
     flex: 1;
-    min-width: 160px; /* スマホで2列を維持しやすいサイズ */
+    min-width: 160px;
     background: #ffffff;
     border: 2px solid #2b2b2b;
-    box-shadow: 5px 5px 0px #800000; /* ラーメンオレンジの影（レイヤー下） */
+
+    /* キャラクターカードは赤影のまま */
+    box-shadow: 5px 5px 0px #800000;
+
     padding: 20px 10px;
     text-align: center;
     box-sizing: border-box;
@@ -331,7 +371,9 @@ body {
     align-items: center;
 }
 
+
 /* イラストを丸窓またはスクエアに収める枠 */
+
 .mini-img-wrap {
     width: 100px;
     height: 100px;
@@ -348,10 +390,12 @@ body {
 .mini-img-wrap img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 縦横比を崩さず枠に収める */
+    object-fit: cover;
 }
 
+
 /* キャラクター名 */
+
 .mini-name {
     font-size: 1.3rem;
     color: #800000;
@@ -359,29 +403,66 @@ body {
     font-weight: 900;
 }
 
+
 /* キャラの一言 */
+
 .mini-word {
     font-size: 0.85rem;
     color: #555;
     margin: 0;
     line-height: 1.4;
-    font-style: italic; /* ちょっとセリフっぽく斜体に */
+    font-style: italic;
 }
 
+
 /* --- 辛さに合わせたそれぞれの影色（レイヤー下） --- */
-.card-easy { box-shadow: 6px 6px 0px #f1c40f; }
-.card-easy .diff-eng { color: #f1c40f; }
-.card-easy:hover { box-shadow: none; transform: translate(6px, 6px); background: #fffdf5; }
 
-.card-normal { box-shadow: 6px 6px 0px #e67e22; }
-.card-normal .diff-eng { color: #e67e22; }
-.card-normal:hover { box-shadow: none; transform: translate(6px, 6px); background: #fffaf5; }
+.card-easy {
+    box-shadow: 6px 6px 0px #f1c40f;
+}
 
-.card-hard { box-shadow: 6px 6px 0px #800000; border-color: #800000; }
-.card-hard .diff-eng { color: #800000; }
-.card-hard:hover { box-shadow: none; transform: translate(6px, 6px); background: #fff5f5; }
+.card-easy .diff-eng {
+    color: #f1c40f;
+}
+
+.card-easy:hover {
+    box-shadow: none;
+    transform: translate(6px, 6px);
+    background: #fffdf5;
+}
+
+.card-normal {
+    box-shadow: 6px 6px 0px #e67e22;
+}
+
+.card-normal .diff-eng {
+    color: #e67e22;
+}
+
+.card-normal:hover {
+    box-shadow: none;
+    transform: translate(6px, 6px);
+    background: #fffaf5;
+}
+
+.card-hard {
+    box-shadow: 6px 6px 0px #800000;
+    border-color: #800000;
+}
+
+.card-hard .diff-eng {
+    color: #800000;
+}
+
+.card-hard:hover {
+    box-shadow: none;
+    transform: translate(6px, 6px);
+    background: #fff5f5;
+}
+
 
 /* --- フッター --- */
+
 .shop-footer {
     text-align: center;
     padding: 30px 0;
@@ -391,54 +472,66 @@ body {
     color: #666;
 }
 
+
 /* ==========================================================================
-   追加：キャラ選択ボタンの横の「遊び方枠」用デザイン（難易度と全く同じ柄）
+   追加：キャラ選択ボタンの横の「遊び方枠」用デザイン
    ========================================================================== */
+
 .char-info-blank-box {
     flex-grow: 1;
     background: #ffffff !important;
     border: 5px solid #000000 !important;
     border-radius: 8px !important;
-    box-shadow: 6px 6px 0px #db9200 !important; 
-    height: 200px !important; /* ボタンの高さと完全同期 */
+    box-shadow: 6px 6px 0px #db9200 !important;
+    height: 200px !important;
     display: flex !important;
     box-sizing: border-box !important;
 }
 
 
 /* ==========================================================================
-   5. スマホ・タブレット用のレスポンシブ大改修（ここを追加！）
+   5. スマホ・タブレット用のレスポンシブ大改修
    ========================================================================== */
+
 @media (max-width: 768px) {
+
     .game-container {
         margin: 15px auto 40px auto;
         padding: 0 12px;
         gap: 25px;
     }
 
+
     /* ゲーム名看板のサイズ最適化 */
+
     .game-title-kanban {
         padding: 20px;
         min-width: 100%;
+
+        /* 色はPCと同じ #2b2b2b */
         box-shadow: 8px 8px 0px #2b2b2b;
     }
 
     .game-main-name {
-        font-size: 1.8rem; /* スマホで文字が飛び出さない太さに */
+        font-size: 1.8rem;
     }
 
-    /* 💡【超重要】キャラ選択と遊び方枠を包む親要素のスタイルをCSSから上書き！ */
+
+    /* キャラ選択と遊び方枠を包む親要素 */
+
     .game-container > div[style*="display: flex"] {
-        flex-direction: column !important; /* 横並びから『縦並び』にスイッチ！ */
+        flex-direction: column !important;
         padding: 0 !important;
         gap: 15px !important;
     }
 
+
     /* キャラ選択ボタンをスマホ横幅いっぱいに */
+
     .char-select-btn {
         width: 100% !important;
-        height: 160px !important; /* 縦長になりすぎないスマートな高さに変更 */
-        flex-direction: row !important; /* スマホでは左にキャラ、右に文字の横長ボタンにする */
+        height: 160px !important;
+        flex-direction: row !important;
         padding: 10px 20px !important;
     }
 
@@ -454,15 +547,19 @@ body {
     }
 
     .btn-main-text {
-        font-size: 1.3rem !important; /* スマホでも押しやすい大きさに */
+        font-size: 1.3rem !important;
     }
 
-    /* 遊び方説明枠を縦並びに合わせて完全フィットさせる */
+
+    /* 遊び方説明枠 */
+
     .char-info-blank-box {
         width: 100% !important;
-        height: auto !important; /* テキストが絶対にはみ出さないよう自動伸縮に */
+        height: auto !important;
         padding: 20px !important;
-        box-shadow: 5px 5px 0px #800000 !important;
+
+        /* PCと同じオレンジ影 */
+        box-shadow: 5px 5px 0px #db9200 !important;
     }
 
     .char-info-blank-box h3 {
@@ -471,14 +568,18 @@ body {
     }
 
     .char-info-blank-box p {
-        font-size: 0.85rem !important; /* スマホの画面幅で綺麗に収まる細字フォントサイズ */
+        font-size: 0.85rem !important;
         line-height: 1.5 !important;
     }
 
-    /* 難易度選択エリアの調整 */
+
+    /* 難易度選択エリア */
+
     .difficulty-section {
         padding: 25px 15px;
-        box-shadow: 8px 8px 0px #800000;
+
+        /* PCと同じオレンジ影 */
+        box-shadow: 8px 8px 0px #db9200;
     }
 
     .section-title {
@@ -491,7 +592,7 @@ body {
     }
 
     .diff-card {
-        min-width: 100%; /* 縦に1列で綺麗に並ぶように調整 */
+        min-width: 100%;
         padding: 15px;
     }
 
@@ -500,9 +601,13 @@ body {
         margin-bottom: 4px;
     }
 
-    /* 障害物（具材）紹介エリアの調整 */
+
+    /* 障害物（具材）紹介エリア */
+
     .game-chara-section {
         padding: 25px 15px;
+
+        /* PCと同じオレンジ影 */
         box-shadow: 8px 8px 0px #db9200;
     }
 
@@ -511,7 +616,7 @@ body {
     }
 
     .game-chara-card {
-        flex: calc(50% - 6px) !important; /* スマホ画面で綺麗に『2列×2行』に整列 */
+        flex: calc(50% - 6px) !important;
         min-width: calc(50% - 6px);
         padding: 15px 8px;
     }
@@ -529,26 +634,37 @@ body {
     .mini-word {
         font-size: 0.75rem;
     }
+
+
+    /* ハンバーガーメニュー */
+
     .menu-btn {
-        top: 15px;      /* ボタンの位置を少し上に上げて文字との被りを解消 */
-        right: 15px;    /* ボタンの位置を少し右に寄せる */
-        height: 44px;   /* 四角いボタンの大きさを 60px → 44px に縮小 */
+        top: 15px;
+        right: 15px;
+        height: 44px;
         width: 44px;
     }
 
     .menu-btn span,
     .menu-btn span:before,
     .menu-btn span:after {
-        height: 2px;    /* 線の太さを 3px → 2px に */
-        width: 18px;    /* 線の長さを 25px → 18px に */
+        height: 2px;
+        width: 18px;
         border-radius: 2px;
     }
 
-    .menu-btn span:before { bottom: 6px; } /* 三本線の上下のすき間を狭く */
-    .menu-btn span:after { top: 6px; }
+    .menu-btn span:before {
+        bottom: 6px;
+    }
+
+    .menu-btn span:after {
+        top: 6px;
+    }
 }
 
+
 /* デバッグメニューリンクの装飾 */
+
 .menu-content ul li a.debug-link {
     color: #ff4757;
     font-weight: bold;
@@ -558,6 +674,7 @@ body {
     border-top: solid 2px #ff4757;
     border-right: solid 2px #ff4757;
 }
+
 
 /* =========================================================
    PC用ヘッダー
@@ -667,9 +784,7 @@ body {
         1px 1px 2px #2b2b2b;
 }
 
-
 .pc-header-nav a:hover {
-
     color: #f1c40f;
 }
 
@@ -677,9 +792,7 @@ body {
 /* 区切り線 */
 
 .pc-header-nav span {
-
     color: #ffffff;
-
     font-size: 1rem;
 }
 
@@ -687,21 +800,14 @@ body {
 /* ロゴ */
 
 .pc-header-logo {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 }
 
-
 .pc-header-logo img {
-
     display: block;
-
     width: 100px;
-
     height: auto;
 }
 
@@ -711,7 +817,6 @@ body {
    ========================================================= */
 
 .mobile-common-header {
-
     display: none;
 }
 
@@ -732,13 +837,10 @@ body {
     /* スマホ用ヘッダーを表示 */
 
     .mobile-common-header {
-
         display: block;
 
         width: 100%;
-
         height: 0;
-
         position: relative;
     }
 
