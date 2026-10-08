@@ -64,7 +64,7 @@ body {
     background-image: url("header.png");
 
     background-size: cover;
-    background-position: center;
+    background-position: center top;
 
     opacity: 0.35;
 
