@@ -1,0 +1,29 @@
+/* 共通ナビゲーション・演出 */
+.pc-header-nav,.mobile-common-header,.hamburger-menu{display:none!important}
+.site-menu-button{position:fixed;z-index:10020;top:18px;right:18px;width:58px;height:58px;border:2px solid #d5ad55;border-radius:6px;background:#292321;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0}
+.site-menu-button span,.site-menu-button span:before,.site-menu-button span:after{position:absolute;display:block;width:26px;height:3px;background:#fff;border-radius:3px;content:"";transition:.3s}
+.site-menu-button span:before{transform:translateY(-8px)} .site-menu-button span:after{transform:translateY(8px)}
+.site-menu-button[aria-expanded="true"] span{background:transparent}.site-menu-button[aria-expanded="true"] span:before{transform:rotate(45deg)}.site-menu-button[aria-expanded="true"] span:after{transform:rotate(-45deg)}
+.site-menu-overlay{position:fixed;inset:0;z-index:10010;background:rgba(28,22,20,.97);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s}
+.site-menu-overlay.is-open{opacity:1;visibility:visible}.site-menu-overlay ul{list-style:none;padding:0;margin:0;text-align:center}.site-menu-overlay li{margin:22px 0}.site-menu-overlay a{color:#fff;text-decoration:none;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:bold;letter-spacing:.12em;padding:10px 28px;display:inline-block;border-bottom:1px solid rgba(213,173,85,.55);transition:.2s}.site-menu-overlay a:hover{color:#e8c66e;transform:translateX(8px)}
+/* トップの紹介・お知らせは枠を外して余白と見出しで整理 */
+.menu-card-home{background:transparent!important;border:0!important;box-shadow:none!important;padding:28px 12px!important}
+.home-news{background:transparent!important;border:0!important;box-shadow:none!important;padding:20px 12px!important}
+/* 最初の店舗扉 */
+.entrance-overlay{position:fixed;inset:0;z-index:20000;overflow:hidden;background:#241b18;perspective:1100px}
+.entrance-door{position:absolute;top:0;bottom:0;width:50.5%;background:repeating-linear-gradient(90deg,#6d321c 0,#6d321c 12px,#874729 13px,#874729 18px);border:8px solid #3b2118;box-sizing:border-box;box-shadow:inset 0 0 35px #28150f;transition:transform 1.35s cubic-bezier(.7,0,.2,1)}
+.entrance-door.left{left:0;transform-origin:left center}.entrance-door.right{right:0;transform-origin:right center}
+.entrance-sign{position:absolute;z-index:2;left:50%;top:54%;transform:translate(-50%,-50%);background:#f4e8c9;color:#8a2118;border:5px double #6a281b;padding:18px 34px;font-weight:900;font-size:clamp(1.5rem,5vw,3rem);box-shadow:0 8px 18px #0008;white-space:nowrap}
+.entrance-overlay.ready .entrance-sign{animation:sign-fly .75s .1s cubic-bezier(.2,.8,.3,1) forwards}
+.entrance-overlay.ready .entrance-door.left{transform:translateX(-102%)}.entrance-overlay.ready .entrance-door.right{transform:translateX(102%)}
+.entrance-overlay.done{animation:overlay-away .65s forwards;pointer-events:none}
+@keyframes sign-fly{to{transform:translate(120vw,-180vh) rotate(35deg);opacity:0}}
+@keyframes overlay-away{to{opacity:0;visibility:hidden}}
+/* キャラクター詳細の左右の雲 */
+.detail-cloud{position:fixed;z-index:9990;top:18%;width:min(38vw,440px);height:180px;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 25% 55%,#fff 0 22%,transparent 23%),radial-gradient(ellipse at 48% 38%,#fff 0 30%,transparent 31%),radial-gradient(ellipse at 70% 58%,#fff 0 25%,transparent 26%),radial-gradient(ellipse at 50% 65%,#fff 0 34%,transparent 35%);filter:drop-shadow(0 5px 8px #6d503533)}
+.detail-cloud.left{left:18%;transform:translateX(0)}.detail-cloud.right{right:18%;transform:translateX(0);transform:scaleX(-1)}
+.detail-cloud.animate.left{animation:cloud-left 2.2s ease-out forwards}.detail-cloud.animate.right{animation:cloud-right 2.2s ease-out forwards}
+@keyframes cloud-left{0%{opacity:0;transform:translateX(0) scale(.85)}15%{opacity:.9}100%{opacity:0;transform:translateX(-42vw) scale(1.2)}}
+@keyframes cloud-right{0%{opacity:0;transform:translateX(0) scaleX(-1) scale(.85)}15%{opacity:.9}100%{opacity:0;transform:translateX(42vw) scaleX(-1) scale(1.2)}}
+@media(max-width:600px){.site-menu-button{width:50px;height:50px;top:12px;right:12px}.detail-cloud{top:22%;height:110px;width:42vw}.detail-cloud.left{left:12%}.detail-cloud.right{right:12%}}
+@media(prefers-reduced-motion:reduce){.entrance-door,.entrance-sign,.detail-cloud,.site-menu-overlay{animation:none!important;transition:none!important}}

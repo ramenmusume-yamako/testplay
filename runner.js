@@ -194,7 +194,7 @@ bgSrcs.forEach((src, imageIndex) => {
 // ==============================
 
 const imgNaruto = new Image();
-imgNaruto.src = 'naruto.png';
+imgNaruto.src = 'naruto.webp';
 
 const imgMenma = new Image();
 imgMenma.src = 'menma.png';
@@ -204,7 +204,7 @@ imgNori.src = 'nori.png';
 
 const imgChashu = new Image();
 if (config.useChashu) {
-    imgChashu.src = 'tya-syu-.png';
+    imgChashu.src = 'tya-syu-.webp';
 }
 
 

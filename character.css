@@ -464,7 +464,7 @@ body {
 }
 
 
-/* header.png */
+/* header.webp */
 
 .common-pc-header::before {
 
@@ -478,7 +478,7 @@ body {
     width: 100%;
     height: 100px;
 
-    background-image: url("header.png");
+    background-image: url("header.webp");
 
     background-size: cover;
     background-position: center top;

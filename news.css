@@ -61,10 +61,10 @@ body {
     margin: 0;
     padding: 0;
 
-    background-image: url("header.png");
+    background-image: url("header.webp");
 
     background-size: cover;
-    background-position: center top;
+    background-position: center;
 
     opacity: 0.35;
 

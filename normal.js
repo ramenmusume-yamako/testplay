@@ -19,8 +19,8 @@ startGame({
     speedIncreaseSP: 0.007,
 
     // 速度リセット
-    resetMinSeconds: 30,
-    resetMaxSeconds: 50,
+    resetMinSeconds: 40,
+    resetMaxSeconds: 60,
 
     // 障害物
     spawnMin: 500,
