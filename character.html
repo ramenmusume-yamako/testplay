@@ -20,6 +20,7 @@
 
 
 <body class="chara-page-theme">
+    <script src="chara-data.js"></script>
 
 
 
@@ -202,172 +203,100 @@
 
 </script>
 
-
-
-<!-- =========================================================
-     キャラクター一覧生成
-     ========================================================= -->
-
 <script>
+/* =========================================================
+   キャラクター一覧生成
+========================================================= */
 
-    /* =========================================================
-       キャラクターデータ
-       ========================================================= */
+function renderGrid() {
 
-    const CHAR_DATA = [
+    const container =
+        document.getElementById("gridContainer");
 
-        {
-            id: "hajime",
-            name: "ハジメ",
-            img: "hajime up.png",
-            link: "hajime.html"
-        },
+    if (!container) return;
 
-        {
-            id: "meana",
-            name: "メーナ",
-            img: "meana up.png",
-            link: "meana.html"
-        }
+    // 一度中身を空にする
+    container.innerHTML = "";
 
-    ];
+    // 8マス作る
+    for (let i = 0; i < 8; i++) {
 
+        const card =
+            document.createElement("a");
 
+        /* キャラクターが登録されている場合 */
+        if (i < CHAR_DATA.length) {
 
-    /* =========================================================
-       キャラクター一覧を生成
-       ========================================================= */
+            const char = CHAR_DATA[i];
 
-    function renderGrid() {
+            // 紹介ページの情報がないキャラは準備中扱い
+            if (!char.pageImg || !char.pageLink) {
 
-        const container =
-            document.getElementById(
-                "gridContainer"
-            );
-
-
-        if (!container) return;
-
-
-        // 一度中身を空にする
-        container.innerHTML = "";
-
-
-
-        // 8マス作る
-        for (
-            let i = 0;
-            i < 8;
-            i++
-        ) {
-
-            const card =
-                document.createElement("a");
-
-
-
-            /* -------------------------------------------------
-               キャラクターが登録されている場合
-               ------------------------------------------------- */
-
-            if (
-                i < CHAR_DATA.length
-            ) {
-
-                const char =
-                    CHAR_DATA[i];
-
-
-                card.className =
-                    "chara-grid-card unlocked";
-
-
-                card.href =
-                    char.link;
-
+                card.className = "chara-grid-card locked";
 
                 card.innerHTML = `
-
                     <div class="avatar-crop">
-
-                        <img
-                            src="${char.img}"
-                            alt="${char.name}"
-                        >
-
+                        <img src="shignon.png" alt="準備中">
                     </div>
 
+                    <div class="chara-grid-name">????</div>
 
-                    <div class="chara-grid-name">
-
-                        ${char.name}
-
-                    </div>
-
-
-                    <div class="chara-grid-sub">
-
-                        お品書きを見る ➔
-
-                    </div>
-
+                    <div class="chara-grid-sub">準備中</div>
                 `;
-
-
-
-            /* -------------------------------------------------
-               キャラクターがまだ登録されていない場合
-               ------------------------------------------------- */
 
             } else {
 
                 card.className =
-                    "chara-grid-card locked";
+                    "chara-grid-card unlocked";
 
+                card.href = char.pageLink;
 
                 card.innerHTML = `
-
                     <div class="avatar-crop">
-
                         <img
-                            src="shignon.png"
-                            alt="準備中"
+                            src="${char.pageImg}"
+                            alt="${char.name}"
                         >
-
                     </div>
-
 
                     <div class="chara-grid-name">
-
-                        ????
-
+                        ${char.name}
                     </div>
-
 
                     <div class="chara-grid-sub">
-
-                        準備中
-
+                        お品書きを見る ➔
                     </div>
-
                 `;
-
             }
-
-
-            container.appendChild(card);
 
         }
 
+        /* キャラクターがまだ登録されていない場合 */
+        else {
+
+            card.className = "chara-grid-card locked";
+
+            card.innerHTML = `
+                <div class="avatar-crop">
+                    <img src="shignon.png" alt="準備中">
+                </div>
+
+                <div class="chara-grid-name">????</div>
+
+                <div class="chara-grid-sub">準備中</div>
+            `;
+        }
+
+        container.appendChild(card);
     }
+}
 
 
+/* =========================================================
+   キャラクター一覧を表示
+========================================================= */
 
-    /* =========================================================
-       キャラクター一覧を表示
-       ========================================================= */
-
-    renderGrid();
+renderGrid();
 
 </script>
 
