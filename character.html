@@ -14,125 +14,33 @@
 
     <link rel="stylesheet" href="character.css">
     <link rel="stylesheet" href="debug-button.css">
+    <link rel="stylesheet" href="common-menu.css">
 
-    <link rel="stylesheet" href="site-common.css">
 </head>
 
 
 <body class="chara-page-theme">
 
 
-<!-- =========================================================
-     PC用ヘッダー
-     ========================================================= -->
 
-<header class="common-pc-header">
-
-    <nav class="pc-header-nav">
-
-        <!-- 左側 -->
-        <div class="pc-nav-left">
-
-            <a href="index.html">
-                ホーム
-            </a>
-
-            <span>|</span>
-
-            <a href="character.html">
-                キャラ紹介
-            </a>
-
-        </div>
-
-
-        <!-- 中央ロゴ -->
-        <a
-            href="index.html"
-            class="pc-header-logo"
-        >
-
-            <img
-                src="rogo.png"
-                alt="ラーメン娘"
-            >
-
-        </a>
-
-
-        <!-- 右側 -->
-        <div class="pc-nav-right">
-
-            <a href="game.html">
-                ミニゲーム
-            </a>
-
-            <span>|</span>
-
-            <a href="news.html">
-                お知らせ
-            </a>
-
-        </div>
-
-    </nav>
-
-</header>
-
-
-
-<!-- =========================================================
-     スマホ用ヘッダー
-     PCでは表示しない
-     ========================================================= -->
-
-<header class="mobile-common-header">
+<!-- ハンバーガーメニュー -->
+<header class="site-header">
 
     <div class="hamburger-menu">
 
-        <input
-            type="checkbox"
-            id="menu-btn-check"
-        >
+        <input type="checkbox" id="menu-btn-check">
 
-        <label
-            for="menu-btn-check"
-            class="menu-btn"
-        >
+        <label for="menu-btn-check" class="menu-btn">
             <span></span>
         </label>
 
-
         <div class="menu-content">
-
             <ul>
-
-                <li>
-                    <a href="index.html">
-                        ホーム
-                    </a>
-                </li>
-
-                <li>
-                    <a href="character.html">
-                        キャラ紹介
-                    </a>
-                </li>
-
-                <li>
-                    <a href="game.html">
-                        ミニゲーム
-                    </a>
-                </li>
-
-                <li>
-                    <a href="news.html">
-                        お知らせ
-                    </a>
-                </li>
-
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="character.html">キャラ紹介</a></li>
+                <li><a href="game.html">ミニゲーム</a></li>
+                <li><a href="news.html">お知らせ</a></li>
             </ul>
-
         </div>
 
     </div>
@@ -152,7 +60,7 @@
 >
 
     <img
-        src="spana.webp"
+        src="spana.png"
         alt=""
     >
 
@@ -311,7 +219,7 @@
         {
             id: "hajime",
             name: "ハジメ",
-            img: "hajime up.webp",
+            img: "hajime up.png",
             link: "hajime.html"
         },
 
@@ -472,7 +380,6 @@
 <script src="debug-button.js"></script>
 
 
-<script src="site-common.js" defer></script>
 </body>
 
 </html>

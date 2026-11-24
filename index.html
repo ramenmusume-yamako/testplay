@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ラーメン娘ホームページ</title>
+    <link rel="stylesheet" href="common-menu.css">
     <link rel="stylesheet" href="hp.css">
     <link rel="stylesheet" href="debug-button.css">
-    <link rel="stylesheet" href="site-common.css">
 </head>
 <body>
   <a id="debug-spana-btn" href="debug.html" aria-label="デバッグページへ">
-    <img src="spana.webp" alt="">
+    <img src="spana.png" alt="">
 </a>
-<header>
+<!-- ハンバーガーメニュー -->
+<header class="site-header">
+
     <div class="hamburger-menu">
+
         <input type="checkbox" id="menu-btn-check">
+
         <label for="menu-btn-check" class="menu-btn">
-        <span></span>
+            <span></span>
         </label>
+
         <div class="menu-content">
             <ul>
                 <li><a href="index.html">ホーム</a></li>
@@ -26,31 +31,14 @@
                 <li><a href="news.html">お知らせ</a></li>
             </ul>
         </div>
+
     </div>
 
-    <!-- PC用ナビゲーション -->
-    <nav class="pc-header-nav">
-        <div class="pc-nav-left">
-            <a href="index.html">ホーム</a>
-            <span>|</span>
-            <a href="character.html">キャラ紹介</a>
-        </div>
-
-        <a href="index.html" class="pc-header-logo">
-            <img src="rogo.png" alt="ラーメン娘">
-        </a>
-
-        <div class="pc-nav-right">
-            <a href="game.html">ミニゲーム</a>
-            <span>|</span>
-            <a href="news.html">お知らせ</a>
-        </div>
-    </nav>
 </header>
 
     <div class="shop-kanban">
         <!-- 判定用に id="header-img" を追加 -->
-        <img src="header.webp" alt="看板背景" class="kanban-bg-img" id="header-img">
+        <img src="header.png" alt="看板背景" class="kanban-bg-img" id="header-img">
         
         <div class="kanban-text-overlay">
             <h1 class="shop-title">ラーメン娘</h1>
@@ -285,6 +273,5 @@ loadLatestNews();
   })();
 </script>
 <script src="debug-button.js"></script>
-<script src="site-common.js" defer></script>
 </body>
 </html>
