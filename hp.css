@@ -180,10 +180,10 @@ body {
     color: #666;
 }
 
-/* 説明文と画像を横並びにする */
+/* 説明文と画像の配置 */
 .intro-content {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: clamp(12px, 3vw, 30px);
     width: 100%;
 }
@@ -197,6 +197,7 @@ body {
 /* 画像側 */
 .intro-image-area {
     flex: 0 0 clamp(100px, 25%, 220px);
+    margin-top: 0;
 }
 
 .intro-image-area img {
