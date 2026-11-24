@@ -181,10 +181,12 @@ body {
 }
 /* 説明文と画像の全体配置 */
 .intro-content {
+    width: calc(100% + 20px);
+    margin-left: -10px;
+
     display: grid;
-    grid-template-columns: 2.3fr 1fr;
-    gap: clamp(15px, 3vw, 30px);
-    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(105px, 38vw);
+    gap: 3px;
     align-items: stretch;
 }
 
