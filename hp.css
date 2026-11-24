@@ -179,30 +179,38 @@ body {
     font-size: 0.85rem;
     color: #666;
 }
-
-/* 説明文と画像の配置 */
+/* 説明文と画像の全体配置 */
 .intro-content {
-    display: flex;
-    align-items: flex-start;
-    gap: clamp(12px, 3vw, 30px);
+    display: grid;
+
+    /* 左側を広く、右側を狭くする */
+    grid-template-columns: 2.3fr 1fr;
+
+    gap: clamp(15px, 3vw, 30px);
+
     width: 100%;
+    align-items: start;
 }
 
-/* 説明文側 */
+/* 左側：説明文 */
 .intro-text-area {
-    flex: 1;
     min-width: 0;
 }
 
-/* 画像側 */
+/* 右側：画像 */
 .intro-image-area {
-    flex: 0 0 clamp(100px, 25%, 220px);
-    margin-top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .intro-image-area img {
     width: 100%;
     height: auto;
+    max-height: 390px;
+    object-fit: contain;
+    object-position: top center;
     display: block;
 }
 
