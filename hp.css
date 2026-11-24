@@ -78,11 +78,11 @@ body {
 }
 
 .menu-card-home {
-    background: #fff;
-    border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #800000;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     padding: 40px 30px;
-    box-sizing: border-box; /* はみ出し防止 */
+    box-sizing: border-box;
 }
 
 .section-title {
@@ -98,6 +98,7 @@ body {
 .intro-text {
     font-size: 1.1rem;
     line-height: 1.8;
+    margin-right: 150px;
 }
 
 .character-grid {
@@ -184,9 +185,9 @@ body {
    5. お知らせ
    ========================================================================== */
 .home-news {
-    background: #fff;
-    border: 3px solid #2b2b2b;
-    box-shadow: 12px 12px 0px #800000;
+    background: transparent;
+    border: none;
+    box-shadow: none;
     padding: 40px 30px;
     box-sizing: border-box;
 }
@@ -347,7 +348,7 @@ body {
 
     .menu-card-home {
         padding: 25px 20px; /* カードの内側の余白を狭くして、画面を広く使う */
-        box-shadow: 8px 8px 0px #800000; /* 影の太さもスマホに合わせてバランス調整 */
+        box-shadow: none; /* 影の太さもスマホに合わせてバランス調整 */
     }
 
     .intro-text {
