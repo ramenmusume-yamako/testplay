@@ -182,7 +182,7 @@ body {
 /* 説明文と画像の全体配置 */
 .intro-content {
     width: calc(100% + 20px);
-    margin-left: -10px;
+    margin-left: -30px;
 
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(105px, 38vw);
