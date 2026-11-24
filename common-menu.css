@@ -27,78 +27,47 @@
 }
 
 
-/* =========================================================
-   3. ハンバーガーボタン
-   ========================================================= */
 
+/* 3. 提灯画像のメニューボタン */
 .menu-btn {
     position: fixed;
     top: 20px;
     right: 20px;
 
-    display: flex;
+    display: block;
     width: 60px;
     height: 60px;
 
-    justify-content: center;
-    align-items: center;
-
     z-index: 100;
-
-    background-color: #2b2b2b;
-    border: 2px solid #800000;
-    border-radius: 5px;
-
     cursor: pointer;
-}
 
+    /* 提灯の画像 */
+    background-image: url("tyoutin.webp");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 
-/* ボタンの3本線 */
-
-.menu-btn span,
-.menu-btn span::before,
-.menu-btn span::after {
-    content: '';
-
-    display: block;
-
-    position: absolute;
-
-    height: 3px;
-    width: 25px;
-
-    border-radius: 3px;
-    background-color: #ffffff;
-
-    transition: all 0.3s;
-}
-
-.menu-btn span::before {
-    bottom: 8px;
-}
-
-.menu-btn span::after {
-    top: 8px;
-}
-
-
-/* =========================================================
-   4. ハンバーガーから×印への変化
-   ========================================================= */
-
-#menu-btn-check:checked ~ .menu-btn span {
+    /* 四角い枠をなくす */
     background-color: transparent;
+    border: none;
+    border-radius: 0;
 }
 
-#menu-btn-check:checked ~ .menu-btn span::before {
-    bottom: 0;
-    transform: rotate(45deg);
+/* 三本線を非表示にする */
+.menu-btn span {
+    display: none;
 }
 
-#menu-btn-check:checked ~ .menu-btn span::after {
-    top: 0;
-    transform: rotate(-45deg);
+/* 4. スマホ */
+@media (max-width: 599px) {
+    .menu-btn {
+        top: 15px;
+        right: 15px;
+        width: 44px;
+        height: 44px;
+    }
 }
+
 
 
 /* 5. メニュー本体（画面全体） */
