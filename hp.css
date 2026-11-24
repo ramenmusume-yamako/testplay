@@ -182,14 +182,10 @@ body {
 /* 説明文と画像の全体配置 */
 .intro-content {
     display: grid;
-
-    /* 左側を広く、右側を狭くする */
     grid-template-columns: 2.3fr 1fr;
-
     gap: clamp(15px, 3vw, 30px);
-
     width: 100%;
-    align-items: start;
+    align-items: stretch;
 }
 
 /* 左側：説明文 */
@@ -202,7 +198,9 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+
+    align-self: center;
 }
 
 .intro-image-area img {
