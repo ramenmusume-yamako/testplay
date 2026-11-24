@@ -454,6 +454,55 @@ body {
     .menu-btn span:after { top: 6px; }
 }
 
+/* 説明文と画像のスマホ表示調整 */
+@media (max-width: 768px) {
+
+    /* メインエリアの左右の余白をなくす */
+    .main-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* 説明文と画像の横幅を広げる */
+    .intro-content {
+        width: calc(100% + 40px);
+        margin-left: -20px;
+
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(105px, 38vw);
+        gap: 3px;
+        align-items: stretch;
+    }
+
+    /* 説明文 */
+    .intro-text-area {
+        min-width: 0;
+    }
+
+    .intro-text {
+        width: 100%;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    /* 画像 */
+    .intro-image-area {
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+    }
+
+    .intro-image-area img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+    }
+}
+
 /* ==========================================================================
    6. デバッグモード用スタイル（スマホ誤動作防止バージョン）
    ========================================================================== */
