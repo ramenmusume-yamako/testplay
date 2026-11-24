@@ -96,7 +96,7 @@ body {
 }
 
 .intro-text {
-    font-size: clamp(12px, 1.3vw, 18px);
+    font-size: clamp(12px, 5vw, 18px);
     line-height: 1.7;
     width: 100%;
     margin-right: 0;
