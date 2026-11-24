@@ -1,0 +1,213 @@
+
+/* =========================================================
+   1. 共通ヘッダー
+   ========================================================= */
+
+.site-header {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+
+/* =========================================================
+   2. ハンバーガーメニューの基本設定
+   ========================================================= */
+
+#menu-btn-check {
+    display: none;
+}
+
+.hamburger-menu {
+    display: block;
+}
+
+
+/* =========================================================
+   3. ハンバーガーボタン
+   ========================================================= */
+
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    display: flex;
+    width: 60px;
+    height: 60px;
+
+    justify-content: center;
+    align-items: center;
+
+    z-index: 100;
+
+    background-color: #2b2b2b;
+    border: 2px solid #800000;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+
+/* ボタンの3本線 */
+
+.menu-btn span,
+.menu-btn span::before,
+.menu-btn span::after {
+    content: '';
+
+    display: block;
+
+    position: absolute;
+
+    height: 3px;
+    width: 25px;
+
+    border-radius: 3px;
+    background-color: #ffffff;
+
+    transition: all 0.3s;
+}
+
+.menu-btn span::before {
+    bottom: 8px;
+}
+
+.menu-btn span::after {
+    top: 8px;
+}
+
+
+/* =========================================================
+   4. ハンバーガーから×印への変化
+   ========================================================= */
+
+#menu-btn-check:checked ~ .menu-btn span {
+    background-color: transparent;
+}
+
+#menu-btn-check:checked ~ .menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+
+#menu-btn-check:checked ~ .menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+
+/* 5. メニュー本体（画面全体） */
+.menu-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    z-index: 95;
+    background-color: #2b2b2b;
+
+    /* メニュー項目を画面の中央に配置 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: translateX(100%);
+    transition: transform 0.4s;
+    overflow-y: auto;
+}
+
+#menu-btn-check:checked ~ .menu-content {
+    transform: translateX(0);
+}
+
+/* 6. メニュー内のリスト */
+.menu-content ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/* 各メニュー項目 */
+.menu-content ul li {
+    border: none;
+}
+
+/* メニューの文字 */
+.menu-content ul li a {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 25px 20px;
+
+    color: #ffffff;
+    font-size:clamp(24px,4vw,48px);
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* 右側の矢印を消す */
+.menu-content ul li a::before {
+    display: none;
+}
+
+/* マウスを合わせたとき */
+.menu-content ul li a:hover {
+    background-color: rgba(128, 0, 0, 0.3);
+    color: #f1c40f;
+}
+
+/* =========================================================
+   7. デバッグ用リンク
+   ========================================================= */
+
+.menu-content ul li a.debug-link {
+    color: #ff4757;
+    font-weight: bold;
+}
+
+.menu-content ul li a.debug-link::before {
+    border-top: solid 2px #ff4757;
+    border-right: solid 2px #ff4757;
+}
+
+
+/* =========================================================
+   8. スマホ用のサイズ調整
+   ========================================================= */
+
+@media (max-width: 599px) {
+
+    .menu-btn {
+        top: 15px;
+        right: 15px;
+
+        width: 44px;
+        height: 44px;
+    }
+
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
+        width: 18px;
+        height: 2px;
+        border-radius: 2px;
+    }
+
+    .menu-btn span::before {
+        bottom: 6px;
+    }
+
+    .menu-btn span::after {
+        top: 6px;
+    }
+
+}
